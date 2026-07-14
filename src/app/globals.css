@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Mizra";
+  src: local("Mizra"), local("Mizra Regular");
+  font-display: swap;
+}
+
+:root {
+  --background: #F1EFF0;
+  --foreground: #160A0A;
+  --color-primary: #DE3B34;
+  --color-primary-hover: #c73731;
+  --color-secondary: #FFB6B6;
+  --color-accent: #F0716B;
+  --color-surface: #F1EFF0;
+  --color-muted: #CECDCB;
+  --color-dark: #160A0A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #160A0A;
+    --foreground: #F1EFF0;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  --sb-track-color: #CECDCB;
+  --sb-thumb-color: #DE3B34;
+  --sb-size: 0px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color)
+                     var(--sb-track-color);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft 28s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight 28s linear infinite;
+}
+
+.gold-reflection {
+  background: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.06) 35%,
+    rgba(255, 255, 255, 0.32) 50%,
+    rgba(255, 255, 255, 0.06) 65%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-18deg);
+  animation: gold-shine 4.5s linear infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes gold-shine {
+  0% {
+    left: -38%;
+  }
+  100% {
+    left: 138%;
+  }
+}
