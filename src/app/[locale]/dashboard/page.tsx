@@ -31,6 +31,7 @@ import {
   saveBlogsPageBannerConfigToServer,
   slugify,
 } from '@/lib/blogs';
+import BoldTextField from '@/components/BoldTextField';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -1710,38 +1711,38 @@ export default function Dashboard() {
                   </div>
                 ) : null}
 
-                <textarea
+                <BoldTextField
+                  label={locale === 'ar' ? 'وصف قصير' : 'Short description'}
                   placeholder={locale === 'ar' ? 'وصف قصير للمقالة' : 'Short description'}
                   value={blogShortDescription}
-                  onChange={(event) => setBlogShortDescription(event.target.value)}
+                  onChange={setBlogShortDescription}
                   rows={3}
-                  className="w-full rounded-xl border border-[#CECDCB] bg-white px-4 py-3 text-slate-900 outline-none focus:border-[#DE3B34]"
                 />
 
-                <textarea
+                <BoldTextField
+                  label={locale === 'ar' ? 'وصف قصير (عربي)' : 'Short description (Arabic)'}
                   placeholder={locale === 'ar' ? 'وصف قصير للمقالة (عربي - اختياري)' : 'Short description (Arabic - optional)'}
                   value={blogShortDescriptionAr}
-                  onChange={(event) => setBlogShortDescriptionAr(event.target.value)}
+                  onChange={setBlogShortDescriptionAr}
                   rows={3}
                   dir="rtl"
-                  className="w-full rounded-xl border border-[#CECDCB] bg-white px-4 py-3 text-slate-900 outline-none focus:border-[#DE3B34]"
                 />
 
-                <textarea
+                <BoldTextField
+                  label={locale === 'ar' ? 'محتوى المقالة' : 'Full blog content'}
                   placeholder={locale === 'ar' ? 'محتوى المقالة الكامل' : 'Full blog content'}
                   value={blogContent}
-                  onChange={(event) => setBlogContent(event.target.value)}
+                  onChange={setBlogContent}
                   rows={7}
-                  className="w-full rounded-xl border border-[#CECDCB] bg-white px-4 py-3 text-slate-900 outline-none focus:border-[#DE3B34]"
                 />
 
-                <textarea
+                <BoldTextField
+                  label={locale === 'ar' ? 'محتوى المقالة (عربي)' : 'Full blog content (Arabic)'}
                   placeholder={locale === 'ar' ? 'محتوى المقالة الكامل (عربي - اختياري)' : 'Full blog content (Arabic - optional)'}
                   value={blogContentAr}
-                  onChange={(event) => setBlogContentAr(event.target.value)}
+                  onChange={setBlogContentAr}
                   rows={7}
                   dir="rtl"
-                  className="w-full rounded-xl border border-[#CECDCB] bg-white px-4 py-3 text-slate-900 outline-none focus:border-[#DE3B34]"
                 />
 
                 {blogFeedback ? (

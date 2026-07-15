@@ -9,6 +9,7 @@ import {
   loadBlogsFromServer,
   loadBlogsPageBannerConfigFromServer,
 } from '@/lib/blogs';
+import { FormattedText } from '@/components/BoldTextField';
 
 const FEATURED_BLOG_SLUG =
   'understanding-the-latest-tax-law-changes-in-the-uae-what-residents-non-residents-and-businesses-should-know';
@@ -229,7 +230,9 @@ export default function BlogsPage() {
               {/* Red divider */}
               <div className="w-8 h-0.5 bg-[#DE3B34] mb-3" />
               {/* Excerpt */}
-              <p className="mb-4 flex-1 text-sm leading-relaxed text-slate-500">{cardShortDescription}</p>
+              <p className="mb-4 flex-1 text-sm leading-relaxed text-slate-500">
+                <FormattedText text={cardShortDescription} />
+              </p>
               {/* Read more */}
               <Link
                 href={`/${locale}/blogs/${blog.slug}`}

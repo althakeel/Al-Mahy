@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Locale } from '@/lib/translations';
 import { BlogPost, loadBlogBySlugFromServer, loadBlogsFromServer } from '@/lib/blogs';
+import { FormattedText } from '@/components/BoldTextField';
 
 export default function BlogDetailsPage() {
   const params = useParams();
@@ -72,7 +73,11 @@ export default function BlogDetailsPage() {
                 <h1 className="text-[34px] font-normal leading-[1.35] text-[#3a3a3a] md:text-[40px]" style={{ fontFamily: 'Lora, Georgia, serif' }}>
                   {title}
                 </h1>
-                <p className="mt-5 max-w-3xl text-base leading-[1.8] text-[#4B4F58]">{shortDescription}</p>
+                <FormattedText
+                  as="p"
+                  text={shortDescription}
+                  className="mt-5 max-w-3xl text-base leading-[1.8] text-[#4B4F58]"
+                />
               </header>
 
               {bannerImage && (
@@ -89,9 +94,11 @@ export default function BlogDetailsPage() {
               )}
 
               <div className="max-w-3xl py-10 md:py-12">
-                <div className="prose prose-slate max-w-none whitespace-pre-line text-[16px] leading-[1.8] text-[#3a3a3a] [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm">
-                  {content}
-                </div>
+                <FormattedText
+                  as="div"
+                  text={content}
+                  className="prose prose-slate max-w-none whitespace-pre-line text-[16px] leading-[1.8] text-[#3a3a3a] [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm [&_strong]:font-bold"
+                />
               </div>
             </div>
 
