@@ -19,3 +19,5 @@ pnpm-debug.log*
 *- Copy.env
 - Copy.env
 - Copy.gitignore
+
+tsconfig.tsbuildinfo
