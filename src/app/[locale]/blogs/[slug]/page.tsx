@@ -74,8 +74,8 @@ export default function BlogDetailsPage() {
                   {title}
                 </h1>
                 <FormattedText
-                  as="p"
                   text={shortDescription}
+                  compact
                   className="mt-5 max-w-3xl text-base leading-[1.8] text-[#4B4F58]"
                 />
               </header>
@@ -95,9 +95,8 @@ export default function BlogDetailsPage() {
 
               <div className="max-w-3xl py-10 md:py-12">
                 <FormattedText
-                  as="div"
                   text={content}
-                  className="prose prose-slate max-w-none whitespace-pre-line text-[16px] leading-[1.8] text-[#3a3a3a] [&_img]:h-auto [&_img]:max-w-full [&_img]:rounded-sm [&_strong]:font-bold"
+                  className="max-w-none text-[16px] leading-[1.8] text-[#3a3a3a]"
                 />
               </div>
             </div>

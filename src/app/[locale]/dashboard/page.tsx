@@ -1712,6 +1712,7 @@ export default function Dashboard() {
                 ) : null}
 
                 <BoldTextField
+                  key={`short-en-${editingBlogId || 'new'}`}
                   label={locale === 'ar' ? 'وصف قصير' : 'Short description'}
                   placeholder={locale === 'ar' ? 'وصف قصير للمقالة' : 'Short description'}
                   value={blogShortDescription}
@@ -1720,6 +1721,7 @@ export default function Dashboard() {
                 />
 
                 <BoldTextField
+                  key={`short-ar-${editingBlogId || 'new'}`}
                   label={locale === 'ar' ? 'وصف قصير (عربي)' : 'Short description (Arabic)'}
                   placeholder={locale === 'ar' ? 'وصف قصير للمقالة (عربي - اختياري)' : 'Short description (Arabic - optional)'}
                   value={blogShortDescriptionAr}
@@ -1729,19 +1731,21 @@ export default function Dashboard() {
                 />
 
                 <BoldTextField
+                  key={`content-en-${editingBlogId || 'new'}`}
                   label={locale === 'ar' ? 'محتوى المقالة' : 'Full blog content'}
                   placeholder={locale === 'ar' ? 'محتوى المقالة الكامل' : 'Full blog content'}
                   value={blogContent}
                   onChange={setBlogContent}
-                  rows={7}
+                  rows={14}
                 />
 
                 <BoldTextField
+                  key={`content-ar-${editingBlogId || 'new'}`}
                   label={locale === 'ar' ? 'محتوى المقالة (عربي)' : 'Full blog content (Arabic)'}
                   placeholder={locale === 'ar' ? 'محتوى المقالة الكامل (عربي - اختياري)' : 'Full blog content (Arabic - optional)'}
                   value={blogContentAr}
                   onChange={setBlogContentAr}
-                  rows={7}
+                  rows={14}
                   dir="rtl"
                 />
 
