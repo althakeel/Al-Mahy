@@ -4,14 +4,20 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { translations, Locale } from "@/lib/translations";
 import { countries, DEFAULT_COUNTRY, type Country } from "@/lib/countries";
 
-const inputClass =
-  "w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-white placeholder:text-white/40 outline-none transition focus:border-[#C9A24B] focus:bg-white/[0.06]";
-
 type Status = "idle" | "sending" | "success" | "error";
 
-export default function ContactForm({ lang }: { lang: Locale }) {
+export default function ContactForm({
+  lang,
+  variant = "dark",
+  hideHeader = false,
+}: {
+  lang: Locale;
+  variant?: "dark" | "light";
+  hideHeader?: boolean;
+}) {
   const t = translations[lang];
   const isAr = lang === "ar";
+  const light = variant === "light";
 
   const [status, setStatus] = useState<Status>("idle");
   const [feedback, setFeedback] = useState("");
@@ -50,6 +56,30 @@ export default function ContactForm({ lang }: { lang: Locale }) {
   };
 
   const [topic, setTopic] = useState(copy.topics[0]);
+
+  const inputClass = light
+    ? "w-full rounded-lg border border-[#160A0A]/15 bg-[#f7f4f1] px-4 py-3 text-[#160A0A] placeholder:text-[#160A0A]/40 outline-none transition focus:border-[#DE3B34] focus:bg-white"
+    : "w-full rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 text-white placeholder:text-white/40 outline-none transition focus:border-[#C9A24B] focus:bg-white/[0.06]";
+
+  const labelClass = light
+    ? "space-y-1.5 text-sm font-medium text-[#3f3832]"
+    : "space-y-1.5 text-sm font-medium text-white/80";
+
+  const selectBtnClass = light
+    ? "border-[#160A0A]/15 bg-[#f7f4f1] text-[#160A0A] hover:bg-white"
+    : "border-white/10 bg-white/[0.04] text-white hover:bg-white/[0.06]";
+
+  const menuClass = light
+    ? "border-[#160A0A]/10 bg-white shadow-xl"
+    : "border-white/10 bg-[#1f1010] shadow-2xl shadow-black/50";
+
+  const menuItemIdle = light
+    ? "text-[#3f3832] hover:bg-[#f7f4f1]"
+    : "text-white/80 hover:bg-white/5";
+
+  const menuItemActive = light
+    ? "bg-[#DE3B34]/10 text-[#160A0A]"
+    : "bg-[#C9A24B]/15 text-white";
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -105,22 +135,36 @@ export default function ContactForm({ lang }: { lang: Locale }) {
   }
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8">
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold text-white">{t.sendMessage}</h2>
-        <p className="mt-1.5 text-sm text-white/60">{copy.replyNote}</p>
-      </div>
+    <div
+      className={
+        hideHeader
+          ? ""
+          : light
+            ? "rounded-2xl border border-[#160A0A]/10 bg-white p-7 sm:p-8"
+            : "rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8"
+      }
+    >
+      {!hideHeader ? (
+        <div className="mb-6">
+          <h2 className={`text-xl font-semibold ${light ? "text-[#160A0A]" : "text-white"}`}>
+            {t.sendMessage}
+          </h2>
+          <p className={`mt-1.5 text-sm ${light ? "text-[#6b625a]" : "text-white/60"}`}>
+            {copy.replyNote}
+          </p>
+        </div>
+      ) : null}
 
       <form className="grid grid-cols-1 gap-5 md:grid-cols-2" onSubmit={handleSubmit} aria-label="Contact form">
-        <label className="space-y-1.5 text-sm font-medium text-white/80">
+        <label className={labelClass}>
           {t.formName}
           <input type="text" name="name" placeholder={t.formNamePlaceholder} className={inputClass} required />
         </label>
-        <label className="space-y-1.5 text-sm font-medium text-white/80">
+        <label className={labelClass}>
           {t.formEmail}
           <input type="email" name="email" placeholder={t.formEmailPlaceholder} className={inputClass} required />
         </label>
-        <div className="space-y-1.5 text-sm font-medium text-white/80">
+        <div className={labelClass}>
           <span>{t.formPhone}</span>
           <div className="flex gap-2">
             <div className="relative" ref={countryRef}>
@@ -129,14 +173,16 @@ export default function ContactForm({ lang }: { lang: Locale }) {
                 onClick={() => setCountryOpen((v) => !v)}
                 aria-haspopup="listbox"
                 aria-expanded={countryOpen}
-                className={`flex h-full items-center gap-1.5 rounded-lg border bg-white/[0.04] px-3 py-3 text-white outline-none transition hover:bg-white/[0.06] ${
-                  countryOpen ? "border-[#C9A24B]" : "border-white/10"
+                className={`flex h-full items-center gap-1.5 rounded-lg border px-3 py-3 outline-none transition ${selectBtnClass} ${
+                  countryOpen ? (light ? "border-[#DE3B34]" : "border-[#C9A24B]") : ""
                 }`}
               >
                 <span className="text-sm">{country.dial}</span>
                 <svg
                   viewBox="0 0 24 24"
-                  className={`h-3.5 w-3.5 flex-none text-white/50 transition-transform ${countryOpen ? "rotate-180" : ""}`}
+                  className={`h-3.5 w-3.5 flex-none transition-transform ${countryOpen ? "rotate-180" : ""} ${
+                    light ? "text-[#160A0A]/45" : "text-white/50"
+                  }`}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
@@ -146,7 +192,7 @@ export default function ContactForm({ lang }: { lang: Locale }) {
               </button>
 
               {countryOpen && (
-                <div className="absolute z-30 mt-2 w-72 max-w-[80vw] overflow-hidden rounded-lg border border-white/10 bg-[#1f1010] shadow-2xl shadow-black/50">
+                <div className={`absolute z-30 mt-2 w-72 max-w-[80vw] overflow-hidden rounded-lg border ${menuClass}`}>
                   <div className="p-2">
                     <input
                       type="text"
@@ -154,7 +200,11 @@ export default function ContactForm({ lang }: { lang: Locale }) {
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
                       placeholder={isAr ? "ابحث عن دولة..." : "Search country..."}
-                      className="w-full rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#C9A24B]"
+                      className={
+                        light
+                          ? "w-full rounded-md border border-[#160A0A]/15 bg-[#f7f4f1] px-3 py-2 text-sm text-[#160A0A] outline-none focus:border-[#DE3B34]"
+                          : "w-full rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder:text-white/40 outline-none focus:border-[#C9A24B]"
+                      }
                     />
                   </div>
                   <ul role="listbox" className="max-h-60 overflow-y-auto p-1 pt-0">
@@ -170,17 +220,17 @@ export default function ContactForm({ lang }: { lang: Locale }) {
                               setCountrySearch("");
                             }}
                             className={`flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-left text-sm transition ${
-                              active ? "bg-[#C9A24B]/15 text-white" : "text-white/80 hover:bg-white/5"
+                              active ? menuItemActive : menuItemIdle
                             }`}
                           >
                             <span className="flex-1 truncate">{c.name}</span>
-                            <span className="text-white/50">{c.dial}</span>
+                            <span className={light ? "text-[#160A0A]/45" : "text-white/50"}>{c.dial}</span>
                           </button>
                         </li>
                       );
                     })}
                     {filteredCountries.length === 0 && (
-                      <li className="px-3 py-3 text-center text-sm text-white/40">
+                      <li className={`px-3 py-3 text-center text-sm ${light ? "text-[#160A0A]/40" : "text-white/40"}`}>
                         {isAr ? "لا توجد نتائج" : "No results"}
                       </li>
                     )}
@@ -192,12 +242,12 @@ export default function ContactForm({ lang }: { lang: Locale }) {
             <input
               type="tel"
               name="phoneNumber"
-              placeholder={isAr ? "50 123 4567" : "50 123 4567"}
+              placeholder="50 123 4567"
               className={`${inputClass} flex-1`}
             />
           </div>
         </div>
-        <div className="space-y-1.5 text-sm font-medium text-white/80">
+        <div className={labelClass}>
           <span>{copy.topicLabel}</span>
           <input type="hidden" name="topic" value={topic} />
           <div className="relative" ref={topicRef}>
@@ -206,14 +256,16 @@ export default function ContactForm({ lang }: { lang: Locale }) {
               onClick={() => setTopicOpen((v) => !v)}
               aria-haspopup="listbox"
               aria-expanded={topicOpen}
-              className={`flex w-full items-center justify-between rounded-lg border bg-white/[0.04] px-4 py-3 text-left text-white outline-none transition hover:bg-white/[0.06] ${
-                topicOpen ? "border-[#C9A24B]" : "border-white/10"
+              className={`flex w-full items-center justify-between rounded-lg border px-4 py-3 text-left outline-none transition ${selectBtnClass} ${
+                topicOpen ? (light ? "border-[#DE3B34]" : "border-[#C9A24B]") : ""
               }`}
             >
               <span>{topic}</span>
               <svg
                 viewBox="0 0 24 24"
-                className={`h-4 w-4 flex-none text-white/50 transition-transform ${topicOpen ? "rotate-180" : ""}`}
+                className={`h-4 w-4 flex-none transition-transform ${topicOpen ? "rotate-180" : ""} ${
+                  light ? "text-[#160A0A]/45" : "text-white/50"
+                }`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -223,10 +275,7 @@ export default function ContactForm({ lang }: { lang: Locale }) {
             </button>
 
             {topicOpen && (
-              <ul
-                role="listbox"
-                className="absolute z-20 mt-2 w-full overflow-hidden rounded-lg border border-white/10 bg-[#1f1010] p-1 shadow-2xl shadow-black/50"
-              >
+              <ul role="listbox" className={`absolute z-20 mt-2 w-full overflow-hidden rounded-lg border p-1 ${menuClass}`}>
                 {copy.topics.map((option) => {
                   const active = option === topic;
                   return (
@@ -238,15 +287,10 @@ export default function ContactForm({ lang }: { lang: Locale }) {
                           setTopicOpen(false);
                         }}
                         className={`flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-sm transition ${
-                          active ? "bg-[#C9A24B]/15 text-white" : "text-white/80 hover:bg-white/5"
+                          active ? menuItemActive : menuItemIdle
                         }`}
                       >
                         {option}
-                        {active && (
-                          <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#C9A24B]" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="m5 13 4 4L19 7" />
-                          </svg>
-                        )}
                       </button>
                     </li>
                   );
@@ -255,7 +299,7 @@ export default function ContactForm({ lang }: { lang: Locale }) {
             )}
           </div>
         </div>
-        <label className="space-y-1.5 text-sm font-medium text-white/80 md:col-span-2">
+        <label className={`${labelClass} md:col-span-2`}>
           {t.formMessage}
           <textarea
             name="message"
@@ -271,8 +315,12 @@ export default function ContactForm({ lang }: { lang: Locale }) {
             role="status"
             className={`md:col-span-2 rounded-xl px-4 py-3 text-sm ring-1 ${
               status === "success"
-                ? "bg-emerald-500/15 text-emerald-100 ring-emerald-500/40"
-                : "bg-[#C9A24B]/15 text-[#E6C878] ring-[#C9A24B]/40"
+                ? light
+                  ? "bg-emerald-50 text-emerald-800 ring-emerald-200"
+                  : "bg-emerald-500/15 text-emerald-100 ring-emerald-500/40"
+                : light
+                  ? "bg-[#DE3B34]/10 text-[#8f2f2f] ring-[#DE3B34]/25"
+                  : "bg-[#C9A24B]/15 text-[#E6C878] ring-[#C9A24B]/40"
             }`}
           >
             {feedback}
@@ -280,16 +328,20 @@ export default function ContactForm({ lang }: { lang: Locale }) {
         )}
 
         <div className="flex flex-col gap-4 md:col-span-2 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-xs text-xs leading-relaxed text-white/50">{copy.confidential}</p>
+          <p className={`max-w-xs text-xs leading-relaxed ${light ? "text-[#6b625a]" : "text-white/50"}`}>
+            {copy.confidential}
+          </p>
           <button
             type="submit"
             disabled={status === "sending"}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#C9A24B] px-8 py-3 text-sm font-semibold text-[#160A0A] transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[#C9A24B] focus:ring-offset-2 focus:ring-offset-[#160A0A] disabled:cursor-not-allowed disabled:opacity-60"
+            className={`inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60 ${
+              light
+                ? "bg-[#DE3B34] text-white hover:bg-[#c73731]"
+                : "rounded-lg bg-[#C9A24B] text-[#160A0A] hover:brightness-110"
+            }`}
           >
             {status === "sending" ? copy.sending : t.formSubmit}
-            {status !== "sending" && (
-              <span aria-hidden>{isAr ? "←" : "→"}</span>
-            )}
+            {status !== "sending" && <span aria-hidden>{isAr ? "←" : "→"}</span>}
           </button>
         </div>
       </form>

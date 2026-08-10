@@ -15,14 +15,14 @@ const servicesData = {
       {
         title: 'LEGAL SERVICES',
         description: 'Expert legal services in Dubai for individuals and businesses, including legal consultation, contract drafting, dispute resolution, litigation support, and strategic legal advice. Our experienced lawyers provide practical solutions tailored to your legal needs across the UAE.',
-        image: '/assets/services/legal.webp',
-        alt: 'Legal consultation and legal services in Dubai',
+        image: '/assets/services/legal-team.webp',
+        alt: 'Almahy Legal Services team in Dubai',
         url: '/legal-services'
       },
       {
         title: 'CORPORATE SERVICES',
         description: 'Comprehensive corporate services for startups, SMEs, and established businesses, including company formation, business setup, governance, compliance, licensing, restructuring, and ongoing corporate legal support throughout the UAE.',
-        image: '/assets/services/corporate.webp',
+        image: '/assets/services/corporate-team.webp',
         alt: 'Corporate legal services and business setup in Dubai',
         url: '/corporate-services'
       },
@@ -62,14 +62,14 @@ const servicesData = {
       {
         title: 'الخدمات القانونية',
         description: 'دعم قانوني شامل للأفراد والشركات، يشمل الاستشارات والصياغة والمراجعة ووضع الاستراتيجيات القانونية في مختلف المجالات.',
-        image: '/assets/services/legal.webp',
-        alt: 'Legal consultation and legal services in Dubai',
+        image: '/assets/services/legal-team.webp',
+        alt: 'Almahy Legal Services team in Dubai',
         url: '/legal-services'
       },
       {
         title: 'خدمات الشركات',
         description: 'تأسيس الشركات وإعادة الهيكلة والحوكمة والامتثال بما يتناسب مع الشركات الناشئة والمؤسسات الصغيرة والمتوسطة والشركات الكبرى في الإمارات.',
-        image: '/assets/services/corporate.webp',
+        image: '/assets/services/corporate-team.webp',
         alt: 'Corporate legal services and business setup in Dubai',
         url: '/corporate-services'
       },

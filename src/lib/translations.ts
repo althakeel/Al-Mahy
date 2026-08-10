@@ -53,7 +53,7 @@ export const translations = {
     why4Desc: "Your success is our priority. We provide personalized solutions for every client.",
     
     // Contact Page
-    contactIntro: "Get in touch with us today. We're here to help with all your accounting needs.",
+    contactIntro: "Get in touch with us today. We're here to help with your legal needs.",
     sendMessage: "Send us a Message",
     formName: "Your Name",
     formNamePlaceholder: "Enter your full name",
@@ -62,7 +62,7 @@ export const translations = {
     formPhone: "Phone Number",
     formPhonePlaceholder: "+971 XX XXX XXXX",
     formMessage: "Message",
-    formMessagePlaceholder: "Tell us about your accounting needs...",
+    formMessagePlaceholder: "Tell us about your legal matter...",
     formSubmit: "Send Message",
     address: "Our Address",
     email: "Email Us",
@@ -141,7 +141,7 @@ export const translations = {
     why4Desc: "نجاحك هو أولويتنا. نحن نقدم حلولاً مخصصة لكل عميل.",
     
     // Contact Page
-    contactIntro: "تواصل معنا اليوم. نحن هنا للمساعدة في جميع احتياجاتك المحاسبية.",
+    contactIntro: "تواصل معنا اليوم. نحن هنا للمساعدة في احتياجاتك القانونية.",
     sendMessage: "أرسل لنا رسالة",
     formName: "اسمك",
     formNamePlaceholder: "أدخل اسمك الكامل",
@@ -150,7 +150,7 @@ export const translations = {
     formPhone: "رقم الهاتف",
     formPhonePlaceholder: "+971 XX XXX XXXX",
     formMessage: "الرسالة",
-    formMessagePlaceholder: "أخبرنا عن احتياجاتك المحاسبية...",
+    formMessagePlaceholder: "أخبرنا عن مسألتك القانونية...",
     formSubmit: "إرسال الرسالة",
     address: "عنواننا",
     email: "راسلنا عبر البريد الإلكتروني",
