@@ -74,8 +74,9 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="relative flex min-h-[760px] w-full items-center overflow-hidden pt-28 pb-14 md:min-h-[720px] md:pt-32 lg:min-h-[780px]">
         <HeroBackgroundSlider slides={heroSlides} activeIndex={slideIdx} isRTL={isRTL} />
-        <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'} from-[#160A0A]/90 via-[#160A0A]/50 to-[#160A0A]/20`} />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#160A0A]/55 to-transparent" />
+        <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'} from-[#160A0A]/92 via-[#160A0A]/70 to-[#160A0A]/55`} />
+        <div className="absolute inset-0 bg-[#160A0A]/25" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#160A0A]/65 to-transparent" />
 
         <div className="relative z-10 w-full">
           <div className="mx-auto grid w-full max-w-[1250px] items-center gap-10 px-4 md:px-8 lg:grid-cols-2 lg:gap-14 xl:gap-20">
@@ -125,10 +126,16 @@ export default function Home() {
                 >
                   {yearsCount}
                 </p>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-[#F0716B]">
+                <p
+                  className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-white"
+                  style={{ textShadow: '0 2px 12px rgba(0,0,0,0.75)' }}
+                >
                   {isRTL ? 'عامًا من التميز القانوني' : 'Years of Legal Excellence'}
                 </p>
-                <p className="mt-1 text-sm text-white/70">
+                <p
+                  className="mt-1 text-sm font-medium text-white/95"
+                  style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+                >
                   {isRTL ? 'موثوقون في دبي وجميع الإمارات' : 'Trusted across Dubai & the UAE'}
                 </p>
               </div>

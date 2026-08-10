@@ -21,7 +21,10 @@ export default function HeroLegalSearchPanel({ locale, className = '', align }: 
 
   return (
     <div className={`w-full ${className}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <p className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#F0716B] ${textAlign}`}>
+      <p
+        className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white ${textAlign}`}
+        style={{ textShadow: '0 2px 10px rgba(0,0,0,0.75)' }}
+      >
         {t.label}
       </p>
       <SiteSearch
