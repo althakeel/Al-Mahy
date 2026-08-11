@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchStructuredData from "@/components/SearchStructuredData";
-import { isValidLocale, getLocaleDirection } from "@/lib/utils";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { isValidLocale } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Almahy Legal Service",

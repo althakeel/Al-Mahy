@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-montserrat)', 'Montserrat', 'Arial', 'Helvetica', 'sans-serif'],
+      },
       colors: {
         'brand': {
           'light': '#FFB6B6',

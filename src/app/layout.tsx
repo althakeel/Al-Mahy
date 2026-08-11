@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import favicon from "./Favicon.png";
@@ -8,14 +8,11 @@ import AnalyticsClickTracking from "@/components/AnalyticsClickTracking";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -51,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ) : null}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${montserrat.variable} ${montserrat.className} antialiased`}
         suppressHydrationWarning
       >
         {gtmId ? (

@@ -83,7 +83,7 @@ export default function Home() {
 
             {/* Copy + CTA */}
             <div className={`flex flex-col items-start gap-5 ${isRTL ? 'text-right lg:order-2 lg:items-end' : 'text-left lg:order-1'}`}>
-              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#F0716B] backdrop-blur-sm" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#F0716B] backdrop-blur-sm" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
                 {isRTL ? 'دَع المحكمة لنا' : 'Leave Court To Us'}
               </span>
 
@@ -96,7 +96,7 @@ export default function Home() {
 
               <div className={`flex w-full items-start ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
                 <div className={`mt-1 h-14 w-1 shrink-0 rounded-full bg-[#DE3B34] ${isRTL ? 'ml-4' : 'mr-4'}`} />
-                <p className="text-base font-normal leading-8 text-white/90 md:text-lg" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.35)', fontFamily: 'Arial, sans-serif' }}>
+                <p className="text-base font-normal leading-8 text-white/90 md:text-lg" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.35)', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
                   {isRTL
                     ? 'نحن منارة خبرتك القانونية، حيث تتحول القضايا الصعبة إلى انتصارات. واجه التحديات القانونية بثقة بينما نتولى نحن التعقيدات.'
                     : 'Almahy for Legal Services provides trusted legal consultation, corporate services, notary services, and comprehensive legal solutions for individuals and businesses across the UAE.'}
@@ -110,7 +110,7 @@ export default function Home() {
               <Link
                 href={`/${lang}/services`}
                 className="group inline-flex w-fit items-center justify-center gap-3 rounded-full border border-white/20 bg-[#DE3B34] px-6 py-3 text-base font-bold tracking-wide text-white shadow-xl shadow-[#DE3B34]/20 transition-all duration-300 hover:bg-[#c73731] md:px-8 md:py-4 md:text-lg"
-                style={{ letterSpacing: '0.04em', fontFamily: 'Montserrat, sans-serif' }}
+                style={{ letterSpacing: '0.04em', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}
               >
                 <span className="text-xl font-extrabold transition-transform duration-300 group-hover:scale-110">+</span>
                 <span>{isRTL ? 'اعرف المزيد' : 'Learn More'}</span>

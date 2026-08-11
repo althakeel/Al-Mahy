@@ -74,7 +74,7 @@ export default function BlogsPage() {
   );
 
   return (
-    <main className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'} style={{ fontFamily: 'Montserrat, sans-serif' }}>
+    <main className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'} style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
 
       {/* ── Independent Blogs Page Banner ── */}
       <div
