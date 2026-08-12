@@ -163,7 +163,7 @@ export const teamMembers: TeamMemberProfile[] = [
     nameAr: "أمين كامل",
     positionEn: "CHIEF FINANCIAL OFFICER",
     positionAr: "المدير المالي",
-    photo: cardPhoto("amin-kamel", "/images/team/team-09.png"),
+    photo: cardPhoto("amin-kamel", "/images/team/amin-kamel.png"),
     practiceAreasEn: ["Finance", "Accounting Oversight", "Corporate Planning"],
     practiceAreasAr: ["المالية", "الإشراف المحاسبي", "التخطيط المؤسسي"],
     overviewEn: [
@@ -439,7 +439,7 @@ export const teamMembers: TeamMemberProfile[] = [
     nameAr: "روهيث ساغار م",
     positionEn: "FULL STACK DEVELOPER",
     positionAr: "مطور برمجيات متكامل",
-    photo: cardPhoto("rohith-sagar-m", "/images/team/team-01.png"),
+    photo: cardPhoto("rohith-sagar-m", "/images/team/ROHI.png"),
     practiceAreasEn: ["Web Development", "Product Engineering", "Systems Integration"],
     practiceAreasAr: ["تطوير الويب", "هندسة المنتجات", "تكامل الأنظمة"],
     overviewEn: [

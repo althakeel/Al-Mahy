@@ -31,7 +31,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "أمين كامل",
     roleEn: "Chief Financial Officer",
     roleAr: "المدير المالي",
-    image: "/images/team/team-09.png",
+    image: "/images/team/amin-kamel.png",
     slug: "amin-kamel",
   },
   {
@@ -112,7 +112,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "روهيث ساغار م",
     roleEn: "Full Stack Developer",
     roleAr: "مطور برمجيات متكامل",
-    image: "/images/team/team-01.png",
+    image: "/images/team/ROHI.png",
     slug: "rohith-sagar-m",
   },
   {
