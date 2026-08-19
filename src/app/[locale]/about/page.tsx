@@ -69,16 +69,16 @@ export default async function AboutPage({
           <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
             {lang === 'en' ? 'Home / About us' : 'الرئيسية / من نحن'}
           </p>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Link
               href={`/${lang}/contact`}
-              className="inline-flex items-center justify-center rounded-full bg-[#DE3B34] px-8 py-3.5 text-sm font-bold text-white transition hover:bg-[#c73731] md:text-base"
+              className="inline-flex items-center justify-center border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-transparent"
             >
               {lang === "en" ? "Book Free Consultation" : "احجز استشارة مجانية"}
             </Link>
             <a
               href="tel:+971504096028"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-white/80 bg-white/5 px-8 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-gray-900 md:text-base"
+              className="inline-flex items-center justify-center border border-white/70 bg-transparent px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[#160A0A]"
             >
               {lang === "en" ? "Call Us" : "اتصل بنا"}
             </a>
@@ -282,20 +282,22 @@ export default async function AboutPage({
       </div>
 
       {/* CTA Section */}
-      <div className="py-16 px-4 md:px-8 bg-gradient-to-r from-gray-900 to-gray-800">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+      <div className="py-16 px-4 md:px-8 bg-[#160A0A]">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-5 tracking-tight">
             {lang === 'en' ? 'Speak with Our Legal Experts Today' : 'هل أنت مستعد للبدء؟'}
           </h2>
-          <p className="text-gray-300 text-lg mb-8">
+          <p className="text-white/70 text-base md:text-lg mb-10 leading-relaxed">
             {lang === 'en' ? 'Whether you\'re starting a business, resolving a dispute, or seeking trusted legal advice, our experienced team is here to help. Contact us today to schedule your consultation.' : 'اتصل بنا اليوم للحصول على استشارة مجانية واكتشف كيف يمكننا مساعدة عملك على النجاح.'}
           </p>
-          <Link 
+          <Link
             href={`/${lang}/contact`}
-            className="inline-block text-gray-900 font-bold px-10 py-4 rounded-full transition-all shadow-lg hover:shadow-xl text-lg"
-            style={{backgroundColor: '#DE3B34'}}
+            className="inline-flex items-center justify-center gap-2 border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors duration-300 hover:bg-transparent hover:text-white"
           >
-            {lang === 'en' ? 'Book a Consultation' : 'تواصل معنا!'}
+            {lang === 'en' ? 'Book a Consultation' : 'تواصل معنا'}
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </Link>
         </div>
       </div>

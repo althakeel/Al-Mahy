@@ -69,17 +69,6 @@ export default async function ContactPage({
         </div>
       </section>
 
-      {/* Team photo — landscape, natural ratio */}
-      <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-6 md:px-8 md:pb-10">
-        <div className="overflow-hidden rounded-2xl border border-white/10">
-          <img
-            src="/images/contact/team-group.png"
-            alt={isAr ? "فريق الماحي للخدمات القانونية" : "Almahy Legal Services team"}
-            className="h-auto w-full object-contain"
-          />
-        </div>
-      </section>
-
       {/* Office details — moved below, full width strip */}
       <section className="border-y border-white/10 bg-white/[0.03]">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 md:px-8">

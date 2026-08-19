@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const SLIDES = [
+  "/images/about/team-bg-v6.png",
   "/images/about/team-bg-1.png",
   "/images/about/team-bg-2.png",
 ] as const;
@@ -39,8 +40,8 @@ export default function AboutHeroBackground() {
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-[#160A0A]/40" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/55 via-transparent to-[#160A0A]/20" />
+      <div className="absolute inset-0 bg-[#160A0A]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/35 via-transparent to-[#160A0A]/10" />
     </div>
   );
 }

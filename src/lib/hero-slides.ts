@@ -40,9 +40,9 @@ const enSlides: HeroSlide[] = [
   {
     id: 'global',
     headline: ['Your Justice, Our Mission', 'Expert Legal Guidance', 'At Every Step.'],
-    desktop: '/assets/bannerSlider/hero-team-group.png',
-    mobile: '/assets/bannerSlider/hero-team-group.png',
-    objectPosition: 'center 28%',
+    desktop: '/assets/bannerSlider/hero-team-group-v6.png',
+    mobile: '/assets/bannerSlider/hero-team-group-v6.png',
+    objectPosition: 'center 32%',
   },
 ];
 
@@ -78,9 +78,9 @@ const arSlides: HeroSlide[] = [
   {
     id: 'mission',
     headline: ['عدالتك، مهمتنا', 'إرشاد قانوني خبير', 'في كل خطوة.'],
-    desktop: '/assets/bannerSlider/hero-team-group.png',
-    mobile: '/assets/bannerSlider/hero-team-group.png',
-    objectPosition: 'center 28%',
+    desktop: '/assets/bannerSlider/hero-team-group-v6.png',
+    mobile: '/assets/bannerSlider/hero-team-group-v6.png',
+    objectPosition: 'center 32%',
   },
 ];
 
