@@ -15,7 +15,7 @@ const servicesData = {
       {
         title: 'LEGAL SERVICES',
         description: 'Expert legal services in Dubai for individuals and businesses, including legal consultation, contract drafting, dispute resolution, litigation support, and strategic legal advice. Our experienced lawyers provide practical solutions tailored to your legal needs across the UAE.',
-        image: '/assets/services/legal-team.webp',
+        image: '/assets/services/legal-team-v6.webp',
         alt: 'Almahy Legal Services team in Dubai',
         url: '/legal-services'
       },
@@ -62,7 +62,7 @@ const servicesData = {
       {
         title: 'الخدمات القانونية',
         description: 'دعم قانوني شامل للأفراد والشركات، يشمل الاستشارات والصياغة والمراجعة ووضع الاستراتيجيات القانونية في مختلف المجالات.',
-        image: '/assets/services/legal-team.webp',
+        image: '/assets/services/legal-team-v6.webp',
         alt: 'Almahy Legal Services team in Dubai',
         url: '/legal-services'
       },
