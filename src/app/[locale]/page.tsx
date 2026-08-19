@@ -72,77 +72,83 @@ export default function Home() {
     <div dir={isRTL ? "rtl" : "ltr"} lang={lang} className="w-full">
 
       {/* HERO SECTION */}
-      <section className="relative flex min-h-[760px] w-full items-center overflow-hidden pt-28 pb-14 md:min-h-[720px] md:pt-32 lg:min-h-[780px]">
+      <section className="relative flex min-h-[100svh] w-full items-end overflow-hidden bg-[#160A0A] md:min-h-[820px]">
         <HeroBackgroundSlider slides={heroSlides} activeIndex={slideIdx} isRTL={isRTL} />
-        <div className={`absolute inset-0 ${isRTL ? 'bg-gradient-to-l' : 'bg-gradient-to-r'} from-[#160A0A]/92 via-[#160A0A]/70 to-[#160A0A]/55`} />
-        <div className="absolute inset-0 bg-[#160A0A]/25" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#160A0A]/65 to-transparent" />
+        <div className={`absolute inset-0 ${isRTL ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-[#160A0A] via-[#160A0A]/88 to-[#160A0A]/35`} />
+        <div className="absolute inset-0 bg-[#160A0A]/30" />
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#160A0A] via-[#160A0A]/70 to-transparent" />
 
-        <div className="relative z-10 w-full">
-          <div className="mx-auto grid w-full max-w-[1250px] items-center gap-10 px-4 md:px-8 lg:grid-cols-2 lg:gap-14 xl:gap-20">
+        <div className="relative z-10 w-full pb-20 pt-28 md:pb-24 md:pt-32">
+          <div className="mx-auto grid w-full max-w-[1250px] gap-12 px-4 md:px-8 lg:grid-cols-12 lg:items-end lg:gap-10">
 
-            {/* Copy + CTA */}
-            <div className={`flex flex-col items-start gap-5 ${isRTL ? 'text-right lg:order-2 lg:items-end' : 'text-left lg:order-1'}`}>
-              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#F0716B] backdrop-blur-sm" style={{ fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-                {isRTL ? 'دَع المحكمة لنا' : 'Leave Court To Us'}
-              </span>
+            {/* Copy */}
+            <div className={`lg:col-span-7 ${isRTL ? "text-right lg:order-2" : "text-left lg:order-1"}`}>
+              <p
+                className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-white"
+                style={{ textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}
+              >
+                {isRTL ? "دَع المحكمة لنا" : "Leave Court To Us"}
+              </p>
 
               <h1
-                className={`min-h-[100px] whitespace-pre-line text-3xl font-bold leading-[1.05] text-white drop-shadow-2xl transition-opacity duration-700 md:min-h-[130px] md:text-5xl lg:min-h-[150px] ${fade ? 'opacity-100' : 'opacity-0'}`}
-                style={{ fontFamily: 'Georgia, serif' }}
+                className={`max-w-3xl whitespace-pre-line text-4xl font-bold leading-[1.05] text-white transition-opacity duration-700 md:text-5xl lg:text-6xl ${fade ? "opacity-100" : "opacity-0"}`}
+                style={{ fontFamily: "Georgia, serif", textShadow: "0 3px 22px rgba(0,0,0,0.65)" }}
               >
                 {currentHeadline}
               </h1>
 
-              <div className={`flex w-full items-start ${isRTL ? 'flex-row-reverse' : 'flex-row'}`}>
-                <div className={`mt-1 h-14 w-1 shrink-0 rounded-full bg-[#DE3B34] ${isRTL ? 'ml-4' : 'mr-4'}`} />
-                <p className="text-base font-normal leading-8 text-white/90 md:text-lg" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.35)', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}>
-                  {isRTL
-                    ? 'نحن منارة خبرتك القانونية، حيث تتحول القضايا الصعبة إلى انتصارات. واجه التحديات القانونية بثقة بينما نتولى نحن التعقيدات.'
-                    : 'Almahy for Legal Services provides trusted legal consultation, corporate services, notary services, and comprehensive legal solutions for individuals and businesses across the UAE.'}
-                </p>
+              <p
+                className="mt-6 max-w-xl text-base leading-8 text-white md:text-lg"
+                style={{ textShadow: "0 2px 14px rgba(0,0,0,0.75)" }}
+              >
+                {isRTL
+                  ? "استشارات قانونية وخدمات شركات وتوثيق وحلول متكاملة للأفراد والشركات في جميع أنحاء الإمارات."
+                  : "Trusted legal consultation, corporate services, notary support, and practical solutions for individuals and businesses across the UAE."}
+              </p>
+
+              <div className={`mt-8 flex flex-wrap gap-3 ${isRTL ? "justify-end" : "justify-start"}`}>
+                <Link
+                  href={`/${lang}/services`}
+                  className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
+                >
+                  {isRTL ? "اعرف المزيد" : "Learn More"}
+                </Link>
+                <Link
+                  href={`/${lang}/contact`}
+                  className="inline-flex items-center border border-white/70 bg-transparent px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
+                >
+                  {isRTL ? "تواصل معنا" : "Contact Us"}
+                </Link>
               </div>
 
-              <div className="w-full lg:hidden">
+              <div className="mt-8 w-full lg:hidden">
                 <HeroLegalSearchPanel locale={lang} />
               </div>
-
-              <Link
-                href={`/${lang}/services`}
-                className="group inline-flex w-fit items-center justify-center gap-3 rounded-full border border-white/20 bg-[#DE3B34] px-6 py-3 text-base font-bold tracking-wide text-white shadow-xl shadow-[#DE3B34]/20 transition-all duration-300 hover:bg-[#c73731] md:px-8 md:py-4 md:text-lg"
-                style={{ letterSpacing: '0.04em', fontFamily: 'var(--font-montserrat), Montserrat, sans-serif' }}
-              >
-                <span className="text-xl font-extrabold transition-transform duration-300 group-hover:scale-110">+</span>
-                <span>{isRTL ? 'اعرف المزيد' : 'Learn More'}</span>
-              </Link>
             </div>
 
-            {/* Right column — years + search (desktop) */}
-            <div className={`hidden flex-col gap-8 lg:flex ${isRTL ? 'items-start lg:order-1' : 'items-end lg:order-2'}`}>
-              <div className={`${isRTL ? 'text-left' : 'text-right'}`}>
-                <p
-                  className="text-[5.5rem] font-bold leading-none text-white drop-shadow-lg xl:text-[6.5rem]"
-                  style={{ fontFamily: '"Mizra", "Times New Roman", serif' }}
-                >
-                  {yearsCount}
-                </p>
-                <p
-                  className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-white"
-                  style={{ textShadow: '0 2px 12px rgba(0,0,0,0.75)' }}
-                >
-                  {isRTL ? 'عامًا من التميز القانوني' : 'Years of Legal Excellence'}
-                </p>
-                <p
-                  className="mt-1 text-sm font-medium text-white/95"
-                  style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
-                >
-                  {isRTL ? 'موثوقون في دبي وجميع الإمارات' : 'Trusted across Dubai & the UAE'}
-                </p>
+            {/* Years + search panel */}
+            <div className={`lg:col-span-5 ${isRTL ? "lg:order-1" : "lg:order-2"}`}>
+              <div className="border border-white/15 bg-[#160A0A]/75 p-6 backdrop-blur-md md:p-8">
+                <div className={isRTL ? "text-right" : "text-left"}>
+                  <p
+                    className="text-6xl font-bold leading-none text-white md:text-7xl"
+                    style={{ fontFamily: '"Mizra", Georgia, serif' }}
+                  >
+                    {yearsCount}
+                  </p>
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-white">
+                    {isRTL ? "عامًا من التميز القانوني" : "Years of Legal Excellence"}
+                  </p>
+                  <p className="mt-2 text-sm text-white/80">
+                    {isRTL ? "موثوقون في دبي وجميع الإمارات" : "Trusted across Dubai & the UAE"}
+                  </p>
+                </div>
+
+                <div className="mt-8 hidden border-t border-white/10 pt-6 lg:block">
+                  <HeroLegalSearchPanel locale={lang} align={isRTL ? "end" : "start"} />
+                </div>
               </div>
-
-              <HeroLegalSearchPanel locale={lang} className="w-full max-w-md" align={isRTL ? 'start' : 'end'} />
             </div>
-
           </div>
         </div>
 
@@ -152,7 +158,6 @@ export default function Home() {
           onSelect={goToSlide}
           isRTL={isRTL}
         />
-          
       </section>
 
       {/* Other Sections */}

@@ -2,15 +2,6 @@ import { Locale } from "@/lib/translations";
 import Link from "next/link";
 import Image from "next/image";
 
-const palette = {
-  primary: "#DE3B34",
-  secondary: "#FFB6B6",
-  accent: "#CECDCB",
-  muted: "#CECDCB",
-  dark: "#160A0A",
-  white: "#FFFFFF",
-};
-
 const countries = [
   {
     slug: "antigua-barbuda",
@@ -18,7 +9,8 @@ const countries = [
     enSummary: "Family-focused route with donation and real-estate options.",
     arSummary: "مسار مناسب للعائلات مع خيارات التبرع والعقار.",
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=500&fit=crop",
-    ref: "https://advent-citizen.com/citizenship/antigua-barbuda/",
+    metaEn: "Donation · Real estate",
+    metaAr: "تبرع · عقار",
   },
   {
     slug: "st-kitts-nevis",
@@ -26,7 +18,8 @@ const countries = [
     enSummary: "Long-established premium program with fast-track options.",
     arSummary: "برنامج راسخ ومميز مع خيارات مسار سريع.",
     image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=500&fit=crop",
-    ref: "https://advent-citizen.com/citizenship/st-kitts-nevis/",
+    metaEn: "Premium · Fast-track",
+    metaAr: "مميز · مسار سريع",
   },
   {
     slug: "saint-lucia",
@@ -34,7 +27,8 @@ const countries = [
     enSummary: "Flexible options including contribution, real estate, and bonds.",
     arSummary: "خيارات مرنة تشمل المساهمة والعقار والسندات.",
     image: "https://images.unsplash.com/photo-1483683804023-6ccdb62f86ef?w=800&h=500&fit=crop",
-    ref: "https://advent-citizen.com/citizenship/saint-lucia/",
+    metaEn: "Contribution · Bonds",
+    metaAr: "مساهمة · سندات",
   },
   {
     slug: "dominica",
@@ -42,7 +36,8 @@ const countries = [
     enSummary: "Cost-efficient option with streamlined processing timelines.",
     arSummary: "خيار اقتصادي مع فترات معالجة سريعة نسبيًا.",
     image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=800&h=500&fit=crop",
-    ref: "https://advent-citizen.com/citizenship/dominica/",
+    metaEn: "Efficient · Streamlined",
+    metaAr: "اقتصادي · مبسّط",
   },
   {
     slug: "turkiye",
@@ -50,11 +45,11 @@ const countries = [
     enSummary: "Popular route with real-estate based eligibility and strong regional access.",
     arSummary: "مسار شائع يعتمد على الاستثمار العقاري مع وصول إقليمي قوي.",
     image: "https://images.unsplash.com/photo-1527838832700-5059252407fa?w=800&h=500&fit=crop",
-    ref: "https://advent-citizen.com/citizenship/turkiye/",
+    metaEn: "Real estate · Regional access",
+    metaAr: "عقار · وصول إقليمي",
   },
 ];
 
-type BenefitIconType = "travel" | "tax" | "business" | "social";
 type NewsItem = {
   title: string;
   image: string;
@@ -86,7 +81,7 @@ async function fetchLatestNews(isArabic: boolean, fallbackItems: NewsItem[]): Pr
       return fallbackItems;
     }
 
-    const payload = await response.json() as {
+    const payload = (await response.json()) as {
       articles?: Array<{
         title?: string;
         urlToImage?: string;
@@ -109,39 +104,6 @@ async function fetchLatestNews(isArabic: boolean, fallbackItems: NewsItem[]): Pr
   }
 }
 
-function BenefitIcon({ type }: { type: BenefitIconType }) {
-  if (type === "travel") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10" aria-hidden="true">
-        <path d="M3 6h18M6 12h12M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    );
-  }
-
-  if (type === "tax") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10" aria-hidden="true">
-        <path d="M12 3v18M4 12h8M12 12l8 8M12 12V4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-
-  if (type === "business") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10" aria-hidden="true">
-        <path d="M4 14c2.5 0 4.5-2 4.5-4.5C8.5 7 7 5.4 5 5M20 14c-2.5 0-4.5-2-4.5-4.5C15.5 7 17 5.4 19 5M4 14c0 3.3 3.6 6 8 6s8-2.7 8-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10" aria-hidden="true">
-      <path d="M12 21s7-4.4 7-10a7 7 0 1 0-14 0c0 5.6 7 10 7 10Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-      <path d="M12 8v6M9 11h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 export default async function SecondPassportPage({
   params,
 }: {
@@ -152,45 +114,47 @@ export default async function SecondPassportPage({
   const lang = isValidLoc ? (locale as Locale) : "en";
   const isArabic = lang === "ar";
 
-  const quickSteps = isArabic
-    ? ["اختر الدولة", "جهز المستندات", "أرسل الطلب"]
-    : ["Choose country", "Prepare documents", "Submit application"];
+  const processSteps = isArabic
+    ? [
+        { title: "تقييم أولي", desc: "نراجع هدفك وميزانيتك والجدول الزمني المناسب." },
+        { title: "اختيار البرنامج", desc: "نقارن المسارات ونوصي بالدولة الأنسب لملفك." },
+        { title: "تجهيز الملف", desc: "نراجع المستندات ونعد الطلب قبل التقديم الرسمي." },
+        { title: "المتابعة حتى الإصدار", desc: "نحدثك في كل مرحلة حتى استلام الجنسية والجواز." },
+      ]
+    : [
+        { title: "Initial assessment", desc: "We review your goal, budget, and preferred timeline." },
+        { title: "Program selection", desc: "We compare routes and recommend the strongest country fit." },
+        { title: "File preparation", desc: "Documents are checked and prepared before official submission." },
+        { title: "Follow-through to issuance", desc: "You receive updates through approval and passport issuance." },
+      ];
 
-  const highlights = isArabic
+  const reasons = isArabic
     ? [
         {
-          title: "تنقل عالمي أفضل",
-          desc: "البرامج المعروضة تمنحك فرص تنقل دولي أوسع حسب الدولة المختارة.",
+          title: "تنقل عالمي أوسع",
+          desc: "برامج الجنسية عبر الاستثمار تفتح خيارات سفر وإقامة أقوى حسب الدولة المختارة.",
         },
         {
-          title: "خطة بديلة للمستقبل",
-          desc: "الجواز الثاني يوفر خيارًا استراتيجيًا لحماية الأسرة والفرص المستقبلية.",
+          title: "خطة احتياطية للأسرة",
+          desc: "الجواز الثاني يمنح مرونة طويلة الأمد للعمل والتعليم والاستقرار.",
         },
         {
-          title: "مسارات استثمار مختلفة",
-          desc: "تشمل التبرع، العقار، وصيغ استثمار أخرى وفق متطلبات كل دولة.",
-        },
-        {
-          title: "إدارة ملف كاملة",
-          desc: "متابعة خطوة بخطوة من التقييم الأولي حتى استلام الجنسية.",
+          title: "مسارات استثمار متعددة",
+          desc: "تبرع، عقار، أو صيغ أخرى وفق متطلبات كل برنامج رسمي.",
         },
       ]
     : [
         {
-          title: "Stronger global mobility",
-          desc: "The listed programs can provide broader travel access depending on the country.",
+          title: "Broader global mobility",
+          desc: "Citizenship-by-investment programs can expand travel and residency options by jurisdiction.",
         },
         {
-          title: "Future backup plan",
-          desc: "A second passport can add a strategic layer of family and lifestyle security.",
+          title: "A long-term family option",
+          desc: "A second passport adds flexibility for business, education, and future planning.",
         },
         {
           title: "Multiple investment routes",
-          desc: "Options may include donations, real estate, and other approved pathways.",
-        },
-        {
-          title: "End-to-end case handling",
-          desc: "Guided support from first assessment to final citizenship approval.",
+          desc: "Donation, real estate, and other approved pathways depending on the program.",
         },
       ];
 
@@ -217,56 +181,8 @@ export default async function SecondPassportPage({
           a: "عادةً تشمل جواز السفر، إثبات مصدر الأموال، السجل الجنائي، ومستندات الحالة العائلية.",
         },
         {
-          q: "هل توجد مقابلة شخصية؟",
-          a: "يختلف ذلك حسب الدولة والملف، وبعض البرامج قد تطلب مقابلة في مراحل محددة.",
-        },
-        {
           q: "هل الاستثمار قابل للاسترداد؟",
           a: "يعتمد على المسار: التبرعات غالبًا غير مستردة، بينما بعض المسارات العقارية قد تكون قابلة لإعادة البيع حسب الشروط.",
-        },
-        {
-          q: "هل يمكنني إضافة طفل جديد بعد الحصول على الجنسية؟",
-          a: "في العديد من البرامج يمكن إضافة أفراد مؤهلين لاحقًا وفق رسوم وإجراءات البرنامج.",
-        },
-        {
-          q: "متى أحصل على الجواز؟",
-          a: "بعد الموافقة النهائية واستكمال المتطلبات الحكومية، يتم إصدار وثائق الجنسية ثم الجواز.",
-        },
-        {
-          q: "هل هناك ضرائب جديدة بعد الحصول على الجنسية؟",
-          a: "الوضع الضريبي يعتمد على دولة الجنسية الجديدة وإقامتك الفعلية ووضعك الضريبي الدولي.",
-        },
-        {
-          q: "كيف يتم تقييم الأهلية قبل البدء؟",
-          a: "نقوم بمراجعة أولية للخلفية والميزانية والهدف لاختيار البرنامج الأنسب لك.",
-        },
-        {
-          q: "هل البيانات سرية؟",
-          a: "نعم، يتم التعامل مع الملف بسرية مهنية مع الالتزام بمتطلبات الامتثال الرسمية.",
-        },
-        {
-          q: "هل يوجد حد أدنى للعمر؟",
-          a: "عادةً يجب أن يكون مقدم الطلب الرئيسي بعمر 18 سنة أو أكثر وفق شروط البرنامج.",
-        },
-        {
-          q: "هل يمكن تغيير البرنامج بعد بدء الإجراءات؟",
-          a: "قد يكون ذلك ممكنًا في بعض الحالات المبكرة، لكنه يعتمد على مرحلة الملف والمتطلبات الحكومية.",
-        },
-        {
-          q: "هل أحتاج إلى فتح حساب بنكي خارجي؟",
-          a: "حسب مسار الاستثمار المختار، قد تتطلب بعض البرامج ترتيبات بنكية محددة.",
-        },
-        {
-          q: "هل تشمل الخدمة مراجعة قانونية للمستندات؟",
-          a: "نعم، تتم مراجعة المستندات قبل التقديم لتقليل الأخطاء وتسريع المعالجة.",
-        },
-        {
-          q: "هل توجد رسوم حكومية إضافية؟",
-          a: "نعم، غالبًا توجد رسوم تدقيق ومعالجة تختلف حسب الدولة وعدد أفراد الأسرة.",
-        },
-        {
-          q: "هل يتم تحديثي بحالة الملف؟",
-          a: "بالتأكيد، يتم إرسال تحديثات دورية في كل مرحلة من مراحل الطلب.",
         },
       ]
     : [
@@ -291,102 +207,8 @@ export default async function SecondPassportPage({
           a: "Typically passport copies, source-of-funds evidence, police clearance, and civil-status documents.",
         },
         {
-          q: "Is an interview required?",
-          a: "Requirements vary by country and profile. Some jurisdictions may request interviews.",
-        },
-        {
           q: "Is the investment refundable?",
           a: "It depends on the route: donations are usually non-refundable, while some real-estate routes may allow resale under rules.",
-        },
-        {
-          q: "Can I add a newborn or dependents later?",
-          a: "Many programs allow post-approval additions for eligible dependents, subject to fees and checks.",
-        },
-        {
-          q: "When do I receive the passport?",
-          a: "After final approval and completion of required steps, citizenship documents and passport issuance follow.",
-        },
-        {
-          q: "Are there tax implications after citizenship?",
-          a: "Tax outcomes depend on jurisdiction, residency status, and your wider international tax position.",
-        },
-        {
-          q: "How do you assess eligibility first?",
-          a: "We run a pre-assessment on profile, budget, timeline, and goals to recommend suitable programs.",
-        },
-        {
-          q: "Is my application confidential?",
-          a: "Yes. Files are handled with strict professional confidentiality and compliance standards.",
-        },
-        {
-          q: "Is there a minimum age for the main applicant?",
-          a: "Most programs require the principal applicant to be at least 18 years old.",
-        },
-        {
-          q: "Can I switch programs after starting?",
-          a: "In some early-stage cases, yes. It depends on file status and government process stage.",
-        },
-        {
-          q: "Do I need an international bank account?",
-          a: "Depending on the selected route, some programs may require specific banking arrangements.",
-        },
-        {
-          q: "Do you provide legal document review?",
-          a: "Yes. Documents are reviewed before submission to reduce errors and delays.",
-        },
-        {
-          q: "Are there additional government fees?",
-          a: "Yes. Due diligence and processing fees usually apply and vary by country and family size.",
-        },
-        {
-          q: "Will I receive status updates during the process?",
-          a: "Yes. You receive structured updates at each major milestone.",
-        },
-      ];
-
-  const investBenefits = isArabic
-    ? [
-        {
-          icon: "travel" as const,
-          title: "سفر بدون تأشيرة",
-          desc: "وصول أفضل لوجهات متعددة، وقد يشمل المملكة المتحدة، شنغن، وسنغافورة حسب البرنامج.",
-        },
-        {
-          icon: "tax" as const,
-          title: "مزايا ضريبية",
-          desc: "هيكلة مالية مرنة مع فرص تحسين الوضع الضريبي وفق القوانين المعمول بها.",
-        },
-        {
-          icon: "business" as const,
-          title: "تنقل الأعمال",
-          desc: "توسيع حضورك التجاري وفتح فرص في أسواق عالمية بشكل أسرع.",
-        },
-        {
-          icon: "social" as const,
-          title: "مزايا اجتماعية",
-          desc: "خيارات تعليم ورعاية صحية أفضل للعائلة حسب الدولة المختارة.",
-        },
-      ]
-    : [
-        {
-          icon: "travel" as const,
-          title: "Visa Free Travel",
-          desc: "Travel to 130+ countries visa-free, including UK, Schengen area, and Singapore depending on program.",
-        },
-        {
-          icon: "tax" as const,
-          title: "Tax Benefits",
-          desc: "Flexible structuring with potential tax optimization pathways under applicable regulations.",
-        },
-        {
-          icon: "business" as const,
-          title: "Business Mobility",
-          desc: "Expand your business footprint and access global markets with fewer barriers.",
-        },
-        {
-          icon: "social" as const,
-          title: "Social Benefits",
-          desc: "Potential access to stronger healthcare and education options for the family.",
         },
       ];
 
@@ -401,20 +223,8 @@ export default async function SecondPassportPage({
           image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=900&h=600&fit=crop",
         },
         {
-          title: "برنامج الطالب الدولي في كندا",
-          image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&h=600&fit=crop",
-        },
-        {
-          title: "تحديثات برنامج الإقامة الدائمة في مالطا",
+          title: "تحديثات برامج الإقامة عبر الاستثمار",
           image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&h=600&fit=crop",
-        },
-        {
-          title: "جنسية الكاريبي والفيزا الذهبية الأوروبية",
-          image: "https://images.unsplash.com/photo-1581553673739-c4906b5d0de8?w=900&h=600&fit=crop",
-        },
-        {
-          title: "السندات الحكومية",
-          image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900&h=600&fit=crop",
         },
       ]
     : [
@@ -427,350 +237,277 @@ export default async function SecondPassportPage({
           image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=900&h=600&fit=crop",
         },
         {
-          title: "Canada International Student Program",
-          image: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&h=600&fit=crop",
-        },
-        {
-          title: "Changes in Malta Permanent Residency Program (MPRP)",
+          title: "Updates in residency-by-investment programs",
           image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=900&h=600&fit=crop",
-        },
-        {
-          title: "Caribbean Citizenship and Europe Golden Visas",
-          image: "https://images.unsplash.com/photo-1581553673739-c4906b5d0de8?w=900&h=600&fit=crop",
-        },
-        {
-          title: "Government Bonds",
-          image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=900&h=600&fit=crop",
         },
       ];
 
   const newsItems = await fetchLatestNews(isArabic, fallbackNewsItems);
+  const featured = countries[0];
+  const remaining = countries.slice(1);
 
   return (
     <div
       dir={isArabic ? "rtl" : "ltr"}
-      className={`min-h-screen ${isArabic ? "text-right" : "text-left"}`}
-      style={{ backgroundColor: palette.dark, color: palette.secondary }}
+      className={`min-h-screen bg-[#F1EFF0] text-[#160A0A] ${isArabic ? "text-right" : "text-left"}`}
     >
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1800&h=700&fit=crop"
-            alt="Second citizenship and residency advisory services"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div
-            className="absolute inset-0"
-            style={{ background: `linear-gradient(to bottom, ${palette.dark}DD 0%, ${palette.dark}F2 70%, ${palette.dark} 100%)` }}
-          />
-        </div>
+      {/* Hero — full-bleed, brand-first */}
+      <section className="relative min-h-[72vh] overflow-hidden bg-[#160A0A] text-white md:min-h-[78vh]">
+        <Image
+          src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?w=1800&h=900&fit=crop"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center opacity-45"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#160A0A]/92 via-[#160A0A]/75 to-[#160A0A]/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/70 via-transparent to-[#160A0A]/25" />
 
-        <div className="relative z-10 max-w-[1250px] mx-auto px-4 md:px-8 pt-24 md:pt-28 pb-16 md:pb-20">
-        <div className="max-w-4xl mx-auto text-center">
-          <span
-            className="inline-flex items-center rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] border"
-            style={{
-              backgroundColor: `${palette.accent}33`,
-              borderColor: palette.accent,
-              color: palette.secondary,
-            }}
-          >
+        <div className="relative z-10 mx-auto flex min-h-[72vh] max-w-[1250px] flex-col justify-end px-4 pb-16 pt-28 md:min-h-[78vh] md:px-8 md:pb-20 md:pt-32">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
             {isArabic ? "الجنسية عبر الاستثمار" : "Citizenship by Investment"}
-          </span>
-          <h1 className="mt-5 text-4xl md:text-6xl font-bold leading-tight" style={{ color: palette.secondary }}>
+          </p>
+          <h1
+            className="max-w-3xl text-4xl font-bold leading-[1.05] text-white md:text-6xl"
+            style={{ fontFamily: "Georgia, serif", textShadow: "0 2px 18px rgba(0,0,0,0.45)" }}
+          >
             {isArabic ? "بوابتك إلى الجنسية الثانية" : "Your Gateway to Global Opportunities"}
           </h1>
-          <p className="mt-6 text-lg leading-relaxed max-w-3xl mx-auto" style={{ color: palette.muted }}>
+          <p className="mt-5 max-w-xl text-base leading-8 text-white/85 md:text-lg">
             {isArabic
-              ? "اختر الدولة المناسبة لك، ثم نساعدك خطوة بخطوة حتى إصدار الجواز."
-              : "Pick the country that fits you best, then we guide you step by step until passport issuance."}
+              ? "اختر الدولة المناسبة، ونرشدك خطوة بخطوة حتى إصدار الجواز."
+              : "Choose the country that fits you. We guide the file from first assessment to passport issuance."}
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <a
               href="https://wa.me/971504096028?text=Hello%2C%20I%20want%20help%20with%20a%20second%20passport%20program"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full font-bold px-6 py-3 transition-colors"
-              style={{ backgroundColor: palette.primary, color: palette.white }}
+              className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
             >
               {isArabic ? "تحدث مع خبير" : "Speak with an Expert"}
             </a>
+            <a
+              href="#countries"
+              className="inline-flex items-center border border-white/70 bg-transparent px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
+            >
+              {isArabic ? "استعرض الدول" : "Browse Countries"}
+            </a>
           </div>
-        </div>
         </div>
       </section>
 
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-14">
-        <h2
-          className="text-2xl md:text-3xl font-bold mb-6"
-          style={{ color: palette.white, opacity: 0, animation: "fadeIn 0.45s ease-out forwards" }}
-        >
-          {isArabic ? "الدول المتاحة" : "Available Countries"}
-        </h2>
-        <p
-          className="mb-6"
-          style={{ color: palette.muted, opacity: 0, animation: "fadeIn 0.55s ease-out 0.08s forwards" }}
-        >
-          {isArabic
-            ? "اختر الدولة المناسبة لك واضغط على التفاصيل لمراجعة المسارات والمتطلبات الأساسية."
-            : "Select a country and open details to review routes and key requirements."}
-        </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {countries.map((country, index) => (
-            <Link
-              key={country.slug}
-              href={`/${lang}/second-passport/${country.slug}`}
-              aria-label={isArabic ? `عرض تفاصيل ${country.name}` : `View details for ${country.name}`}
-              className="group relative block h-[340px] rounded-2xl overflow-hidden border transition-transform duration-300 hover:-translate-y-1"
-              style={{
-                borderColor: palette.muted,
-                opacity: 0,
-                animation: `fadeIn 0.45s ease-out ${0.14 + index * 0.08}s forwards`,
-              }}
-            >
-              <Image src={country.image} alt={country.name} fill className="object-cover" />
-              <div
-                className="absolute inset-0"
-                style={{ background: `linear-gradient(to top, ${palette.dark}EE 40%, ${palette.dark}55 65%, transparent 100%)` }}
-              />
+      {/* Countries — featured + list */}
+      <section id="countries" className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              {isArabic ? "البرامج" : "Programs"}
+            </p>
+            <h2 className="mt-2 text-3xl font-bold text-[#160A0A] md:text-4xl">
+              {isArabic ? "الدول المتاحة" : "Available Countries"}
+            </h2>
+            <p className="mt-3 text-base leading-7 text-[#160A0A]/70">
+              {isArabic
+                ? "راجع المسارات الأساسية، ثم افتح التفاصيل لكل دولة."
+                : "Review the core routes, then open full details for each country."}
+            </p>
+          </div>
 
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: palette.white }}>
-                  {country.name}
-                </h3>
-                <p className="text-sm mb-4 leading-relaxed" style={{ color: palette.muted }}>
-                  {isArabic ? country.arSummary : country.enSummary}
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+            <Link
+              href={`/${lang}/second-passport/${featured.slug}`}
+              className="group relative block min-h-[420px] overflow-hidden lg:col-span-7"
+            >
+              <Image
+                src={featured.image}
+                alt={featured.name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/90 via-[#160A0A]/35 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
+                  {isArabic ? featured.metaAr : featured.metaEn}
                 </p>
-                <span
-                  className="inline-flex items-center font-semibold px-4 py-2 border transition-colors duration-200 group-hover:bg-[#DE3B341A]"
-                  style={{
-                    backgroundColor: `${palette.primary}00`,
-                    borderColor: `${palette.accent}55`,
-                    borderWidth: "0.1px",
-                    borderRadius: "5px",
-                    color: palette.white,
-                  }}
-                >
+                <h3 className="mt-2 text-3xl font-bold text-white md:text-4xl">{featured.name}</h3>
+                <p className="mt-3 max-w-md text-sm leading-7 text-white/80 md:text-base">
+                  {isArabic ? featured.arSummary : featured.enSummary}
+                </p>
+                <span className="mt-5 inline-flex border border-white/60 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors group-hover:bg-white group-hover:text-[#160A0A]">
                   {isArabic ? "عرض التفاصيل" : "View details"}
                 </span>
               </div>
             </Link>
-          ))}
-        </div>
 
-        <div
-          className="mt-3 rounded-xl  px-4 py-3 text-sm"
-          style={{ borderColor: palette.accent,  color: palette.secondary }}
-        >
-          {isArabic
-            ? "*الأرقام والمزايا المعروضة إرشادية وقد تتغير حسب تحديثات البرامج الرسمية."
-            : "*Displayed thresholds and benefits are indicative and can change based on official program updates."}
+            <div className="flex flex-col divide-y divide-[#160A0A]/10 border border-[#160A0A]/10 lg:col-span-5">
+              {remaining.map((country, index) => (
+                <Link
+                  key={country.slug}
+                  href={`/${lang}/second-passport/${country.slug}`}
+                  className="group flex gap-4 p-5 transition-colors hover:bg-[#F1EFF0] md:p-6"
+                >
+                  <span className="pt-1 text-xs font-semibold tracking-[0.16em] text-[#DE3B34]">
+                    {String(index + 2).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-lg font-bold text-[#160A0A] transition-colors group-hover:text-[#DE3B34]">
+                        {country.name}
+                      </h3>
+                      <span className="mt-1 text-[#DE3B34] transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
+                        →
+                      </span>
+                    </div>
+                    <p className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-[#160A0A]/45">
+                      {isArabic ? country.metaAr : country.metaEn}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[#160A0A]/70">
+                      {isArabic ? country.arSummary : country.enSummary}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-6 text-xs leading-5 text-[#160A0A]/50">
+            {isArabic
+              ? "*الأرقام والمزايا المعروضة إرشادية وقد تتغير حسب تحديثات البرامج الرسمية."
+              : "*Displayed thresholds and benefits are indicative and may change with official program updates."}
+          </p>
         </div>
       </section>
 
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-16">
-        <div
-          className="relative overflow-hidden rounded-3xl px-5 md:px-10 py-10 md:py-12 border"
-          style={{
-            borderColor: `${palette.accent}66`,
-            background: `linear-gradient(160deg, ${palette.dark}F5 0%, ${palette.dark}EE 55%, ${palette.dark}FF 100%)`,
-          }}
-        >
-          <div
-            className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full"
-            style={{ background: `radial-gradient(circle, ${palette.primary}2E 0%, ${palette.primary}00 70%)` }}
-          />
-          <div
-            className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full"
-            style={{ background: `radial-gradient(circle, ${palette.secondary}24 0%, ${palette.secondary}00 70%)` }}
-          />
-
-          <div className="relative z-10 text-center mb-10">
-            <span
-              className="inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] mb-4"
-              style={{ color: palette.secondary, backgroundColor: `${palette.primary}1A`, border: `1px solid ${palette.accent}66` }}
-            >
-              {isArabic ? "فوائد أساسية" : "Core Benefits"}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold max-w-3xl leading-tight mx-auto" style={{ color: palette.white }}>
-              {isArabic ? "لماذا تستثمر في جنسية ثانية؟" : "Why Should You Invest in a Second Citizenship?"}
+      {/* Why — cream split */}
+      <section className="border-y border-[#160A0A]/10 bg-[#F1EFF0] py-16 md:py-20">
+        <div className="mx-auto grid max-w-[1250px] gap-12 px-4 md:px-8 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              {isArabic ? "لماذا الجواز الثاني؟" : "Why a second passport?"}
+            </p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-[#160A0A] md:text-4xl">
+              {isArabic ? "استثمار في المرونة والاستقرار" : "An investment in flexibility and stability"}
             </h2>
           </div>
-
-          <div className="relative z-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {investBenefits.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl p-5 border transition-all duration-300 hover:-translate-y-1"
-                style={{ borderColor: `${palette.accent}55`, backgroundColor: `${palette.muted}1A`, backdropFilter: "blur(4px)" }}
-              >
-                <div
-                  className="mb-4 w-12 h-12 rounded-full flex items-center justify-center"
-                  style={{ color: palette.secondary, backgroundColor: `${palette.primary}24`, border: `1px solid ${palette.accent}66` }}
-                >
-                  <BenefitIcon type={item.icon} />
+          <div className="space-y-8 lg:col-span-8">
+            {reasons.map((item, index) => (
+              <div key={item.title} className="grid gap-3 border-t border-[#160A0A]/15 pt-6 sm:grid-cols-[72px_1fr]">
+                <span className="text-sm font-semibold tracking-[0.16em] text-[#DE3B34]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-[#160A0A]">{item.title}</h3>
+                  <p className="mt-2 text-base leading-7 text-[#160A0A]/70">{item.desc}</p>
                 </div>
-                <h3 className="text-[34px] font-bold mb-2 leading-tight" style={{ color: palette.white }}>{item.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: palette.muted }}>
-                  {item.desc}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: palette.white }}>
-          {isArabic ? "الخطوات" : "Simple Steps"}
-        </h2>
-        <p className="mb-6 text-sm md:text-base" style={{ color: palette.muted }}>
-          {isArabic ? "3 خطوات واضحة للبدء بشكل صحيح" : "3 clear steps to get started the right way"}
-        </p>
-
-        <div className="grid md:grid-cols-3 gap-4">
-          {quickSteps.map((step, index) => (
-            <div
-              key={step}
-              className="rounded-2xl border p-5 md:p-6"
-              style={{
-                borderColor: `${palette.accent}66`,
-                background: `linear-gradient(145deg, ${palette.dark}F0 0%, ${palette.dark} 100%)`,
-              }}
-            >
-              <div className="mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full text-sm font-bold"
-                style={{
-                  color: palette.dark,
-                  backgroundColor: palette.secondary,
-                  border: `1px solid ${palette.accent}`,
-                }}
-              >
-                {(index + 1).toString().padStart(2, "0")}
-              </div>
-              <div className="text-xl md:text-2xl font-bold" style={{ color: palette.white }}>
-                {step}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-14">
-        <h2 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: palette.white }}>
-          {isArabic ? "لماذا هذا المسار؟" : "Why this route?"}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {highlights.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border p-5"
-              style={{ borderColor: palette.muted, backgroundColor: `${palette.muted}22` }}
-            >
-              <h3 className="text-lg font-bold mb-2" style={{ color: palette.white }}>{item.title}</h3>
-              <p style={{ color: palette.muted }}>{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-24">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: palette.white }}>
-          FAQ
-        </h2>
-        <p className="mb-8 max-w-4xl text-sm leading-relaxed" style={{ color: palette.muted }}>
-          {isArabic
-            ? "إجابات سريعة على الأسئلة الأكثر شيوعًا حول برامج الجواز الثاني، من المدة إلى المتطلبات وخيارات الأسرة."
-            : "Quick answers to the most common questions about second passport programs, from timeline and requirements to family inclusion."}
-        </p>
-
-        <div className="border-t" style={{ borderColor: `${palette.muted}66` }}>
-          {faqItems.map((item) => (
-            <details
-              key={item.q}
-              className="group border-b"
-              style={{ borderColor: `${palette.muted}44` }}
-            >
-              <summary className="list-none cursor-pointer px-2 md:px-3 py-4 flex items-center justify-between gap-4 [&::-webkit-details-marker]:hidden">
-                <span className="font-semibold" style={{ color: palette.white }}>{item.q}</span>
-                <span className="text-xl font-bold transition-transform group-open:rotate-45" style={{ color: palette.accent }}>
-                  +
-                </span>
-              </summary>
-              <p className="px-2 md:px-3 pb-4 text-sm leading-relaxed" style={{ color: palette.muted }}>
-                {item.a}
-              </p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      <section className="max-w-[1250px] mx-auto px-4 md:px-8 pb-20">
-        <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <div>
-            <span
-              className="inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] mb-3"
-              style={{ color: palette.secondary, backgroundColor: `${palette.primary}14`, border: `1px solid ${palette.accent}66` }}
-            >
-              {isArabic ? "المستجدات" : "Latest"}
-            </span>
-            <h2 className="text-3xl md:text-5xl font-bold" style={{ color: palette.white }}>
-              {isArabic ? "الأخبار والتحديثات" : "News & Updates."}
+      {/* Process */}
+      <section className="bg-[#160A0A] py-16 text-white md:py-20">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F0716B]">
+              {isArabic ? "كيف نعمل" : "How we work"}
+            </p>
+            <h2 className="mt-2 text-3xl font-bold md:text-4xl">
+              {isArabic ? "مسار واضح من التقييم إلى الإصدار" : "A clear path from assessment to issuance"}
             </h2>
           </div>
-          <p className="max-w-xl text-sm md:text-base leading-relaxed" style={{ color: palette.muted }}>
-            {isArabic
-              ? "آخر أخبار وبرامج الجنسية والإقامة عبر الاستثمار في مكان واحد."
-              : "Fresh updates about citizenship and residency by investment programs."}
-          </p>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map((step, index) => (
+              <div key={step.title} className="border-t border-white/20 pt-5">
+                <p className="text-xs font-semibold tracking-[0.16em] text-[#F0716B]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-3 text-lg font-bold text-white">{step.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-white/70">{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsItems.map((item) => (
-            <article
-              key={item.title}
-              className="group overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1"
-              style={{ borderColor: `${palette.accent}66`, backgroundColor: `${palette.dark}` }}
-            >
-              <div className="relative aspect-[16/10] overflow-hidden border-b" style={{ borderColor: `${palette.accent}55` }}>
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" aria-label={item.title}>
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </a>
-                ) : (
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                )}
-                <span
-                  className="absolute top-3 left-3 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider"
-                  style={{ backgroundColor: `${palette.dark}CC`, color: palette.secondary, border: `1px solid ${palette.accent}66` }}
-                >
-                  {isArabic ? "خبر" : "News"}
-                </span>
-              </div>
-              <div className="p-4 md:p-5 min-h-[145px] flex flex-col justify-between">
-                {item.url ? (
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: palette.white }}>
-                    <h3 className="text-2xl font-semibold leading-tight line-clamp-4">{item.title}</h3>
-                  </a>
-                ) : (
-                  <h3 className="text-2xl font-semibold leading-tight line-clamp-4" style={{ color: palette.white }}>
-                    {item.title}
-                  </h3>
-                )}
-              </div>
-            </article>
-          ))}
+      {/* FAQ */}
+      <section className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-[900px] px-4 md:px-8">
+          <h2 className="text-3xl font-bold text-[#160A0A] md:text-4xl">FAQ</h2>
+          <p className="mt-3 text-base leading-7 text-[#160A0A]/70">
+            {isArabic
+              ? "إجابات مختصرة على الأسئلة الأكثر شيوعًا حول برامج الجواز الثاني."
+              : "Short answers to the most common questions about second passport programs."}
+          </p>
+          <div className="mt-8 border-t border-[#160A0A]/15">
+            {faqItems.map((item) => (
+              <details key={item.q} className="group border-b border-[#160A0A]/15">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+                  <span className="font-semibold text-[#160A0A]">{item.q}</span>
+                  <span className="text-xl font-light text-[#DE3B34] transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="pb-5 text-sm leading-7 text-[#160A0A]/70">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* News — compact strip */}
+      <section className="border-t border-[#160A0A]/10 bg-[#F1EFF0] py-16 md:py-20">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-8 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+                {isArabic ? "المستجدات" : "Updates"}
+              </p>
+              <h2 className="mt-2 text-3xl font-bold text-[#160A0A] md:text-4xl">
+                {isArabic ? "أخبار وبرامج الاستثمار" : "News & program notes"}
+              </h2>
+            </div>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {newsItems.slice(0, 3).map((item) => {
+              const inner = (
+                <>
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#160A0A]/10">
+                    <img src={item.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-bold leading-snug text-[#160A0A]">{item.title}</h3>
+                </>
+              );
+              return item.url ? (
+                <a key={item.title} href={item.url} target="_blank" rel="noopener noreferrer" className="block">
+                  {inner}
+                </a>
+              ) : (
+                <article key={item.title}>{inner}</article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="bg-[#160A0A] py-16 text-center text-white md:py-20">
+        <div className="mx-auto max-w-3xl px-4 md:px-8">
+          <h2 className="text-3xl font-bold md:text-4xl">
+            {isArabic ? "هل أنت مستعد لمراجعة الخيارات؟" : "Ready to review your options?"}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-white/70">
+            {isArabic
+              ? "تحدث مع فريقنا لمقارنة البرامج الأنسب لهدفك وميزانيتك."
+              : "Speak with our team to compare the programs that fit your goal and budget."}
+          </p>
+          <a
+            href="https://wa.me/971504096028?text=Hello%2C%20I%20want%20help%20with%20a%20second%20passport%20program"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
+          >
+            {isArabic ? "احجز استشارة" : "Book a Consultation"}
+          </a>
         </div>
       </section>
     </div>

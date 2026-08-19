@@ -288,15 +288,18 @@ export const getLegalServicesCopy = (locale: Locale) =>
   locale === 'ar'
     ? {
         badge: 'الخدمات القانونية',
-        title: 'المحي للخدمات القانونية',
-        subtitle:
-          'حلول قانونية شاملة في التحكيم، المصارف، الضرائب، القضايا المدنية والجنائية، العقارات، الأحوال الشخصية، العمل، والتقاضي أمام المحاكم والجهات المختصة في دولة الإمارات.',
+        brand: 'الماحي',
+        title: 'الماحي للخدمات القانونية',
+        subtitle: 'خدمات قانونية شاملة في دبي.',
         description:
-          'تقدّم المحي للخدمات القانونية استشارات قانونية شاملة في دبي للأفراد والشركات والمستثمرين في جميع أنحاء الإمارات. يقدّم فريقنا من المحامين ذوي الخبرة الاستشارات القانونية والتقاضي وقانون الشركات والعقارات وقانون الأسرة وتسوية النزاعات بحلول عملية تركز على العميل.',
+          'تقدّم الماحي للخدمات القانونية خدمات قانونية شاملة في دبي للأفراد والشركات والمستثمرين في جميع أنحاء الإمارات. يقدّم محامونا ذوو الخبرة الاستشارات القانونية والتقاضي وقانون الشركات والعقارات وقانون الأسرة وتسوية النزاعات بحلول عملية تركز على العميل.',
         bookConsultation: 'احجز استشارة',
         latestNews: 'آخر الأخبار',
         expertiseLabel: 'خبرة متعددة التخصصات',
         expertiseTitle: 'التحكيم والمنازعات التجارية',
+        expertiseDescription:
+          'تقدّم الماحي للخدمات القانونية خدمات قانونية شاملة في دبي للأفراد والشركات والمستثمرين في جميع أنحاء الإمارات. يقدّم محامونا ذوو الخبرة الاستشارات القانونية والتقاضي وقانون الشركات والعقارات وقانون الأسرة وتسوية النزاعات بحلول عملية تركز على العميل.',
+        practiceAreasTitle: 'مجالات ممارستنا القانونية',
         newsTitle: 'أحدث الأخبار القانونية',
         newsSub:
           'آخر المستجدات القانونية والتنظيمية ذات الصلة بالأعمال والتقاضي في الإمارات.',
@@ -305,6 +308,7 @@ export const getLegalServicesCopy = (locale: Locale) =>
       }
     : {
         badge: 'Legal Services',
+        brand: 'Almahy',
         title: 'ALMAHY FOR LEGAL SERVICES',
         subtitle: 'Comprehensive Legal Services in Dubai.',
         description:
@@ -313,6 +317,9 @@ export const getLegalServicesCopy = (locale: Locale) =>
         latestNews: 'Latest News',
         expertiseLabel: 'Multi-disciplinary expertise',
         expertiseTitle: 'Arbitration & Commercial Disputes',
+        expertiseDescription:
+          'Almahy for Legal Services provides comprehensive legal services in Dubai for individuals, businesses, and investors across the UAE. Our experienced lawyers offer legal consultation, litigation, corporate law, real estate law, family law, and dispute resolution with practical, client-focused solutions.',
+        practiceAreasTitle: 'Our legal practice areas',
         newsTitle: 'Latest UAE Legal News & Updates',
         newsSub:
           'Stay informed with the latest UAE legal news, regulatory updates, court decisions, and practical legal insights from our experienced lawyers.',

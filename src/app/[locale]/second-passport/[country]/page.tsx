@@ -977,346 +977,273 @@ export default async function SecondPassportCountryPage({
   const { locale, country } = await params;
   const isValidLoc = locale === "en" || locale === "ar";
   const lang = isValidLoc ? (locale as Locale) : "en";
-
-  const countryKey = country as CountrySlug;
-  const countryData = countryContent[countryKey] ?? countryContent["antigua-barbuda"];
-  const content = lang === "ar" ? countryData.ar : countryData.en;
   const isArabic = lang === "ar";
-  const isAntigua = country === "antigua-barbuda";
-  const isStKitts = country === "st-kitts-nevis";
-  const isSaintLucia = country === "saint-lucia";
-  const isDominica = country === "dominica";
-  const isTurkiye = country === "turkiye";
-  const isPremiumCountry = isAntigua || isStKitts || isSaintLucia || isDominica || isTurkiye;
-  const extendedContent = isAntigua
-    ? (isArabic ? antiguaExtendedContent.ar : antiguaExtendedContent.en)
-    : isStKitts
-      ? (isArabic ? stKittsExtendedContent.ar : stKittsExtendedContent.en)
-      : isSaintLucia
-        ? (isArabic ? saintLuciaExtendedContent.ar : saintLuciaExtendedContent.en)
-        : isDominica
-          ? (isArabic ? dominicaExtendedContent.ar : dominicaExtendedContent.en)
-          : isTurkiye
-            ? (isArabic ? turkiyeExtendedContent.ar : turkiyeExtendedContent.en)
-            : null;
-  const baseVisuals = isAntigua
-    ? antiguaVisuals
-    : isStKitts
-      ? stKittsVisuals
-      : isSaintLucia
-        ? saintLuciaVisuals
-        : isDominica
-          ? dominicaVisuals
-          : isTurkiye
-            ? turkiyeVisuals
-            : null;
-  const visuals = baseVisuals ? getDailyVisuals(country, baseVisuals) : null;
-  const antiguaNews = isAntigua ? await fetchAntiguaNews() : [];
-  const stKittsNews = isStKitts ? await fetchStKittsNews() : [];
-  const premiumNews = isAntigua ? antiguaNews : isStKitts ? stKittsNews : [];
+
+  const countryKey = (country in countryContent ? country : "antigua-barbuda") as CountrySlug;
+  const countryData = countryContent[countryKey];
+  const content = isArabic ? countryData.ar : countryData.en;
+
+  const extendedMap = {
+    "antigua-barbuda": antiguaExtendedContent,
+    "st-kitts-nevis": stKittsExtendedContent,
+    "saint-lucia": saintLuciaExtendedContent,
+    dominica: dominicaExtendedContent,
+    turkiye: turkiyeExtendedContent,
+  } as const;
+
+  const visualsMap = {
+    "antigua-barbuda": antiguaVisuals,
+    "st-kitts-nevis": stKittsVisuals,
+    "saint-lucia": saintLuciaVisuals,
+    dominica: dominicaVisuals,
+    turkiye: turkiyeVisuals,
+  } as const;
+
+  const extended = isArabic ? extendedMap[countryKey].ar : extendedMap[countryKey].en;
+  const visuals = visualsMap[countryKey];
+
+  const news =
+    countryKey === "antigua-barbuda"
+      ? await fetchAntiguaNews()
+      : countryKey === "st-kitts-nevis"
+        ? await fetchStKittsNews()
+        : [];
+
   const whatsappHelpUrl = `https://wa.me/971504096028?text=${encodeURIComponent(
     `Hello, I want help with ${content.title}`
   )}`;
   const whatsappStartUrl = `https://wa.me/971504096028?text=${encodeURIComponent(
     `Hello, I want to start my ${content.title} citizenship application`
   )}`;
-  const pageBgClass = isTurkiye
-    ? "bg-white"
-    : isPremiumCountry
-      ? "bg-[#160A0A]"
-      : "bg-gradient-to-b from-gray-50 to-white";
-  const backLinkClass = isPremiumCountry
-    ? isTurkiye
-      ? "text-gray-600 hover:text-gray-900"
-      : "text-[#CECDCB] hover:text-[#DE3B34]"
-    : "text-gray-600 hover:text-gray-900";
-  const premiumTheme = isPremiumCountry
-    ? isTurkiye
-      ? {
-          sectionBg: "#FFFFFF",
-          sectionBorder: "#E5E7EB",
-          cardBorder: "#E5E7EB",
-          accent: "#C08B2D",
-          heading: "#160A0A",
-          lead: "#160A0A",
-          body: "#4B5563",
-          muted: "#6B7280",
-          buttonBg: "#160A0A",
-          buttonText: "#FFFFFF",
-          outline: "#160A0A",
-          heroOverlay: "linear-gradient(to left, rgba(255,255,255,0.15), rgba(255,255,255,0.85))",
-          cardOverlay: "linear-gradient(to top, rgba(17,24,39,0.2), rgba(255,255,255,0.0))",
-          processOverlay: "linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.75))",
-        }
-      : {
-          sectionBg: "#160A0A",
-          sectionBorder: "#CECDCB66",
-          cardBorder: "#CECDCB55",
-          accent: "#CECDCB",
-          heading: "#FFB6B6",
-          lead: "#DE3B34",
-          body: "#CECDCB",
-          muted: "#CECDCB",
-          buttonBg: "#FFB6B6",
-          buttonText: "#160A0A",
-          outline: "#CECDCB",
-          heroOverlay: "linear-gradient(to left, rgba(24,24,24,0.2), rgba(24,24,24,0.75))",
-          cardOverlay: "linear-gradient(to top, rgba(24,24,24,0.7), rgba(24,24,24,0.15))",
-          processOverlay: "linear-gradient(to right, rgba(24,24,24,0.1), rgba(24,24,24,0.65))",
-        }
-    : null;
 
   return (
     <div
       dir={isArabic ? "rtl" : "ltr"}
-      className={`min-h-screen py-20 px-4 md:px-8 ${isArabic ? "text-right" : "text-left"} ${pageBgClass}`}
+      className={`min-h-screen bg-[#F1EFF0] text-[#160A0A] ${isArabic ? "text-right" : "text-left"}`}
     >
-      <div className="max-w-[1250px] mx-auto pt-16">
-        <Link
-          href={`/${lang}/second-passport`}
-          className={`inline-flex items-center text-sm font-semibold mb-6 ${backLinkClass}`}
-        >
-          {isArabic ? "العودة إلى برامج الجواز الثاني →" : "← Back to second passport programs"}
-        </Link>
+      {/* Hero */}
+      <section className="relative min-h-[68vh] overflow-hidden bg-[#160A0A] text-white md:min-h-[74vh]">
+        <FallbackImage
+          src={visuals.hero}
+          fallbackSrc={visuals.hero}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-45"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#160A0A]/92 via-[#160A0A]/75 to-[#160A0A]/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/75 via-transparent to-[#160A0A]/25" />
 
-        {!isPremiumCountry && (
-          <>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{content.title}</h1>
-            <p className="text-lg text-gray-600 mb-3">{content.subtitle}</p>
-            <p className="text-sm font-semibold text-amber-700 mb-8">{content.timeline}</p>
-          </>
-        )}
-
-        {isPremiumCountry && extendedContent && visuals && (
-          <section
-            className="mb-10 rounded-3xl border overflow-hidden"
-            style={{ borderColor: premiumTheme?.sectionBorder, backgroundColor: premiumTheme?.sectionBg }}
+        <div className="relative z-10 mx-auto flex min-h-[68vh] max-w-[1250px] flex-col justify-end px-4 pb-14 pt-28 md:min-h-[74vh] md:px-8 md:pb-16 md:pt-32">
+          <Link
+            href={`/${lang}/second-passport`}
+            className="mb-6 inline-flex w-fit text-xs font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:text-white"
           >
-            <div className="grid lg:grid-cols-2">
-              <div className="p-6 md:p-8 lg:p-10">
-                <p className="text-xs md:text-sm uppercase tracking-[0.16em] font-semibold mb-3" style={{ color: premiumTheme?.accent }}>
-                  {extendedContent.eyebrow}
-                </p>
-                <h2 className="text-2xl md:text-4xl font-bold mb-4" style={{ color: premiumTheme?.heading }}>{extendedContent.heroTitle}</h2>
-                <p className="text-base md:text-lg mb-3" style={{ color: premiumTheme?.lead }}>{extendedContent.heroLead}</p>
-                <p className="mb-6" style={{ color: premiumTheme?.body }}>{extendedContent.heroBody}</p>
-                <p className="text-sm font-semibold mb-6" style={{ color: premiumTheme?.accent }}>{content.timeline}</p>
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href={whatsappHelpUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center rounded-full text-sm font-semibold px-5 py-2.5"
-                    style={{ backgroundColor: premiumTheme?.buttonBg, color: premiumTheme?.buttonText }}
-                  >
-                    {extendedContent.ctaPrimary}
-                  </a>
-                  <a
-                    href={`/${lang}/contact`}
-                    className="inline-flex items-center rounded-full border text-sm font-semibold px-5 py-2.5"
-                    style={{ borderColor: premiumTheme?.outline, color: premiumTheme?.heading }}
-                  >
-                    {extendedContent.ctaSecondary}
-                  </a>
-                </div>
-              </div>
-              <div className="relative min-h-[300px] lg:min-h-full">
-                <FallbackImage
-                  src={visuals.hero}
-                  fallbackSrc={baseVisuals?.hero}
-                  alt={extendedContent.heroTitle}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0" style={{ background: premiumTheme?.heroOverlay }} />
-              </div>
-            </div>
-          </section>
-        )}
-
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div
-            className={`rounded-2xl border p-6 ${isPremiumCountry ? "" : "bg-white border-gray-100 shadow"}`}
-            style={isPremiumCountry ? { borderColor: premiumTheme?.cardBorder, backgroundColor: premiumTheme?.sectionBg } : undefined}
+            {isArabic ? "← العودة إلى البرامج" : "← Back to programs"}
+          </Link>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
+            {extended.eyebrow}
+          </p>
+          <h1
+            className="max-w-4xl text-3xl font-bold leading-[1.08] text-white md:text-5xl lg:text-6xl"
+            style={{ fontFamily: "Georgia, serif", textShadow: "0 2px 18px rgba(0,0,0,0.45)" }}
           >
-            <h2 className="text-xl font-bold mb-4" style={{ color: isPremiumCountry ? premiumTheme?.heading : "#160A0A" }}>
-              {isArabic ? "أهم المزايا" : "Key Benefits"}
+            {extended.heroTitle}
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-white/90 md:text-lg">
+            {extended.heroLead}
+          </p>
+          <p className="mt-3 text-sm font-semibold tracking-wide text-[#FFB6B6]">
+            {content.timeline}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={whatsappHelpUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
+            >
+              {extended.ctaPrimary}
+            </a>
+            <Link
+              href={`/${lang}/contact`}
+              className="inline-flex items-center border border-white/70 bg-transparent px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
+            >
+              {extended.ctaSecondary}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Intro + benefits */}
+      <section className="bg-white py-14 md:py-16">
+        <div className="mx-auto grid max-w-[1250px] gap-12 px-4 md:px-8 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              {isArabic ? "نظرة عامة" : "Overview"}
+            </p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-[#160A0A] md:text-4xl">
+              {content.title}
             </h2>
-            <ul className="space-y-3" style={{ color: isPremiumCountry ? premiumTheme?.body : "#374151" }}>
-              {content.benefits.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span style={{ color: isPremiumCountry ? premiumTheme?.accent : "#f59e0b" }}>•</span>
-                  <span>{item}</span>
+            <p className="mt-4 text-base leading-7 text-[#160A0A]/75">{extended.heroBody}</p>
+            <p className="mt-4 text-base leading-7 text-[#160A0A]/70">{content.subtitle}</p>
+          </div>
+          <div className="lg:col-span-7">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#DE3B34]">
+              {isArabic ? "أهم المزايا" : "Key benefits"}
+            </h3>
+            <ul className="mt-5 space-y-4 border-t border-[#160A0A]/10 pt-5">
+              {content.benefits.map((item, index) => (
+                <li key={item} className="grid gap-2 border-b border-[#160A0A]/10 pb-4 sm:grid-cols-[56px_1fr]">
+                  <span className="text-xs font-semibold tracking-[0.14em] text-[#DE3B34]">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-sm leading-7 text-[#160A0A]/80 md:text-base">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
+        </div>
+      </section>
 
-          <div
-            className={`rounded-2xl border p-6 ${isPremiumCountry ? "" : "bg-white border-gray-100 shadow"}`}
-            style={isPremiumCountry ? { borderColor: premiumTheme?.cardBorder, backgroundColor: premiumTheme?.sectionBg } : undefined}
-          >
-            <h2 className="text-xl font-bold mb-4" style={{ color: isPremiumCountry ? premiumTheme?.heading : "#160A0A" }}>
-              {isArabic ? "خيارات الاستثمار" : "Investment Routes"}
+      {/* Investment routes */}
+      <section className="border-y border-[#160A0A]/10 bg-[#F1EFF0] py-14 md:py-16">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              {isArabic ? "المسارات" : "Routes"}
+            </p>
+            <h2 className="mt-2 text-3xl font-bold text-[#160A0A] md:text-4xl">
+              {extended.eligibilityTitle}
             </h2>
-            <ul className="space-y-3" style={{ color: isPremiumCountry ? premiumTheme?.body : "#374151" }}>
+            <p className="mt-3 text-base leading-7 text-[#160A0A]/70">{extended.eligibilityIntro}</p>
+          </div>
+
+          <div className="space-y-0 border border-[#160A0A]/10 bg-white">
+            {extended.investmentCards.map((card, index) => (
+              <article
+                key={card.title}
+                className="grid gap-4 border-b border-[#160A0A]/10 p-6 last:border-b-0 md:grid-cols-[80px_1fr] md:p-8"
+              >
+                <span className="text-xs font-semibold tracking-[0.16em] text-[#DE3B34]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-[#160A0A]">{card.title}</h3>
+                  <p className="mt-2 text-sm font-semibold text-[#DE3B34]">{card.minimum}</p>
+                  <p className="mt-3 text-sm leading-7 text-[#160A0A]/75 md:text-base">{card.desc}</p>
+                  {card.note ? (
+                    <p className="mt-2 text-xs leading-6 text-[#160A0A]/55">{card.note}</p>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#DE3B34]">
+              {isArabic ? "ملخص خيارات الاستثمار" : "Investment summary"}
+            </h3>
+            <ul className="mt-4 space-y-3">
               {content.options.map((item) => (
-                <li key={item} className="flex gap-2">
-                  <span style={{ color: isPremiumCountry ? premiumTheme?.accent : "#f59e0b" }}>•</span>
+                <li key={item} className="flex gap-3 text-sm leading-7 text-[#160A0A]/75">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#DE3B34]" />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
+      </section>
 
-        {isPremiumCountry && extendedContent && visuals && (
-          <section className="mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: premiumTheme?.heading }}>{extendedContent.eligibilityTitle}</h2>
-            <p className="mb-6" style={{ color: premiumTheme?.body }}>{extendedContent.eligibilityIntro}</p>
-
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
-              {extendedContent.investmentCards.map((card, idx) => {
-                const cardImg = isAntigua
-                  ? (idx === 0 ? antiguaVisuals.ndf : idx === 1 ? antiguaVisuals.uwi : antiguaVisuals.realEstate)
-                  : isStKitts
-                    ? (idx === 0 ? stKittsVisuals.sisc : idx === 1 ? stKittsVisuals.publicBenefit : stKittsVisuals.realEstate)
-                    : isSaintLucia
-                      ? (idx === 0 ? saintLuciaVisuals.nef : idx === 1 ? saintLuciaVisuals.realEstate : saintLuciaVisuals.bonds)
-                      : isDominica
-                        ? (idx === 0 ? dominicaVisuals.edf : idx === 1 ? dominicaVisuals.realEstate : dominicaVisuals.family)
-                        : (idx === 0 ? turkiyeVisuals.realEstate : idx === 1 ? turkiyeVisuals.capital : turkiyeVisuals.bonds);
-                return (
-                  <article
-                    key={card.title}
-                    className="rounded-2xl border overflow-hidden"
-                    style={{ borderColor: premiumTheme?.cardBorder, backgroundColor: premiumTheme?.sectionBg }}
-                  >
-                    <div className="relative h-40">
-                      <img src={cardImg} alt={card.title} className="w-full h-full object-cover" loading="lazy" />
-                      <div className="absolute inset-0" style={{ background: premiumTheme?.cardOverlay }} />
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-lg font-bold mb-2" style={{ color: premiumTheme?.heading }}>{card.title}</h3>
-                      <p className="text-sm font-semibold mb-3" style={{ color: premiumTheme?.accent }}>{card.minimum}</p>
-                      <p className="text-sm mb-2" style={{ color: premiumTheme?.body }}>{card.desc}</p>
-                      {card.note && <p className="text-xs" style={{ color: premiumTheme?.muted }}>{card.note}</p>}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-
-            <div
-              className="rounded-2xl border overflow-hidden mb-8"
-              style={{ borderColor: premiumTheme?.cardBorder, backgroundColor: premiumTheme?.sectionBg }}
-            >
-              <div className="grid lg:grid-cols-5">
-                <div className="relative min-h-[240px] lg:col-span-2">
-                  <FallbackImage
-                    src={visuals.process}
-                    fallbackSrc={baseVisuals?.process}
-                    alt="Application process"
-                    className="absolute inset-0 w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0" style={{ background: premiumTheme?.processOverlay }} />
-                </div>
-                <div className="p-6 lg:col-span-3">
-                  <h3 className="text-xl font-bold mb-2" style={{ color: premiumTheme?.heading }}>{extendedContent.processTitle}</h3>
-                  <p className="mb-4" style={{ color: premiumTheme?.body }}>{extendedContent.processIntro}</p>
-                  <ol className="space-y-2 list-decimal pl-5" style={{ color: premiumTheme?.body }}>
-                    {extendedContent.processSteps.map((step) => (
-                      <li key={step}>{step}</li>
-                    ))}
-                  </ol>
-                  <p className="mt-4 text-sm font-semibold" style={{ color: premiumTheme?.accent }}>{extendedContent.processTime}</p>
-                </div>
+      {/* Process */}
+      <section className="bg-[#160A0A] py-14 text-white md:py-16">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F0716B]">
+              {isArabic ? "الخطوات" : "Process"}
+            </p>
+            <h2 className="mt-2 text-3xl font-bold md:text-4xl">{extended.processTitle}</h2>
+            <p className="mt-3 text-sm leading-7 text-white/70 md:text-base">{extended.processIntro}</p>
+            <p className="mt-3 text-sm font-semibold text-[#FFB6B6]">{extended.processTime}</p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {extended.processSteps.map((step, index) => (
+              <div key={step} className="border-t border-white/20 pt-5">
+                <p className="text-xs font-semibold tracking-[0.16em] text-[#F0716B]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-3 text-base font-semibold leading-7 text-white">{step}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-white py-14 md:py-16">
+        <div className="mx-auto max-w-[900px] px-4 md:px-8">
+          <h2 className="text-3xl font-bold text-[#160A0A] md:text-4xl">{extended.faqTitle}</h2>
+          <div className="mt-8 border-t border-[#160A0A]/15">
+            {extended.faqs.map((q) => (
+              <details key={q} className="group border-b border-[#160A0A]/15">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+                  <span className="font-semibold text-[#160A0A]">{q}</span>
+                  <span className="text-xl font-light text-[#DE3B34] transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p className="pb-5 text-sm leading-7 text-[#160A0A]/70">
+                  {isArabic
+                    ? "تواصل مع فريقنا للحصول على إجابة محدثة وفق ملفك وشروط البرنامج الحالية."
+                    : "Speak with our team for an up-to-date answer based on your profile and current program rules."}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* News */}
+      {news.length > 0 ? (
+        <section className="border-t border-[#160A0A]/10 bg-[#F1EFF0] py-14 md:py-16">
+          <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+            <h2 className="text-3xl font-bold text-[#160A0A] md:text-4xl">
+              {isArabic ? "الأخبار والتحديثات" : "News & Updates"}
+            </h2>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {news.slice(0, 3).map((item) => (
+                <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="block">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#160A0A]/10">
+                    <img src={item.image} alt="" className="h-full w-full object-cover" loading="lazy" />
+                  </div>
+                  <h3 className="mt-4 text-lg font-bold leading-snug text-[#160A0A]">{item.title}</h3>
+                  {item.source ? <p className="mt-2 text-xs text-[#160A0A]/50">{item.source}</p> : null}
+                </a>
+              ))}
             </div>
+          </div>
+        </section>
+      ) : null}
 
-            <div
-              className="relative rounded-2xl border overflow-hidden p-6 mb-8"
-              style={{ borderColor: premiumTheme?.sectionBorder, backgroundColor: premiumTheme?.sectionBg }}
-            >
-              <div className="absolute inset-0">
-                <FallbackImage
-                  src={visuals.lifestyle}
-                  fallbackSrc={baseVisuals?.lifestyle}
-                  alt="Island lifestyle"
-                  className="absolute inset-0 w-full h-full object-cover opacity-25"
-                  loading="lazy"
-                />
-              </div>
-              <div className="relative z-10">
-                <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: premiumTheme?.heading }}>{extendedContent.finalTitle}</h3>
-                <p className="mb-4" style={{ color: premiumTheme?.lead }}>{extendedContent.finalText}</p>
-              </div>
-              <a
-                href={whatsappStartUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative z-10 inline-flex items-center rounded-full text-sm font-semibold px-5 py-2.5"
-                style={{ backgroundColor: premiumTheme?.buttonBg, color: premiumTheme?.buttonText }}
-              >
-                {extendedContent.ctaPrimary}
-              </a>
-            </div>
-
-            <div
-              className="rounded-2xl border p-6"
-              style={{ borderColor: premiumTheme?.cardBorder, backgroundColor: premiumTheme?.sectionBg }}
-            >
-              <h3 className="text-xl font-bold mb-4" style={{ color: premiumTheme?.heading }}>{extendedContent.faqTitle}</h3>
-              <ul className="space-y-2" style={{ color: premiumTheme?.body }}>
-                {extendedContent.faqs.map((q) => (
-                  <li key={q}><span style={{ color: premiumTheme?.accent }}>•</span> {q}</li>
-                ))}
-              </ul>
-            </div>
-
-          </section>
-        )}
-
-        <div
-          className={`rounded-2xl border p-5 text-sm ${isPremiumCountry ? "" : "border-amber-200 bg-amber-50 text-amber-900"}`}
-          style={
-            isPremiumCountry
-              ? { borderColor: premiumTheme?.sectionBorder, backgroundColor: premiumTheme?.sectionBg, color: premiumTheme?.body }
-              : undefined
-          }
-        >
-          <p className="mb-2">
+      {/* Closing CTA */}
+      <section className="bg-[#160A0A] py-16 text-center text-white md:py-20">
+        <div className="mx-auto max-w-3xl px-4 md:px-8">
+          <h2 className="text-3xl font-bold md:text-4xl">{extended.finalTitle}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-white/70">{extended.finalText}</p>
+          <p className="mx-auto mt-4 max-w-xl text-xs leading-5 text-white/45">
             {isArabic
               ? "تنبيه: الشروط والمبالغ قابلة للتحديث من الجهات الرسمية."
               : "Note: Program rules and thresholds can change by official government updates."}
           </p>
+          <a
+            href={whatsappStartUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
+          >
+            {extended.ctaPrimary}
+          </a>
         </div>
-
-        {(isAntigua || isStKitts) && premiumNews.length > 0 && (
-          <section className="mt-8 rounded-2xl border p-6" style={{ borderColor: "#CECDCB55", backgroundColor: "#160A0A" }}>
-            <h3 className="text-xl md:text-2xl font-bold mb-4" style={{ color: "#FFB6B6" }}>
-              {isArabic ? "الأخبار والتحديثات" : "News & Updates"}
-            </h3>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {premiumNews.map((news) => (
-                <article key={news.url} className="rounded-xl border overflow-hidden" style={{ borderColor: "#CECDCB44", backgroundColor: "#160A0A" }}>
-                  <a href={news.url} target="_blank" rel="noopener noreferrer" aria-label={news.title}>
-                    <img src={news.image} alt={news.title} className="w-full h-36 object-cover" loading="lazy" />
-                  </a>
-                  <div className="p-3">
-                    <a href={news.url} target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: "#DE3B34" }}>
-                      <h4 className="font-semibold leading-snug line-clamp-3">{news.title}</h4>
-                    </a>
-                    {news.source && <p className="text-xs mt-2" style={{ color: "#CECDCB" }}>{news.source}</p>}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
-      </div>
+      </section>
     </div>
   );
 }
+

@@ -60,7 +60,10 @@ export default async function AboutPage({
       <div className="relative flex h-[480px] items-center justify-center overflow-hidden bg-[#160A0A] md:h-[560px]">
         <AboutHeroBackground />
         <div className="relative z-10 text-center px-4">
-          <p className="font-semibold mb-2 tracking-wider uppercase text-sm" style={{color: '#ca807e'}}>
+          <p
+            className="mb-2 text-sm font-semibold uppercase tracking-wider text-white"
+            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+          >
             {lang === 'en' ? 'Driven by Precision, Built on Trust' : 'مدفوعون بالدقة، مبنيون على الثقة'}
           </p>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">

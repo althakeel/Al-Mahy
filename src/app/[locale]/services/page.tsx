@@ -1,5 +1,15 @@
 import { translations, Locale } from "@/lib/translations";
 import Link from "next/link";
+import Image from "next/image";
+
+const serviceImages: Record<string, string> = {
+  "legal-services": "/assets/services/legal-team-v6.webp",
+  "corporate-services": "/assets/services/corporate-team.webp",
+  "notary-public-services": "/assets/services/notory.webp",
+  "accounting-services": "/assets/services/accounting.webp",
+  "second-passport": "/assets/services/passport.webp",
+  "expert-reports": "/assets/services/reports.webp",
+};
 
 export default async function ServicesPage({
   params,
@@ -10,91 +20,80 @@ export default async function ServicesPage({
   const isValidLoc = locale === "en" || locale === "ar";
   const lang = isValidLoc ? (locale as Locale) : "en";
   const t = translations[lang];
+  const isArabic = lang === "ar";
 
   const services =
     lang === "ar"
       ? [
           {
-            icon: "⚖️",
             slug: "legal-services",
             title: "الخدمات القانونية",
             description:
-              "دعم قانوني شامل للأفراد والشركات، يشمل الاستشارات والصياغة والمراجعة والتوجيه القانوني الاستراتيجي عبر أبرز المجالات.",
+              "خدمات قانونية متخصصة في دبي للأفراد والشركات، تشمل الاستشارات وصياغة العقود وتسوية النزاعات ودعم التقاضي والنصح القانوني الاستراتيجي.",
           },
           {
-            icon: "🏢",
             slug: "corporate-services",
-            title: "الخدمات المؤسسية",
+            title: "خدمات الشركات",
             description:
-              "تأسيس الأعمال وإعادة الهيكلة والحوكمة والامتثال، بحلول مصممة للشركات الناشئة والمتوسطة والكبيرة في الإمارات.",
+              "خدمات مؤسسية شاملة للشركات الناشئة والصغيرة والمتوسطة والقائمة، تشمل التأسيس والحوكمة والامتثال والتراخيص وإعادة الهيكلة والدعم القانوني المستمر في الإمارات.",
           },
           {
-            icon: "📝",
             slug: "notary-public-services",
             title: "خدمات الكاتب العدل",
             description:
-              "دعم إجراءات التوثيق وتجهيز المستندات القانونية وضمان توافق المعاملات مع المتطلبات الرسمية المعتمدة.",
+              "خدمات كاتب عدل احترافية تشمل إعداد التوكيلات وتوثيق المستندات والإقرارات والتصديقات والشهادات وفق المتطلبات الحكومية والقانونية.",
           },
           {
-            icon: "📱",
             slug: "accounting-services",
-            title: "الخدمات المحاسبية",
+            title: "خدمات المحاسبة",
             description:
-              "تقدم شركة الخليج ستار للمحاسبة خدمات محاسبية من خلال محاسبين محترفين مؤهلين بخبرة واسعة لضمان كفاءة النظام المالي والمحاسبي.",
+              "خدمات محاسبية موثوقة لمساعدة الشركات على الحفاظ على الدقة المالية والامتثال التنظيمي وضريبة القيمة المضافة وضريبة الشركات ومسك الدفاتر والرواتب والتقارير المالية في الإمارات.",
           },
           {
-            icon: "🌍",
             slug: "second-passport",
             title: "الجواز الثاني",
             description:
-              "استشارات متخصصة لبرامج الجنسية والجواز الثاني، تشمل تقييم الأهلية وتجهيز الملفات ومتابعة الإجراءات.",
+              "إرشاد احترافي لبرامج الجنسية الثانية والإقامة عبر الاستثمار، يشمل تقييم الأهلية وتجهيز المستندات وإدارة الطلبات والدعم الكامل للتنقل الدولي.",
           },
           {
-            icon: "📑",
             slug: "expert-reports",
             title: "تقارير الخبرة",
             description:
-              "إعداد تقارير خبرة واضحة ومنظمة ووثائق فنية قانونية لدعم النزاعات والمطالبات والإجراءات القضائية.",
+              "إعداد تقارير خبرة ووثائق قانونية احترافية لدعم النزاعات التجارية والإجراءات القضائية والتحكيم ومطالبات التأمين والمسائل الفنية بتحليل واضح قائم على الأدلة.",
           },
         ]
       : [
           {
-            icon: "⚖️",
             slug: "legal-services",
             title: "LEGAL SERVICES",
             description:
-              "Expert legal services in Dubai for individuals and businesses, including legal consultation, contract drafting, dispute resolution, litigation support, and strategic legal advice. Our experienced lawyers provide practical solutions tailored to your legal needs across the UAE.",
-
+              "Expert legal services in Dubai for individuals and businesses, including legal consultation, contract drafting, dispute resolution, litigation support, and strategic legal advice.",
           },
           {
-            icon: "🏢",
             slug: "corporate-services",
             title: "CORPORATE SERVICES",
             description:
               "Comprehensive corporate services for startups, SMEs, and established businesses, including company formation, business setup, governance, compliance, licensing, restructuring, and ongoing corporate legal support throughout the UAE.",
           },
           {
-            icon: "📝",
             slug: "notary-public-services",
             title: "NOTARY PUBLIC SERVICES",
             description:
               "Professional notary public services, including power of attorney preparation, document notarization, legal declarations, attestations, and certification to ensure your documents meet all legal and government requirements.",
           },
           {
-            icon: "📱",
             slug: "accounting-services",
             title: "ACCOUNTING SERVICES",
-            description:"Reliable accounting services designed to help businesses maintain financial accuracy, regulatory compliance, VAT and corporate tax obligations, bookkeeping, payroll, and financial reporting across the UAE.", 
-          },           
+            description:
+              "Reliable accounting services designed to help businesses maintain financial accuracy, regulatory compliance, VAT and corporate tax obligations, bookkeeping, payroll, and financial reporting across the UAE.",
+          },
           {
-            icon: "🌍",
             slug: "second-passport",
             title: "SECOND PASSPORT",
             description:
               "Professional guidance on second citizenship and residency-by-investment programs, including eligibility assessment, document preparation, application management, and end-to-end support for international mobility.",
           },
           {
-            icon: "📑",
             slug: "expert-reports",
             title: "EXPERT REPORTS",
             description:
@@ -102,71 +101,171 @@ export default async function ServicesPage({
           },
         ];
 
+  const featured = services[0];
+  const rest = services.slice(1);
+
   return (
     <div
-      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 py-20 px-4 md:px-8"
-      dir={lang === "ar" ? "rtl" : "ltr"}
+      className={`min-h-screen bg-white text-[#160A0A] ${isArabic ? "text-right" : "text-left"}`}
+      dir={isArabic ? "rtl" : "ltr"}
       lang={lang}
     >
-      <div className="max-w-[1200px] mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16 pt-16">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight drop-shadow-lg whitespace-pre-line leading-tight max-w-4xl mx-auto">
-            {t.servicesPageTitle}
-          </h1>
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center gap-3">
-              <div className="h-1 w-12 bg-amber-400"></div>
-              <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-              <div className="h-1 w-12 bg-amber-400"></div>
+      {/* Compact hero */}
+      <section className="border-b border-[#160A0A]/10 bg-[#160A0A] pt-28 text-white md:pt-32">
+        <div className="mx-auto max-w-[1250px] px-4 pb-12 md:px-8 md:pb-16">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                {isArabic ? "الماحي · خدماتنا" : "Almahy · Our Services"}
+              </p>
+              <h1
+                className="mt-4 max-w-4xl whitespace-pre-line text-3xl font-bold leading-[1.08] text-white md:text-5xl"
+                style={{ fontFamily: "Georgia, serif" }}
+              >
+                {t.servicesPageTitle}
+              </h1>
+              <p className="mt-5 max-w-2xl text-sm leading-7 text-white/70 md:text-base">
+                {t.servicesIntro}
+              </p>
+            </div>
+            <div className={`flex flex-wrap gap-3 lg:col-span-4 lg:justify-end ${isArabic ? "lg:justify-start" : ""}`}>
+              <a
+                href="https://wa.me/971504096028?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
+              >
+                {t.contactButton}
+              </a>
+              <a
+                href="#services"
+                className="inline-flex items-center border border-white/50 px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
+              >
+                {isArabic ? "استعرض الخدمات" : "Browse Services"}
+              </a>
             </div>
           </div>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            {t.servicesIntro}
-          </p>
         </div>
+      </section>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            return (
-              <Link
-                key={index}
-                href={`/${lang}/${service.slug}`}
-                className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-2xl hover:shadow-amber-400/30 transition-shadow border border-gray-700 group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-amber-400"
-                tabIndex={0}
+      {/* Sticky directory */}
+      <section className="sticky top-0 z-20 border-b border-[#160A0A]/10 bg-[#F1EFF0]/95 backdrop-blur">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="flex gap-1 overflow-x-auto py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {services.map((service) => (
+              <a
+                key={service.slug}
+                href={`#${service.slug}`}
+                className="shrink-0 border border-transparent px-3 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#160A0A]/65 transition-colors hover:border-[#160A0A]/15 hover:bg-white hover:text-[#DE3B34]"
               >
-                <div className="text-5xl mb-4 text-amber-400 drop-shadow-lg group-hover:scale-110 transition-transform duration-300">{service.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-3 tracking-wide group-hover:text-amber-400 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  {service.description}
-                </p>
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-amber-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-              </Link>
-            );
-          })}
+                {service.title}
+              </a>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* CTA Section */}
-        <div className="mt-16 text-center bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-12 shadow-2xl border border-amber-200/20">
-          <h2 className="text-3xl font-extrabold text-white mb-4">
-            {t.servicesCTA}
-          </h2>
-          <p className="text-slate-300 mb-8 text-lg">
-            {t.servicesCTADesc}
-          </p>
-          <Link 
+      {/* Featured legal services */}
+      <section className="bg-[#F1EFF0]">
+        <div className="mx-auto grid max-w-[1250px] lg:grid-cols-2">
+          <div className="relative min-h-[300px] lg:min-h-[460px]">
+            <Image
+              src={serviceImages[featured.slug]}
+              alt={featured.title}
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+          <div id={featured.slug} className="flex scroll-mt-24 flex-col justify-center px-6 py-12 md:px-12 md:py-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              01
+            </p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-[#160A0A] md:text-4xl">
+              {featured.title}
+            </h2>
+            <p className="mt-5 text-base leading-8 text-[#160A0A]/75">
+              {featured.description}
+            </p>
+            <Link
+              href={`/${lang}/${featured.slug}`}
+              className="mt-8 inline-flex w-fit items-center border border-[#160A0A] px-6 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#160A0A] transition-colors hover:bg-[#160A0A] hover:text-white"
+            >
+              {isArabic ? "اعرف المزيد" : "Learn More"}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Remaining services list */}
+      <section id="services" className="bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
+          <div className="mb-10 border-b border-[#160A0A]/10 pb-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
+              {isArabic ? "مجالات الممارسة" : "Practice areas"}
+            </p>
+            <h2 className="mt-2 text-3xl font-bold text-[#160A0A] md:text-4xl">
+              {isArabic ? "خدماتنا" : "Our services"}
+            </h2>
+          </div>
+
+          <div className="divide-y divide-[#160A0A]/10 border border-[#160A0A]/10">
+            {rest.map((service, index) => (
+              <Link
+                key={service.slug}
+                id={service.slug}
+                href={`/${lang}/${service.slug}`}
+                className="group grid scroll-mt-24 gap-6 p-6 transition-colors hover:bg-[#F1EFF0] md:grid-cols-12 md:gap-8 md:p-8"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#160A0A]/5 md:col-span-4 md:aspect-auto md:min-h-[160px]">
+                  <Image
+                    src={serviceImages[service.slug]}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div className="flex gap-4 md:col-span-8">
+                  <span className="pt-1 text-xs font-semibold tracking-[0.14em] text-[#DE3B34]">
+                    {String(index + 2).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-4">
+                      <h3 className="text-xl font-bold text-[#160A0A] transition-colors group-hover:text-[#DE3B34] md:text-2xl">
+                        {service.title}
+                      </h3>
+                      <span className="mt-1 shrink-0 text-[#DE3B34] transition-transform group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
+                        →
+                      </span>
+                    </div>
+                    <p className="mt-3 text-sm leading-7 text-[#160A0A]/70 md:text-base">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-[#160A0A] py-16 text-white md:py-20">
+        <div className="mx-auto flex max-w-[1250px] flex-col items-start gap-8 px-4 md:flex-row md:items-center md:justify-between md:px-8">
+          <div className="max-w-xl">
+            <h2 className="text-3xl font-bold md:text-4xl">{t.servicesCTA}</h2>
+            <p className="mt-3 text-base leading-7 text-white/70">{t.servicesCTADesc}</p>
+          </div>
+          <a
             href="https://wa.me/971504096028?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-amber-300 hover:bg-amber-200 text-slate-900 font-bold px-8 py-4 rounded-full text-lg transition-colors shadow-lg border-2 border-amber-300"
+            className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
           >
             {t.contactButton}
-          </Link>
+          </a>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

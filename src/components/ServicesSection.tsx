@@ -14,95 +14,107 @@ const servicesData = {
     services: [
       {
         title: 'LEGAL SERVICES',
-        description: 'Expert legal services in Dubai for individuals and businesses, including legal consultation, contract drafting, dispute resolution, litigation support, and strategic legal advice. Our experienced lawyers provide practical solutions tailored to your legal needs across the UAE.',
+        description:
+          'Expert legal consultation, contract drafting, dispute resolution, and strategic advice for individuals and businesses across the UAE.',
         image: '/assets/services/legal-team-v6.webp',
         alt: 'Almahy Legal Services team in Dubai',
-        url: '/legal-services'
+        url: '/legal-services',
       },
       {
         title: 'CORPORATE SERVICES',
-        description: 'Comprehensive corporate services for startups, SMEs, and established businesses, including company formation, business setup, governance, compliance, licensing, restructuring, and ongoing corporate legal support throughout the UAE.',
+        description:
+          'Company formation, licensing, governance, compliance, and ongoing corporate support for startups, SMEs, and established firms.',
         image: '/assets/services/corporate-team.webp',
         alt: 'Corporate legal services and business setup in Dubai',
-        url: '/corporate-services'
+        url: '/corporate-services',
       },
       {
         title: 'NOTARY PUBLIC SERVICES',
-        description: 'Professional notary public services, including power of attorney preparation, document notarization, legal declarations, attestations, and certification to ensure your documents meet all legal and government requirements.',
+        description:
+          'Power of attorney, document notarization, attestations, and certifications prepared to meet UAE legal requirements.',
         image: '/assets/services/notory.webp',
         alt: 'Notary public services in Dubai',
-        url: '/notary-public-services'
+        url: '/notary-public-services',
       },
       {
         title: 'ACCOUNTING SERVICES',
-        description:"Reliable accounting services designed to help businesses maintain financial accuracy, regulatory compliance, VAT and corporate tax obligations, bookkeeping, payroll, and financial reporting across the UAE.",
+        description:
+          'Bookkeeping, VAT, corporate tax, payroll, and financial reporting to keep your business accurate and compliant.',
         image: '/assets/services/accounting.webp',
         alt: 'Accounting and tax services in the UAE',
-        url: '/accounting-services'
+        url: '/accounting-services',
       },
       {
         title: 'SECOND PASSPORT',
-        description: "Professional guidance on second citizenship and residency-by-investment programs, including eligibility assessment, document preparation, application management, and end-to-end support for international mobility.",
+        description:
+          'Guidance on residency and citizenship-by-investment programs, from eligibility review through application support.',
         image: '/assets/services/passport.webp',
         alt: 'Second citizenship and residency advisory services',
-        url: '/second-passport'
+        url: '/second-passport',
       },
       {
         title: 'EXPERT REPORTS',
-        description: "Preparation of professional expert reports and legal documentation to support commercial disputes, court proceedings, arbitration, insurance claims, and technical matters with clear, evidence-based analysis",
+        description:
+          'Professional expert reports and legal documentation for disputes, arbitration, insurance claims, and court proceedings.',
         image: '/assets/services/reports.webp',
         alt: 'Professional legal expert reports in Dubai',
-        url: '/expert-reports'
-      }
-    ]
+        url: '/expert-reports',
+      },
+    ],
   },
   ar: {
     title: 'خدماتنا',
     services: [
       {
         title: 'الخدمات القانونية',
-        description: 'دعم قانوني شامل للأفراد والشركات، يشمل الاستشارات والصياغة والمراجعة ووضع الاستراتيجيات القانونية في مختلف المجالات.',
+        description:
+          'استشارات قانونية وصياغة عقود وتسوية نزاعات ونصح استراتيجي للأفراد والشركات في جميع أنحاء الإمارات.',
         image: '/assets/services/legal-team-v6.webp',
-        alt: 'Almahy Legal Services team in Dubai',
-        url: '/legal-services'
+        alt: 'فريق الماحي للخدمات القانونية في دبي',
+        url: '/legal-services',
       },
       {
         title: 'خدمات الشركات',
-        description: 'تأسيس الشركات وإعادة الهيكلة والحوكمة والامتثال بما يتناسب مع الشركات الناشئة والمؤسسات الصغيرة والمتوسطة والشركات الكبرى في الإمارات.',
+        description:
+          'تأسيس الشركات والتراخيص والحوكمة والامتثال والدعم المؤسسي المستمر للشركات الناشئة والصغيرة والمتوسطة والقائمة.',
         image: '/assets/services/corporate-team.webp',
-        alt: 'Corporate legal services and business setup in Dubai',
-        url: '/corporate-services'
+        alt: 'خدمات الشركات وتأسيس الأعمال في دبي',
+        url: '/corporate-services',
       },
       {
         title: 'خدمات الكاتب العدل',
-        description: 'مساندة في إجراءات التوثيق وتجهيز معاملات التصديق على المستندات والتأكد من توافقها مع المتطلبات القانونية.',
+        description:
+          'توكيلات وتوثيق مستندات وتصديقات وشهادات وفق المتطلبات القانونية في الإمارات.',
         image: '/assets/services/notory.webp',
-        alt: 'Notary public services in Dubai',
-        url: '/notary-public-services'
+        alt: 'خدمات الكاتب العدل في دبي',
+        url: '/notary-public-services',
       },
       {
         title: 'خدمات المحاسبة',
-        description: 'توفر شركة الخليج ستار للمحاسبة خدمات محاسبية من خلال محاسبين محترفين مؤهلين يتمتعون بخبرة واسعة في مختلف أنشطة الشركات، ونجاح أي مؤسسة يعتمد على فعالية نظامها المحاسبي والمالي، والمحاسب المحترف المختص هو حجر الزاوية في هذا النظام',
+        description:
+          'مسك دفاتر وضريبة القيمة المضافة وضريبة الشركات والرواتب والتقارير المالية للحفاظ على دقة أعمالك وامتثالها.',
         image: '/assets/services/accounting.webp',
-        alt: 'Accounting and tax services in the UAE',
-        url: '/accounting-services'
+        alt: 'خدمات المحاسبة والضرائب في الإمارات',
+        url: '/accounting-services',
       },
       {
         title: 'الجواز الثاني',
-        description: 'استشارات متخصصة لمسارات الحصول على جواز سفر ثانٍ أو جنسية ثانية، بما يشمل مراجعة الأهلية وتجهيز المستندات ومتابعة الإجراءات.',
+        description:
+          'إرشاد لبرامج الإقامة والجنسية عبر الاستثمار، من تقييم الأهلية حتى دعم تقديم الطلب.',
         image: '/assets/services/passport.webp',
-        alt: 'Second citizenship and residency advisory services',
-        url: '/second-passport'
+        alt: 'استشارات الجنسية الثانية والإقامة',
+        url: '/second-passport',
       },
       {
         title: 'تقارير الخبرة',
-        description: 'إعداد تقارير خبرة فنية وقانونية واضحة ومنظمة لدعم النزاعات والمطالبات والإجراءات القضائية.',
+        description:
+          'تقارير خبرة ووثائق قانونية احترافية للنزاعات والتحكيم ومطالبات التأمين والإجراءات القضائية.',
         image: '/assets/services/reports.webp',
-        alt: 'Professional legal expert reports in Dubai',
-        url: '/expert-reports'
-      }
-    ]
-  }
+        alt: 'تقارير الخبرة القانونية في دبي',
+        url: '/expert-reports',
+      },
+    ],
+  },
 };
 
 export default function ServicesSection({ locale }: ServicesSectionProps) {
