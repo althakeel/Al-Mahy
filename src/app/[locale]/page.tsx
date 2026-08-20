@@ -13,7 +13,7 @@ import Stats from "@/components/Stats";
 import ClientLogosMarquee from "@/components/ClientLogosMarquee";
 import AboutSectionWithVideo from "@/components/AboutSectionWithVideo";
 import HeroLegalSearchPanel from "@/components/HeroLegalSearchPanel";
-import HeroBackgroundSlider, { HeroSlideIndicators } from "@/components/HeroBackgroundSlider";
+import HeroBackgroundSlider from "@/components/HeroBackgroundSlider";
 import { getHeroSlides } from "@/lib/hero-slides";
 
 export default function Home() {
@@ -27,29 +27,8 @@ export default function Home() {
   /* ---------------- Hero Headlines ---------------- */
 
   const heroSlides = getHeroSlides(lang);
-
-  const [slideIdx, setSlideIdx] = useState(0);
-  const [fade, setFade] = useState(true);
-
-  useEffect(() => {
-    let fadeOutTimer: NodeJS.Timeout | undefined;
-    let slideTimer: NodeJS.Timeout | undefined;
-    if (fade) {
-      fadeOutTimer = setTimeout(() => setFade(false), 4500);
-    } else {
-      slideTimer = setTimeout(() => {
-        setSlideIdx((prev) => (prev + 1) % heroSlides.length);
-        setFade(true);
-      }, 600);
-    }
-    return () => {
-      if (fadeOutTimer) clearTimeout(fadeOutTimer);
-      if (slideTimer) clearTimeout(slideTimer);
-    };
-  }, [fade, slideIdx, heroSlides.length]);
-
-  const currentSlide = heroSlides[slideIdx % heroSlides.length];
-  const currentHeadline = currentSlide.headline.join('\n');
+  const currentSlide = heroSlides[0];
+  const currentHeadline = currentSlide.headline.join("\n");
 
   const [yearsCount, setYearsCount] = useState(0);
 
@@ -63,17 +42,12 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const goToSlide = (index: number) => {
-    setSlideIdx(index % heroSlides.length);
-    setFade(true);
-  };
-
   return (
     <div dir={isRTL ? "rtl" : "ltr"} lang={lang} className="w-full">
 
       {/* HERO SECTION */}
       <section className="relative flex min-h-[100svh] w-full items-end overflow-hidden bg-[#160A0A] md:min-h-[820px]">
-        <HeroBackgroundSlider slides={heroSlides} activeIndex={slideIdx} isRTL={isRTL} />
+        <HeroBackgroundSlider slides={heroSlides} activeIndex={0} isRTL={isRTL} />
         <div className={`absolute inset-0 ${isRTL ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-[#160A0A] via-[#160A0A]/88 to-[#160A0A]/35`} />
         <div className="absolute inset-0 bg-[#160A0A]/30" />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#160A0A] via-[#160A0A]/70 to-transparent" />
@@ -91,7 +65,7 @@ export default function Home() {
               </p>
 
               <h1
-                className={`max-w-3xl whitespace-pre-line text-4xl font-bold leading-[1.05] text-white transition-opacity duration-700 md:text-5xl lg:text-6xl ${fade ? "opacity-100" : "opacity-0"}`}
+                className="max-w-3xl whitespace-pre-line text-4xl font-bold leading-[1.05] text-white md:text-5xl lg:text-6xl"
                 style={{ fontFamily: "Georgia, serif", textShadow: "0 3px 22px rgba(0,0,0,0.65)" }}
               >
                 {currentHeadline}
@@ -152,12 +126,6 @@ export default function Home() {
           </div>
         </div>
 
-        <HeroSlideIndicators
-          count={heroSlides.length}
-          activeIndex={slideIdx}
-          onSelect={goToSlide}
-          isRTL={isRTL}
-        />
       </section>
 
       {/* Other Sections */}
