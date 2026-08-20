@@ -40,7 +40,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "محمد حسنين",
     roleEn: "Legal Consultant",
     roleAr: "مستشار قانوني",
-    image: "/images/team/mohamed-hassanein.png",
+    image: "/images/team/mohamed-hassanein-v2.png",
     slug: "mohamed-hassanein",
   },
   {
@@ -67,7 +67,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "مدثر ياسين",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/team-11.png",
+    image: "/images/team/mudasir-yaseen.png",
     slug: "mudasir-yaseen",
   },
   {
@@ -76,7 +76,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "محمود صلاح الدين",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/team-05.png",
+    image: "/images/team/mahmoud-salah-el-din.png",
     slug: "mahmoud-salah-eldein",
   },
   {
@@ -94,7 +94,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "أحمد أسامة",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/team-04.png",
+    image: "/images/team/ahmed-osama.png",
     slug: "ahmed-osama",
   },
   {
