@@ -40,7 +40,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "محمد حسنين",
     roleEn: "Legal Consultant",
     roleAr: "مستشار قانوني",
-    image: "/images/team/mohamed-hassanein-v2.png",
+    image: "/images/team/mohamed-hassanein-v3.webp",
     slug: "mohamed-hassanein",
   },
   {
@@ -67,7 +67,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "مدثر ياسين",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/mudasir-yaseen.png",
+    image: "/images/team/mudasir-yaseen-v2.webp",
     slug: "mudasir-yaseen",
   },
   {
@@ -76,7 +76,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "محمود صلاح الدين",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/mahmoud-salah-el-din.png",
+    image: "/images/team/mahmoud-salah-el-din-v2.webp",
     slug: "mahmoud-salah-eldein",
   },
   {
@@ -94,7 +94,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "أحمد أسامة",
     roleEn: "Accountant",
     roleAr: "محاسب",
-    image: "/images/team/ahmed-osama.png",
+    image: "/images/team/ahmed-osama-v2.webp",
     slug: "ahmed-osama",
   },
   {
@@ -103,7 +103,7 @@ export const team: TeamMemberCard[] = [
     nameAr: "داليا غنيم",
     roleEn: "Legal Consultant",
     roleAr: "مستشارة قانونية",
-    image: "/images/team/team-06.png",
+    image: "/images/team/dalia-ghonem-v2.webp",
     slug: "dalia-ghonem",
   },
   {
