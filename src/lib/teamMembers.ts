@@ -466,6 +466,22 @@ export const teamMembers: TeamMemberProfile[] = [
     ],
   }),
   basicProfile({
+    slug: "abdulla",
+    nameEn: "Abdulla",
+    nameAr: "عبدالله",
+    positionEn: "MARKETING MANAGER",
+    positionAr: "مدير التسويق",
+    photo: cardPhoto("abdulla", "/images/team/abdulla.webp"),
+    practiceAreasEn: ["Brand Marketing", "Digital Campaigns", "Client Outreach"],
+    practiceAreasAr: ["التسويق للعلامة", "الحملات الرقمية", "التواصل مع العملاء"],
+    overviewEn: [
+      "Abdulla leads marketing for Almahy Legal Services, building brand presence and supporting client outreach across the UAE.",
+    ],
+    overviewAr: [
+      "يقود عبدالله التسويق في شركة الماحي للخدمات القانونية، ويعزز حضور العلامة ويدعم التواصل مع العملاء في أنحاء الإمارات.",
+    ],
+  }),
+  basicProfile({
     slug: "rocky-cs",
     nameEn: "Rocky CS",
     nameAr: "روكي",
