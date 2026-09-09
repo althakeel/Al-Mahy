@@ -35,6 +35,7 @@ export default function HeroLegalSearchPanel({ locale, className = '', align }: 
         showRecent
         maxPopular={3}
         maxRecent={4}
+        className="cursor-pointer"
       />
     </div>
   );

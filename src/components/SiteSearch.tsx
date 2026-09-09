@@ -52,6 +52,7 @@ export default function SiteSearch({
   heroTone = 'light',
   maxPopular,
   maxRecent = 4,
+  cursor = 'default',
 }: SiteSearchProps) {
   const router = useRouter();
   const t = labels[locale];

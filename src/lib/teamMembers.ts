@@ -434,6 +434,22 @@ export const teamMembers: TeamMemberProfile[] = [
     email: defaultEmail,
   },
   basicProfile({
+    slug: "abdel-rahman-matar",
+    nameEn: "Abdel Rahman Matar",
+    nameAr: "عبد الرحمن مطر",
+    positionEn: "LEGAL ADVISOR",
+    positionAr: "مستشار قانوني",
+    photo: cardPhoto("abdel-rahman-matar", "/images/team/abdel-rahman-matar.jpg"),
+    practiceAreasEn: ["Legal Advisory", "Client Consultations", "Case Support"],
+    practiceAreasAr: ["الاستشارات القانونية", "استشارات العملاء", "دعم القضايا"],
+    overviewEn: [
+      "Abdel Rahman Matar supports clients as Legal Advisor at Almahy Legal Services, providing practical legal guidance and coordinated case support across the UAE.",
+    ],
+    overviewAr: [
+      "يدعم عبد الرحمن مطر العملاء بصفته مستشاراً قانونياً في الماحي للخدمات القانونية، ويقدم إرشاداً قانونياً عملياً ودعماً منسقاً للقضايا في جميع أنحاء الإمارات.",
+    ],
+  }),
+  basicProfile({
     slug: "rohith-sagar-m",
     nameEn: "Rohith Sagar M",
     nameAr: "روهيث ساغار م",

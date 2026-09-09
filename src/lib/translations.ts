@@ -18,6 +18,9 @@ export const translations = {
     
     // Services Page
     servicesPageTitle: "Comprehensive Legal, Corporate & Advisory\nServices in Dubai",
+    servicesHeroLine1: "Comprehensive Legal,",
+    servicesHeroHighlight: "Corporate & Advisory",
+    servicesHeroLine2: "Services in Dubai",
     servicesIntro: "At Almahy for Legal Services, we provide a comprehensive range of legal, corporate, notary public, accounting, expert report, and advisory services tailored to individuals, businesses, and investors across the UAE.",
     service1Title: "Bookkeeping & Accounting",
     service1Desc: "Professional management of your financial records with accuracy and compliance.",
@@ -80,6 +83,16 @@ export const translations = {
     footerEmailPlaceholder: "Email Address",
     footerPrivacy: "Privacy",
     footerTerms: "Terms",
+    footerGetInTouch: "GET IN TOUCH",
+    footerCtaHeadingBefore: "Ready to Discuss Your",
+    footerCtaHeadingHighlight: "Legal Requirements?",
+    footerCtaConversation: "Let's start the conversation.",
+    footerFeature1Title: "Trusted Expertise",
+    footerFeature1Desc: "Results-driven solutions",
+    footerFeature2Title: "Client Focused",
+    footerFeature2Desc: "Your goals, our priority",
+    footerFeature3Title: "Comprehensive Support",
+    footerFeature3Desc: "Across corporate & legal matters",
     // About Section (for AboutSectionWithVideo)
     aboutTestimonial: "Al Mahy Legal Consultancy provided exceptional support and expertise, guiding us through complex legal matters with professionalism and efficiency. Their dedication and knowledge were invaluable to our success. Highly recommended!",
     aboutUsLabel: "About Us",
@@ -106,6 +119,9 @@ export const translations = {
     
     // Services Page
     servicesPageTitle: "خدمات قانونية ومؤسسية واستشارية شاملة\nفي دبي",
+    servicesHeroLine1: "خدمات قانونية ومؤسسية",
+    servicesHeroHighlight: "واستشارية شاملة",
+    servicesHeroLine2: "في دبي",
     servicesIntro: "في المحي للخدمات القانونية، نقدم مجموعة شاملة من الخدمات القانونية والمؤسسية وخدمات الكاتب العدل والمحاسبة وتقارير الخبرة والاستشارات المصممة للأفراد والشركات والمستثمرين في جميع أنحاء الإمارات.",
     service1Title: "مسك الدفاتر والمحاسبة",
     service1Desc: "إدارة احترافية لسجلاتك المالية بدقة وامتثال كامل.",
@@ -160,7 +176,7 @@ export const translations = {
     hoursWeekend: "الجمعة - السبت: مغلق",
     
     // Footer
-    footerText: "© 2026 جلف ستار للمحاسبة. جميع الحقوق محفوظة.",
+    footerText: "© 2026 Almahy Legal Services. جميع الحقوق محفوظة.",
     footerOurAddress: "عنواننا",
     footerConnectWithUs: "تواصل معنا",
     footerNewsletter: "نشرتنا الإخبارية",
@@ -168,6 +184,16 @@ export const translations = {
     footerEmailPlaceholder: "عنوان البريد الإلكتروني",
     footerPrivacy: "الخصوصية",
     footerTerms: "الشروط",
+    footerGetInTouch: "تواصل معنا",
+    footerCtaHeadingBefore: "هل أنت مستعد لمناقشة",
+    footerCtaHeadingHighlight: "متطلباتك القانونية؟",
+    footerCtaConversation: "لنبدأ المحادثة.",
+    footerFeature1Title: "خبرة موثوقة",
+    footerFeature1Desc: "حلول قائمة على النتائج",
+    footerFeature2Title: "تركيز على العميل",
+    footerFeature2Desc: "أهدافك أولويتنا",
+    footerFeature3Title: "دعم شامل",
+    footerFeature3Desc: "في الأمور المؤسسية والقانونية",
     // About Section (for AboutSectionWithVideo)
     aboutTestimonial: "ساعدتنا ماهي في الفوز بقضيتنا!",
     aboutUsLabel: "من نحن",

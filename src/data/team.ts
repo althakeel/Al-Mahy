@@ -108,6 +108,15 @@ export const team: TeamMemberCard[] = [
   },
   {
     order: 11,
+    nameEn: "Abdel Rahman Matar",
+    nameAr: "عبد الرحمن مطر",
+    roleEn: "Legal Advisor",
+    roleAr: "مستشار قانوني",
+    image: "/images/team/abdel-rahman-matar.jpg",
+    slug: "abdel-rahman-matar",
+  },
+  {
+    order: 12,
     nameEn: "Abdulla",
     nameAr: "عبدالله",
     roleEn: "Marketing Manager",
@@ -116,7 +125,7 @@ export const team: TeamMemberCard[] = [
     slug: "abdulla",
   },
   {
-    order: 12,
+    order: 13,
     nameEn: "Rohith Sagar M",
     nameAr: "روهيث ساغار م",
     roleEn: "Full Stack Developer",
@@ -125,7 +134,7 @@ export const team: TeamMemberCard[] = [
     slug: "rohith-sagar-m",
   },
   {
-    order: 13,
+    order: 14,
     nameEn: "Amritha",
     nameAr: "أمريثا",
     roleEn: "Full Stack Developer",
@@ -134,7 +143,7 @@ export const team: TeamMemberCard[] = [
     slug: "amritha",
   },
   {
-    order: 14,
+    order: 15,
     nameEn: "Rocky CS",
     nameAr: "روكي",
     roleEn: "Customer Support",

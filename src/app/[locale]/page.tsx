@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { translations, Locale } from "@/lib/translations";
 
-import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
 import ServicesSection from "@/components/ServicesSection";
 import GoogleReviews from "@/components/GoogleReviews";
@@ -149,8 +148,6 @@ export default function Home() {
       <GoogleReviews locale={lang} />
 
       <FAQ locale={lang} />
-
-      <CTA locale={lang} />
 
     </div>
   );

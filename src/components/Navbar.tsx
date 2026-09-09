@@ -14,16 +14,17 @@ import {
 } from 'firebase/auth';
 import Logo from '../assets/logo/logo.png';
 import { translations, Locale } from '@/lib/translations';
+import { getLocalizedPathname, resolveLocale } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import { ensureDashboardAccessRequest, normalizeEmail } from '@/lib/admin-access';
 import SiteSearch from '@/components/SiteSearch';
 
 interface NavbarProps {
-  locale: string;
+  locale: Locale;
 }
 
-export default function Navbar({ locale }: NavbarProps) {
+export default function Navbar({ locale: localeProp }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authContact, setAuthContact] = useState('');
@@ -35,8 +36,7 @@ export default function Navbar({ locale }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const isValidLoc = locale === 'en' || locale === 'ar';
-  const lang = isValidLoc ? (locale as Locale) : 'en';
+  const lang = resolveLocale(pathname, localeProp);
   const t = translations[lang];
   const currentUserLabelSource = currentUser?.displayName?.trim() || currentUser?.email?.trim() || '';
   const currentUserLabel = currentUserLabelSource.length > 25 ? `${currentUserLabelSource.slice(0, 25)}...` : currentUserLabelSource;
@@ -61,8 +61,7 @@ export default function Navbar({ locale }: NavbarProps) {
       };
 
   const switchLanguage = (newLocale: Locale) => {
-    const newPathname = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPathname);
+    router.push(getLocalizedPathname(pathname ?? `/${lang}`, newLocale));
   };
 
   const runAuthAction = async (mode: 'login' | 'register') => {
@@ -288,30 +287,30 @@ export default function Navbar({ locale }: NavbarProps) {
 
           {/* Right: Search, Language Switcher, Account */}
           <div className={`flex items-center gap-2 md:gap-4 ${lang === 'ar' ? 'order-3' : 'order-3'}`}>
-            <SiteSearch locale={lang} variant="navbar" />
+            <SiteSearch locale={lang} variant="navbar" className="cursor-pointer"/>
 
             <div className="hidden md:flex items-center rounded-full border border-[#6C2B27] bg-[#170C0C]/95 p-1 backdrop-blur">
               <button
                 onClick={() => switchLanguage('en')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all ${
+                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${
                   lang === 'en'
                     ? 'bg-[#4A1C1A] text-[#F2D6D4] shadow-[0_4px_12px_rgba(0,0,0,0.28)]'
                     : 'text-[#B98B89] hover:bg-[#241212] hover:text-[#DFC1BF]'
                 }`}
                 aria-label="Switch to English"
               >
-                EN
+                ENG
               </button>
               <button
                 onClick={() => switchLanguage('ar')}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all ${
+                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${
                   lang === 'ar'
                     ? 'bg-[#4A1C1A] text-[#F2D6D4] shadow-[0_4px_12px_rgba(0,0,0,0.28)]'
                     : 'text-[#B98B89] hover:bg-[#241212] hover:text-[#DFC1BF]'
                 }`}
                 aria-label="Switch to Arabic"
               >
-                AR
+              العربي
               </button>
             </div>
 
@@ -425,7 +424,7 @@ export default function Navbar({ locale }: NavbarProps) {
           <div className="md:hidden backdrop-blur-lg border-t -mx-4 -mr-4 px-4" style={{backgroundColor: `rgba(24, 24, 24, ${isScrolled ? 0.95 : 0.85})`, borderTopColor: `rgba(128, 128, 128, ${isScrolled ? 1 : 0.5})`}}>
             <div className="py-3 space-y-2">
               <div className="px-2 pb-2">
-                <SiteSearch locale={lang} variant="hero" showPopular={false} className="[&_input]:text-sm [&_input]:py-2.5" />
+                <SiteSearch locale={lang} variant="hero" showPopular={false} className="[&_input]:text-sm [&_input]:py-2.5 cursor-pointer" />
               </div>
               <Link
                 href={`/${lang}`}
@@ -499,7 +498,7 @@ export default function Navbar({ locale }: NavbarProps) {
                       : 'bg-[#2A1515] text-[#B98B89] hover:bg-[#341A1A]'
                   }`}
                 >
-                  EN
+                  ENG
                 </button>
                 <button
                   onClick={() => {
@@ -512,7 +511,7 @@ export default function Navbar({ locale }: NavbarProps) {
                       : 'bg-[#2A1515] text-[#B98B89] hover:bg-[#341A1A]'
                   }`}
                 >
-                  AR
+                  العربي
                 </button>
               </div>
               {currentUser ? (

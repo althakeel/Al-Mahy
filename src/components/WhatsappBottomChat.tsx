@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { resolveLocale } from '@/lib/utils';
 
 function WhatsappIcon({ className = 'h-5 w-5' }: { className?: string }) {
   return (
@@ -15,7 +16,7 @@ const AUTO_CLOSE_MS = 30000;
 
 export default function WhatsappBottomChat() {
   const pathname = usePathname();
-  const isArabic = pathname?.startsWith('/ar');
+  const isArabic = resolveLocale(pathname, 'en') === 'ar';
   const [open, setOpen] = useState(false);
   const closeTimerRef = useRef<number | null>(null);
 
@@ -87,12 +88,12 @@ export default function WhatsappBottomChat() {
   }, [pathname]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[90] sm:bottom-6 sm:right-6">
+    <div className="pointer-events-none fixed bottom-4 right-4 z-[90] sm:bottom-6 sm:right-6">
       <div
         onMouseEnter={cancelCloseTimer}
         onMouseLeave={() => open && startCloseTimer()}
         className={`mb-3 w-[320px] min-h-[340px] max-w-[calc(100vw-24px)] overflow-hidden rounded-2xl bg-[#ECE5DD] shadow-[0_24px_55px_rgba(0,0,0,0.28)] transition-all duration-500 ease-out ${
-          open ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-8 opacity-0'
+          open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-8 opacity-0'
         }`}
       >
           <div className="flex items-center justify-between bg-[#128C7E] px-4 py-2.5 text-white">
@@ -177,8 +178,8 @@ export default function WhatsappBottomChat() {
       <button
         type="button"
         onClick={openChat}
-        aria-label={isArabic ? 'فتح دردشة واتساب' : 'Open WhatsApp chat'}
-        className={`ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition-all duration-300 hover:bg-[#1ebe5b] ${
+        aria-label={isArabic ? '\u0641\u062A\u062D \u062F\u0631\u062F\u0634\u0629 \u0648\u0627\u062A\u0633\u0627\u0628' : 'Open WhatsApp chat'}
+        className={`pointer-events-auto ml-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_rgba(37,211,102,0.45)] transition-all duration-300 hover:bg-[#1ebe5b] ${
           open ? 'pointer-events-none scale-0 opacity-0' : 'scale-100 opacity-100'
         }`}
       >

@@ -150,7 +150,7 @@ export default function SearchResultsClient({
         </h1>
 
         <div className="mb-8">
-          <SiteSearch locale={locale} variant="page" />
+          <SiteSearch locale={locale} variant="page" className="cursor-pointer"/>
         </div>
 
         {!initialQuery ? (
