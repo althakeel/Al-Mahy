@@ -21,10 +21,7 @@ export default function HeroLegalSearchPanel({ locale, className = '', align }: 
 
   return (
     <div className={`w-full ${className}`} dir={isRTL ? 'rtl' : 'ltr'}>
-      <p
-        className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white ${textAlign}`}
-        style={{ textShadow: '0 2px 10px rgba(0,0,0,0.75)' }}
-      >
+      <p className={`relative z-[1] mb-2.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white ${textAlign}`}>
         {t.label}
       </p>
       <SiteSearch
@@ -35,7 +32,8 @@ export default function HeroLegalSearchPanel({ locale, className = '', align }: 
         showRecent
         maxPopular={3}
         maxRecent={4}
-        className="cursor-pointer"
+        accentColor="#B38D42"
+        className="relative z-[1] cursor-pointer"
       />
     </div>
   );

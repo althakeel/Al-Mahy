@@ -16,6 +16,7 @@ interface SiteSearchProps {
   heroTone?: 'light' | 'dark';
   maxPopular?: number;
   maxRecent?: number;
+  accentColor?: string;
 }
 
 const labels = {
@@ -52,11 +53,15 @@ export default function SiteSearch({
   heroTone = 'light',
   maxPopular,
   maxRecent = 4,
-  cursor = 'default',
+  accentColor = '#DE3B34',
 }: SiteSearchProps) {
   const router = useRouter();
   const t = labels[locale];
   const isRTL = locale === 'ar';
+  const accentHover = accentColor === '#B38D42' ? '#9A7635' : '#c73731';
+  const isGoldAccent = accentColor === '#B38D42';
+  const isGoldNavbar = variant === 'navbar' && isGoldAccent;
+  const isGoldHero = variant === 'hero' && isGoldAccent && heroTone === 'dark';
 
   const [query, setQuery] = useState('');
   const [expanded, setExpanded] = useState(variant !== 'navbar');
@@ -141,25 +146,35 @@ export default function SiteSearch({
     (loading || results.length > 0 || query.trim().length > 0) &&
     variant !== 'page';
 
-  const heroInputPadding = isRTL ? 'pl-12' : 'pr-12';
+  const heroInputPadding = isGoldHero
+    ? (isRTL ? 'pl-[46px]' : 'pr-[46px]')
+    : isRTL
+      ? 'pl-12'
+      : 'pr-12';
   const isDarkHero = variant === 'hero' && heroTone === 'dark';
   const isLightDropdown = variant === 'hero' && !isDarkHero;
 
   const inputClasses =
-    variant === 'hero' && isDarkHero
+    isGoldHero
+      ? `h-[52px] w-full rounded-full border border-[rgba(179,141,66,0.65)] bg-[rgba(0,0,0,0.28)] pl-5 ${heroInputPadding} text-sm text-white placeholder:text-[rgba(255,255,255,0.48)] transition-colors duration-200 focus:border-[#B38D42] focus:bg-[rgba(0,0,0,0.35)] focus:outline-none focus:ring-2 focus:ring-[#B38D42]/35`
+      : variant === 'hero' && isDarkHero
       ? `w-full rounded-full border border-white/20 bg-black/25 px-5 py-4 ${heroInputPadding} text-base text-white backdrop-blur-sm placeholder:text-white/50 focus:border-[#DE3B34]/60 focus:bg-black/35 focus:outline-none focus:ring-2 focus:ring-[#DE3B34]/30`
       : variant === 'hero'
       ? `w-full rounded-full border border-white/20 bg-white/95 px-5 py-3.5 ${heroInputPadding} text-base text-[#160A0A] shadow-sm placeholder:text-slate-400 focus:border-[#DE3B34] focus:outline-none focus:ring-2 focus:ring-[#DE3B34]/20`
       : variant === 'page'
         ? 'w-full rounded-xl border border-gray-200 bg-white px-5 py-3.5 text-base text-[#160A0A] placeholder:text-gray-400 shadow-sm focus:border-[#DE3B34] focus:outline-none focus:ring-2 focus:ring-[#DE3B34]/20'
-        : 'w-full rounded-full border border-[#6C2B27] bg-[#170C0C]/95 px-4 py-2 text-sm text-white placeholder:text-[#CECDCB] focus:border-[#DE3B34] focus:outline-none focus:ring-1 focus:ring-[#DE3B34]/40';
+        : isGoldNavbar
+          ? 'w-full rounded-full border border-[#B38D42] bg-[#170C0C]/95 px-4 py-2 text-sm text-white placeholder:text-[#CECDCB] transition-colors hover:border-[#E8D5A8] focus:border-[#E8D5A8] focus:outline-none focus:ring-1 focus:ring-[#B38D42]/50'
+          : 'w-full rounded-full border border-[#6C2B27] bg-[#170C0C]/95 px-4 py-2 text-sm text-white placeholder:text-[#CECDCB] focus:border-[#DE3B34] focus:outline-none focus:ring-1 focus:ring-[#DE3B34]/40';
 
   const tagClass = (dark: boolean) =>
-    dark
+    isGoldHero
+      ? 'cursor-pointer rounded-full border border-[rgba(255,255,255,0.20)] bg-[rgba(255,255,255,0.035)] px-3.5 py-1.5 text-[11px] font-medium text-[rgba(255,255,255,0.82)] transition-all duration-200 hover:border-[#B38D42] hover:bg-[rgba(179,141,66,0.10)] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B38D42]'
+      : dark
       ? 'rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/75 transition hover:border-[#DE3B34]/40 hover:bg-white/10 hover:text-white'
       : 'rounded-full border border-[#E6DFD8] bg-white px-3 py-1 text-[11px] font-medium text-[#160A0A] transition hover:border-[#DE3B34] hover:bg-[#DE3B34]/5 hover:text-[#c73731]';
 
-  const labelClass = isDarkHero ? 'text-white/50' : 'text-slate-500';
+  const labelClass = isGoldHero ? 'text-[#D0CACA]' : isDarkHero ? 'text-white/50' : 'text-slate-500';
 
   const visibleRecent = (maxRecent ? recentSearches.slice(0, maxRecent) : recentSearches);
   const visiblePopular = (maxPopular ? POPULAR_SEARCHES[locale].slice(0, maxPopular) : POPULAR_SEARCHES[locale]);
@@ -173,7 +188,11 @@ export default function SiteSearch({
           setDropdownOpen(true);
           setTimeout(() => inputRef.current?.focus(), 50);
         }}
-        className={`hidden md:flex h-9 w-9 items-center justify-center rounded-full border border-[#6C2B27] bg-[#170C0C]/95 text-[#F0D4D2] transition-colors hover:border-[#DE3B34] hover:bg-[#241212] ${className}`}
+        className={`hidden md:flex h-9 w-9 items-center justify-center rounded-full border bg-[#170C0C]/95 transition-colors hover:bg-[#241212] ${
+          isGoldNavbar
+            ? 'border-[#B38D42] text-[#E8D5A8] hover:border-[#E8D5A8]'
+            : 'border-[#6C2B27] text-[#F0D4D2] hover:border-[#DE3B34]'
+        } ${className}`}
         aria-label={t.search}
       >
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -204,10 +223,14 @@ export default function SiteSearch({
           {variant !== 'navbar' ? (
             <button
               type="submit"
-              className={`absolute top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-[#DE3B34] text-white transition hover:bg-[#c73731] ${isRTL ? 'left-1.5' : 'right-1.5'}`}
+              className={`absolute top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full text-white transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B38D42] ${
+                isGoldHero
+                  ? 'h-[38px] w-[38px] cursor-pointer bg-[#B38D42] hover:bg-[#9A7635] shadow-[0_0_12px_rgba(179,141,66,0.35)]'
+                  : 'h-9 w-9 bg-[#DE3B34] hover:bg-[#c73731]'
+              } ${isRTL ? (isGoldHero ? 'left-1.5' : 'left-1.5') : isGoldHero ? 'right-1.5' : 'right-1.5'}`}
               aria-label={t.search}
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className={`${isGoldHero ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
@@ -217,7 +240,14 @@ export default function SiteSearch({
         {variant === 'navbar' ? (
           <button
             type="submit"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#DE3B34] text-white transition hover:bg-[#c73731]"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition"
+            style={{ backgroundColor: accentColor }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = accentHover;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = accentColor;
+            }}
             aria-label={t.search}
           >
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -241,7 +271,7 @@ export default function SiteSearch({
                     clearRecentSearches(locale);
                     setRecentSearches([]);
                   }}
-                  className="text-[10px] font-medium text-[#F0716B] transition hover:text-white"
+                  className={`text-[10px] font-medium transition hover:text-white ${isGoldHero ? 'text-[#B38D42]' : 'text-[#F0716B]'}`}
                 >
                   {t.clearRecent}
                 </button>
@@ -281,13 +311,17 @@ export default function SiteSearch({
       {showDropdown ? (
         <div
           className={`absolute z-[60] mt-2 overflow-hidden rounded-2xl border backdrop-blur-xl ${
-            isDarkHero
+            isGoldHero
+              ? 'left-0 right-0 border-[rgba(179,141,66,0.40)] bg-[rgba(15,10,10,0.96)] shadow-[0_18px_40px_rgba(0,0,0,0.5)]'
+              : isDarkHero
               ? 'left-0 right-0 border-white/10 bg-[#160A0A]/95 shadow-[0_18px_40px_rgba(0,0,0,0.5)]'
               : variant === 'hero'
               ? 'left-0 right-0 border-[#E6DFD8] bg-white/98 shadow-[0_18px_40px_rgba(22,10,10,0.15)]'
               : variant === 'navbar'
-                ? 'right-0 w-80 border-[#6C2B27] bg-[#1A0D0D]/98 shadow-[0_18px_40px_rgba(0,0,0,0.45)]'
-                : 'left-0 right-0 border-[#6C2B27] bg-[#1A0D0D]/98 shadow-[0_18px_40px_rgba(0,0,0,0.45)]'
+                ? `right-0 w-80 bg-[#1A0D0D]/98 shadow-[0_18px_40px_rgba(0,0,0,0.45)] ${
+                    isGoldNavbar ? 'border border-[#B38D42]/40' : 'border border-[#6C2B27]'
+                  }`
+                : 'left-0 right-0 border border-[#6C2B27] bg-[#1A0D0D]/98 shadow-[0_18px_40px_rgba(0,0,0,0.45)]'
           }`}
         >
           {loading ? (
@@ -306,7 +340,9 @@ export default function SiteSearch({
                         className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
                           isLight
                             ? 'bg-[#DE3B34]/10 text-[#c73731]'
-                            : 'bg-[#DE3B34]/20 text-[#F0D4D2]'
+                            : isGoldNavbar || isGoldHero
+                              ? 'bg-[#B38D42]/20 text-[#B38D42]'
+                              : 'bg-[#DE3B34]/20 text-[#F0D4D2]'
                         }`}
                       >
                         {t.type[result.type as keyof typeof t.type] ?? result.type}
@@ -371,9 +407,10 @@ export default function SiteSearch({
               <button
                 type="button"
                 onClick={() => goToSearchPage()}
-                className={`w-full border-t px-4 py-3 text-left text-sm font-semibold text-[#DE3B34] transition ${
+                className={`w-full border-t px-4 py-3 text-left text-sm font-semibold transition ${
                   isLightDropdown ? 'border-[#E6DFD8] hover:bg-[#F1EFF0]' : 'border-white/10 hover:bg-white/5'
                 }`}
+                style={{ color: isGoldAccent ? accentColor : variant === 'navbar' ? accentColor : '#DE3B34' }}
               >
                 {t.viewAll} →
               </button>

@@ -13,7 +13,7 @@ export default {
       colors: {
         'brand': {
           'light': '#FFB6B6',
-          'gold': '#DE3B34',
+          'gold': '#B38D42',
           'bronze': '#CECDCB',
           'gray': '#CECDCB',
           'dark': '#160A0A',

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { headers } from "next/headers";
 import Script from "next/script";
 import "./globals.css";
 import favicon from "./Favicon.png";
 import WhatsappBottomChat from "@/components/WhatsappBottomChat";
 import AnalyticsClickTracking from "@/components/AnalyticsClickTracking";
+import { Locale } from "@/lib/translations";
+import { getLocaleDirection, isValidLocale } from "@/lib/utils";
 
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
@@ -25,14 +28,27 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const localeHeader = headersList.get("x-locale");
+  const locale: Locale =
+    localeHeader && isValidLocale(localeHeader) ? localeHeader : "en";
+  const dir = getLocaleDirection(locale);
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang={locale}
+      dir={dir}
+      translate="no"
+      className="notranslate"
+      suppressHydrationWarning
+    >
       <head>
+        <meta name="google" content="notranslate" />
         {gtmId ? (
           <Script
             id="gtm-script"

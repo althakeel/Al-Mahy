@@ -2,7 +2,7 @@ import { Locale } from '@/lib/translations';
 import { ServiceShowcaseItem } from '@/lib/services-showcase';
 
 function ServiceNavIcon({ slug }: { slug: string }) {
-  const className = 'h-5 w-5 shrink-0 text-[#DE3B34]';
+  const className = 'h-5 w-5 shrink-0 text-[#B38D42]';
 
   switch (slug) {
     case 'legal-services':
@@ -80,12 +80,12 @@ export default function ServicesStickyNav({ services }: ServicesStickyNavProps) 
             key={service.slug}
             href={`#${service.slug}`}
             style={{ zIndex: index + 1 }}
-            className="group relative flex min-h-[56px] w-1/2 min-w-0 basis-1/2 cursor-pointer items-center justify-center gap-1.5 overflow-hidden px-2 py-3 text-center transition-colors hover:text-[#DE3B34] sm:w-1/3 sm:basis-1/3 lg:w-auto lg:flex-1 lg:basis-0 lg:[&:not(:last-child)]:border-e lg:[&:not(:last-child)]:border-[#160A0A]/10"
+            className="group relative flex min-h-[56px] w-1/2 min-w-0 basis-1/2 cursor-pointer items-center justify-center gap-1.5 overflow-hidden px-2 py-3 text-center transition-colors hover:text-[#B38D42] sm:w-1/3 sm:basis-1/3 lg:w-auto lg:flex-1 lg:basis-0 lg:[&:not(:last-child)]:border-e lg:[&:not(:last-child)]:border-[#160A0A]/10"
           >
             <span className="pointer-events-none shrink-0">
               <ServiceNavIcon slug={service.slug} />
             </span>
-            <span className="pointer-events-none min-w-0 break-words text-[9px] font-bold uppercase leading-tight tracking-[0.04em] text-[#160A0A]/80 group-hover:text-[#DE3B34] xl:text-[10px] 2xl:text-[11px]">
+            <span className="pointer-events-none min-w-0 break-words text-[9px] font-bold uppercase leading-tight tracking-[0.04em] text-[#160A0A]/80 group-hover:text-[#B38D42] xl:text-[10px] 2xl:text-[11px]">
               {service.title}
             </span>
           </a>

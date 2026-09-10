@@ -92,14 +92,14 @@ function SectionHeading({ title }: { title: string }) {
   return (
     <div className="flex items-center gap-3">
       <h3 className="text-lg font-semibold tracking-tight sm:text-xl">{title}</h3>
-      <span className="h-px w-10 bg-[#DE3B34]" aria-hidden />
+      <span className="h-px w-10 bg-[#B38D42]" aria-hidden />
     </div>
   );
 }
 
 function FeatureIcon({ children }: { children: React.ReactNode }) {
   return (
-    <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-[#DE3B34]/70 text-[#DE3B34]">
+    <span className="flex h-11 w-11 flex-none items-center justify-center rounded-full border border-[#B38D42]/70 text-[#B38D42]">
       {children}
     </span>
   );
@@ -197,7 +197,7 @@ export default function Footer({ locale }: { locale: Locale }) {
       {/* CTA Section */}
       <section className="relative min-h-[420px] overflow-hidden">
         <Image
-          src="/assets/footer-cta-bg.jpg"
+          src="/assets/footer-cta-bg.png"
           alt=""
           fill
           priority={false}
@@ -212,14 +212,14 @@ export default function Footer({ locale }: { locale: Locale }) {
             <div className="space-y-8">
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#DE3B34]">
+                  <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#B38D42]">
                     {t.footerGetInTouch}
                   </span>
-                  <span className="h-px w-12 bg-[#DE3B34]" aria-hidden />
+                  <span className="h-px w-12 bg-[#B38D42]" aria-hidden />
                 </div>
                 <h2 className="max-w-2xl text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.65rem] lg:leading-[1.15]">
                   {t.footerCtaHeadingBefore}{' '}
-                  <span className="text-[#DE3B34]">{t.footerCtaHeadingHighlight}</span>
+                  <span className="text-[#B38D42]">{t.footerCtaHeadingHighlight}</span>
                 </h2>
                 <p className="max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">
                   {t.servicesCTADesc}
@@ -242,7 +242,7 @@ export default function Footer({ locale }: { locale: Locale }) {
             <div className="flex flex-col items-start gap-4 lg:items-end">
               <Link
                 href={`/${lang}/contact`}
-                className="inline-flex cursor-pointer items-center gap-3 rounded-md bg-[#DE3B34] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-[#DE3B34]/25 transition hover:bg-[#c73731]"
+                className="inline-flex cursor-pointer items-center gap-3 rounded-md bg-[#B38D42] px-8 py-4 text-sm font-bold uppercase tracking-[0.18em] text-white shadow-lg shadow-[#B38D42]/25 transition hover:bg-[#9A7635]"
               >
                 {t.contactUs}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2">
@@ -256,7 +256,7 @@ export default function Footer({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <div className="h-px bg-[#DE3B34]/70" aria-hidden />
+      <div className="h-px bg-[#B38D42]/70" aria-hidden />
 
       {/* Main Footer */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 sm:px-10 lg:px-12">
@@ -264,7 +264,7 @@ export default function Footer({ locale }: { locale: Locale }) {
           <div className="space-y-5">
             <SectionHeading title={t.footerOurAddress} />
             <div className="flex items-start gap-3 text-sm leading-relaxed text-white/85">
-              <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#DE3B34]/15 text-[#DE3B34] ring-1 ring-[#DE3B34]/30">
+              <span className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#B38D42]/15 text-[#B38D42] ring-1 ring-[#B38D42]/30">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M12 21s6-4.35 6-10a6 6 0 1 0-12 0c0 5.65 6 10 6 10Z" />
                   <circle cx="12" cy="11" r="2.5" />
@@ -283,10 +283,10 @@ export default function Footer({ locale }: { locale: Locale }) {
             <ul className="space-y-3 text-sm text-white/85">
               {contactLinks.map((item) => (
                 <li key={item.label} className="flex items-center gap-3">
-                  <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#DE3B34]/15 text-[#DE3B34] ring-1 ring-[#DE3B34]/30">
+                  <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#B38D42]/15 text-[#B38D42] ring-1 ring-[#B38D42]/30">
                     {item.icon}
                   </span>
-                  <a href={item.href} className="cursor-pointer transition hover:text-[#DE3B34]">
+                  <a href={item.href} className="cursor-pointer transition hover:text-[#B38D42]">
                     {item.label}
                   </a>
                 </li>
@@ -313,7 +313,7 @@ export default function Footer({ locale }: { locale: Locale }) {
               <button
                 type="submit"
                 disabled={newsletterStatus === 'sending'}
-                className="flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-full bg-[#DE3B34] text-white shadow-lg shadow-[#DE3B34]/30 transition hover:bg-[#c73731] focus:outline-none focus:ring-2 focus:ring-[#DE3B34] focus:ring-offset-2 focus:ring-offset-black disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-full bg-[#B38D42] text-white shadow-lg shadow-[#B38D42]/30 transition hover:bg-[#9A7635] focus:outline-none focus:ring-2 focus:ring-[#B38D42] focus:ring-offset-2 focus:ring-offset-black disabled:cursor-not-allowed disabled:opacity-60"
                 aria-label="Subscribe"
               >
                 {newsletterStatus === 'sending' ? (
@@ -328,7 +328,7 @@ export default function Footer({ locale }: { locale: Locale }) {
               </button>
             </form>
             {newsletterFeedback && (
-              <p className={`text-sm ${newsletterStatus === 'success' ? 'text-emerald-300' : 'text-[#FFB6B6]'}`}>
+              <p className={`text-sm ${newsletterStatus === 'success' ? 'text-emerald-300' : 'text-[#E8D5A8]'}`}>
                 {newsletterFeedback}
               </p>
             )}
@@ -340,7 +340,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={item.label}
-                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/8 text-white/80 ring-1 ring-white/10 transition hover:bg-[#DE3B34] hover:text-white"
+                  className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-white/8 text-white/80 ring-1 ring-white/10 transition hover:bg-[#B38D42] hover:text-white"
                 >
                   {item.icon}
                 </a>
@@ -357,13 +357,13 @@ export default function Footer({ locale }: { locale: Locale }) {
           <p className="text-center lg:flex-1">{t.footerText}</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-white/70 lg:justify-end">
-            <Link href={`/${lang}/privacy`} className="cursor-pointer transition hover:text-[#DE3B34]">
+            <Link href={`/${lang}/privacy`} className="cursor-pointer transition hover:text-[#B38D42]">
               {t.footerPrivacy}
             </Link>
             <span className="text-white/30" aria-hidden>
               |
             </span>
-            <Link href={`/${lang}/terms`} className="cursor-pointer transition hover:text-[#DE3B34]">
+            <Link href={`/${lang}/terms`} className="cursor-pointer transition hover:text-[#B38D42]">
               {t.footerTerms}
             </Link>
             <div className="relative flex items-center gap-2 border-white/20 ps-0 lg:border-s lg:ps-4">
@@ -372,7 +372,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                 aria-label="Switch to English"
                 aria-current={lang === 'en' ? 'true' : undefined}
                 className={`cursor-pointer rounded px-3 py-1.5 text-xs font-semibold transition-colors ${
-                  lang === 'en' ? 'bg-[#DE3B34] text-white' : 'bg-white/10 text-white hover:bg-white/20'
+                  lang === 'en' ? 'bg-[#B38D42] text-white' : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
               >
                 ENG
@@ -382,7 +382,7 @@ export default function Footer({ locale }: { locale: Locale }) {
                 aria-label="Switch to Arabic"
                 aria-current={lang === 'ar' ? 'true' : undefined}
                 className={`cursor-pointer rounded px-3 py-1.5 text-xs font-semibold transition-colors ${
-                  lang === 'ar' ? 'bg-[#DE3B34] text-white' : 'bg-white/10 text-white hover:bg-white/20'
+                  lang === 'ar' ? 'bg-[#B38D42] text-white' : 'bg-white/10 text-white hover:bg-white/20'
                 }`}
               >
                 العربي

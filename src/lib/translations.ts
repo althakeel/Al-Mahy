@@ -97,7 +97,16 @@ export const translations = {
     aboutTestimonial: "Al Mahy Legal Consultancy provided exceptional support and expertise, guiding us through complex legal matters with professionalism and efficiency. Their dedication and knowledge were invaluable to our success. Highly recommended!",
     aboutUsLabel: "About Us",
     aboutHeadline: "We’re Advocates for Justice and Right",
-    aboutDescription:"Almahy for Legal Services is a leading law firm in Dubai with over 38 years of experience providing legal consultation, corporate services, notary services, and comprehensive legal solutions. Serving individuals, businesses, and investors across the UAE, we combine local expertise with a global network of legal professionals to deliver trusted, client-focused legal support.",
+    aboutHeadlineLine1: "We’re Advocates for",
+    aboutHeadlineLine2: "Justice and Right",
+    aboutYearsStat: "38+",
+    aboutYearsLabel: "Years Of Experience",
+    aboutTrustedLine1: "Trusted By",
+    aboutTrustedLine2: "Businesses",
+    aboutTrustedLine3: "Individuals",
+    aboutTrustedLine4: "Investors",
+    aboutDescription:
+      "Almahy for Legal Services is a leading law firm in Dubai with over 38 years of experience providing legal consultation, corporate services, notary services, and comprehensive legal solutions. Serving individuals, businesses, and investors across the UAE, we combine local expertise with a global network of legal professionals to deliver trusted, client-focused legal support.",
     
   },
   ar: {
@@ -195,10 +204,20 @@ export const translations = {
     footerFeature3Title: "دعم شامل",
     footerFeature3Desc: "في الأمور المؤسسية والقانونية",
     // About Section (for AboutSectionWithVideo)
-    aboutTestimonial: "ساعدتنا ماهي في الفوز بقضيتنا!",
+    aboutTestimonial:
+      "قدمت ماهي للاستشارات القانونية دعماً وخبرة استثنائية، ووجهتنا عبر مسائل قانونية معقدة باحترافية وكفاءة. كان التزامهم ومعرفتهم invaluable لنجاحنا. نوصي بهم بشدة!",
     aboutUsLabel: "من نحن",
     aboutHeadline: "نحن دعاة للعدالة والحق",
-    aboutDescription: "الخدمات القانونية لماهي هي شركة محاماة رائدة بخبرة تزيد عن 38 عامًا وشبكة عالمية تضم 5000 محامٍ مؤهل، مما يجعلنا اسمًا موثوقًا في صناعة الخدمات القانونية عالميًا. مقرنا في الإمارات العربية المتحدة، وقد رسخنا أنفسنا كقوة رائدة في القطاع القانوني، مقدمين مجموعة متنوعة من الخدمات القانونية عالية الجودة لعملائنا الكرام.",
+    aboutHeadlineLine1: "نحن دعاة",
+    aboutHeadlineLine2: "للعدالة والحق",
+    aboutYearsStat: "+38",
+    aboutYearsLabel: "عامًا من الخبرة",
+    aboutTrustedLine1: "موثوق من",
+    aboutTrustedLine2: "الشركات",
+    aboutTrustedLine3: "الأفراد",
+    aboutTrustedLine4: "المستثمرين",
+    aboutDescription:
+      "الخدمات القانونية لماهي هي شركة محاماة رائدة في دبي بخبرة تزيد عن 38 عامًا، تقدم الاستشارات القانونية وخدمات الشركات والتوثيق وحلولاً قانونية شاملة. نخدم الأفراد والشركات والمستثمرين في جميع أنحاء الإمارات، ونجمع بين الخبرة المحلية وشبكة عالمية من المحامين لتقديم دعم قانوني موثوق يركز على العميل.",
   },
 };
 

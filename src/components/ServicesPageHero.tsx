@@ -4,8 +4,16 @@ import { Locale, translations } from '@/lib/translations';
 import { ServiceShowcaseItem } from '@/lib/services-showcase';
 import ServicesStickyNav from '@/components/ServicesStickyNav';
 
+function ArrowIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+    </svg>
+  );
+}
+
 function HeroFeatureIcon({ type }: { type: 'shield' | 'team' | 'chart' }) {
-  const className = 'h-5 w-5 text-[#DE3B34]';
+  const className = 'h-5 w-5 text-[#B38D42]';
 
   if (type === 'shield') {
     return (
@@ -79,10 +87,10 @@ export default function ServicesPageHero({ locale, services }: ServicesPageHeroP
           <div className="flex flex-1 items-start">
             <div className={`max-w-2xl pt-1 lg:max-w-3xl ${isArabic ? 'ms-auto text-right' : ''}`}>
               <div className={`mb-5 flex items-center gap-3 ${isArabic ? 'justify-end' : ''}`}>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#DE3B34]">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#B38D42]">
                   {isArabic ? 'الماحي للخدمات القانونية' : 'Almahy for Legal Services'}
                 </span>
-                <span className="h-px w-10 bg-[#DE3B34]" aria-hidden />
+                <span className="h-px w-10 bg-[#B38D42]" aria-hidden />
               </div>
 
               <h1
@@ -92,7 +100,7 @@ export default function ServicesPageHero({ locale, services }: ServicesPageHeroP
                 {isArabic ? (
                   <>
                     <span className="text-white">{t.servicesHeroLine1}</span>{' '}
-                    <span className="text-[#DE3B34]">{t.servicesHeroHighlight}</span>
+                    <span className="text-[#B38D42]">{t.servicesHeroHighlight}</span>
                     <br />
                     <span className="text-white">{t.servicesHeroLine2}</span>
                   </>
@@ -100,7 +108,7 @@ export default function ServicesPageHero({ locale, services }: ServicesPageHeroP
                   <>
                     <span className="text-white">{t.servicesHeroLine1}</span>
                     <br />
-                    <span className="text-[#DE3B34]">{t.servicesHeroHighlight}</span>
+                    <span className="text-[#B38D42]">{t.servicesHeroHighlight}</span>
                     <br />
                     <span className="text-white">{t.servicesHeroLine2}</span>
                   </>
@@ -111,19 +119,20 @@ export default function ServicesPageHero({ locale, services }: ServicesPageHeroP
                 {t.servicesIntro}
               </p>
 
-              <div className={`mt-8 flex flex-wrap gap-3 ${isArabic ? 'justify-end' : ''}`}>
+              <div className={`mt-8 flex flex-wrap gap-3.5 ${isArabic ? 'justify-end' : ''}`}>
                 <Link
                   href={`/${locale}/contact`}
-                  className="inline-flex cursor-pointer items-center gap-2 bg-[#DE3B34] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#c73731]"
+                  className="hero-btn-glow-solid inline-flex h-[52px] cursor-pointer items-center gap-2 rounded-md bg-[#B38D42] px-7 text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 hover:border-[#9A7635] hover:bg-[#9A7635] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B38D42]"
                 >
                   {isArabic ? 'تواصل معنا' : 'Contact Us'}
-                  <span aria-hidden>{isArabic ? '←' : '→'}</span>
+                  <ArrowIcon className={`h-3.5 w-3.5 ${isArabic ? 'rotate-180' : ''}`} />
                 </Link>
                 <a
                   href="#legal-services"
-                  className="inline-flex cursor-pointer items-center border border-white/70 bg-transparent px-7 py-3.5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
+                  className="hero-btn-glow-outline inline-flex h-[52px] cursor-pointer items-center gap-2 rounded-md bg-transparent px-7 text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 hover:bg-[rgba(179,141,66,0.10)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B38D42]"
                 >
                   {isArabic ? 'استعرض الخدمات' : 'Browse Services'}
+                  <ArrowIcon className={`h-4 w-4 text-[#B38D42] ${isArabic ? 'rotate-180' : ''}`} />
                 </a>
               </div>
             </div>
@@ -141,7 +150,7 @@ export default function ServicesPageHero({ locale, services }: ServicesPageHeroP
                       isArabic ? 'flex-row-reverse text-right' : ''
                     }`}
                   >
-                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-[#DE3B34]/40 bg-[#DE3B34]/10">
+                    <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-[#B38D42]/40 bg-[#B38D42]/10">
                       <HeroFeatureIcon type={feature.icon} />
                     </span>
                     <p className="text-sm font-semibold text-white">{feature.label}</p>

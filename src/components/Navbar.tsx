@@ -14,11 +14,37 @@ import {
 } from 'firebase/auth';
 import Logo from '../assets/logo/logo.png';
 import { translations, Locale } from '@/lib/translations';
-import { getLocalizedPathname, resolveLocale } from '@/lib/utils';
+import { getLocalizedPathname } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import { ensureDashboardAccessRequest, normalizeEmail } from '@/lib/admin-access';
 import SiteSearch from '@/components/SiteSearch';
+
+const NAV_ACCENT = '#B38D42';
+
+function isNavLinkActive(pathname: string | null, href: string, exact = false) {
+  if (!pathname) return false;
+  const normalized = pathname.endsWith('/') && pathname.length > 1 ? pathname.slice(0, -1) : pathname;
+  const normalizedHref = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href;
+
+  if (exact) {
+    return normalized === normalizedHref;
+  }
+
+  return normalized === normalizedHref || normalized.startsWith(`${normalizedHref}/`);
+}
+
+function navLinkClass(isActive: boolean) {
+  return `text-sm font-medium transition-colors whitespace-nowrap ${
+    isActive ? 'text-[#B38D42]' : 'text-white hover:text-[#B38D42]'
+  }`;
+}
+
+function mobileNavLinkClass(isActive: boolean) {
+  return `block px-4 py-2 text-sm font-medium rounded transition-colors ${
+    isActive ? 'text-[#B38D42]' : 'text-white hover:bg-white/10'
+  }`;
+}
 
 interface NavbarProps {
   locale: Locale;
@@ -36,7 +62,7 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const lang = resolveLocale(pathname, localeProp);
+  const lang = localeProp;
   const t = translations[lang];
   const currentUserLabelSource = currentUser?.displayName?.trim() || currentUser?.email?.trim() || '';
   const currentUserLabel = currentUserLabelSource.length > 25 ? `${currentUserLabelSource.slice(0, 25)}...` : currentUserLabelSource;
@@ -240,9 +266,23 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
     return () => window.removeEventListener('click', closeMenu);
   }, [accountMenuOpen]);
 
+  const navLinks = [
+    { href: `/${lang}`, label: t.home, exact: true },
+    { href: `/${lang}/services`, label: t.ourServices },
+    // { href: `/${lang}/pricing-table`, label: t.pricing },
+    // { href: `/${lang}/blogs`, label: t.blogs },
+    // { href: `/${lang}/about`, label: t.whoAreWe },
+    // { href: `/${lang}/contact`, label: t.contactUs },
+  ];
+
+  const languageButtonClass = (active: boolean) =>
+    active
+      ? 'bg-[#B38D42]/25 text-[#B38D42]'
+      : 'text-[#E8D5A8]/55 hover:bg-[#241212] hover:text-[#B38D42]';
+
   return (
     <>
-    <nav className="fixed top-0 z-50 flex w-full justify-center" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
+    <nav className="fixed top-0 z-[150] flex w-full justify-center" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <div
         className={`
           w-full max-w-[1250px] px-4 md:px-8 transition-all duration-300
@@ -265,49 +305,33 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
 
           {/* Center: Navigation Links */}
           <div className={`hidden md:flex items-center gap-6 lg:gap-10 order-2 ${lang === 'ar' ? 'justify-end' : 'justify-start'}`} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
-            <Link href={`/${lang}`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.home}
-            </Link>
-            <Link href={`/${lang}/services`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.ourServices}
-            </Link>
-            <Link href={`/${lang}/pricing-table`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.pricing}
-            </Link>
-            <Link href={`/${lang}/blogs`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.blogs}
-            </Link>
-            <Link href={`/${lang}/about`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.whoAreWe}
-            </Link>
-            <Link href={`/${lang}/contact`} className="text-sm font-medium text-white transition-colors whitespace-nowrap" style={{color: 'white'}} onMouseEnter={(e) => e.currentTarget.style.color = '#DE3B34'} onMouseLeave={(e) => e.currentTarget.style.color = 'white'}>
-              {t.contactUs}
-            </Link>
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={navLinkClass(isNavLinkActive(pathname, link.href, link.exact))}
+                aria-current={isNavLinkActive(pathname, link.href, link.exact) ? 'page' : undefined}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           {/* Right: Search, Language Switcher, Account */}
-          <div className={`flex items-center gap-2 md:gap-4 ${lang === 'ar' ? 'order-3' : 'order-3'}`}>
-            <SiteSearch locale={lang} variant="navbar" className="cursor-pointer"/>
+          <div className={`flex items-center gap-3 md:gap-4 ${lang === 'ar' ? 'order-3' : 'order-3'}`}>
+            <SiteSearch locale={lang} variant="navbar" accentColor={NAV_ACCENT} className="cursor-pointer"/>
 
-            <div className="hidden md:flex items-center rounded-full border border-[#6C2B27] bg-[#170C0C]/95 p-1 backdrop-blur">
+            <div className="hidden md:flex items-center rounded-full border border-[#B38D42] bg-[#170C0C]/95 p-1 backdrop-blur">
               <button
                 onClick={() => switchLanguage('en')}
-                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${
-                  lang === 'en'
-                    ? 'bg-[#4A1C1A] text-[#F2D6D4] shadow-[0_4px_12px_rgba(0,0,0,0.28)]'
-                    : 'text-[#B98B89] hover:bg-[#241212] hover:text-[#DFC1BF]'
-                }`}
+                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${languageButtonClass(lang === 'en')}`}
                 aria-label="Switch to English"
               >
                 ENG
               </button>
               <button
                 onClick={() => switchLanguage('ar')}
-                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${
-                  lang === 'ar'
-                    ? 'bg-[#4A1C1A] text-[#F2D6D4] shadow-[0_4px_12px_rgba(0,0,0,0.28)]'
-                    : 'text-[#B98B89] hover:bg-[#241212] hover:text-[#DFC1BF]'
-                }`}
+                className={`px-3 py-1.5 text-xs cursor-pointer font-semibold rounded-full transition-all ${languageButtonClass(lang === 'ar')}`}
                 aria-label="Switch to Arabic"
               >
               العربي
@@ -329,18 +353,18 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                   className="font-bold px-4 md:px-7 py-2.5 md:py-3 rounded-full text-xs md:text-sm transition-all duration-200 flex items-center gap-2 whitespace-nowrap shadow-lg hover:shadow-xl"
                   style={{
                     backgroundColor: '#231111',
-                    color: '#F0D4D2',
-                    border: '1px solid #7A302C',
+                    color: '#E8D5A8',
+                    border: '1px solid rgba(179, 141, 66, 0.45)',
                     boxShadow: '0 6px 16px rgba(0,0,0,0.35)'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = '#2A1414';
-                    e.currentTarget.style.borderColor = '#A5443E';
+                    e.currentTarget.style.borderColor = '#B38D42';
                     e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.45)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = '#231111';
-                    e.currentTarget.style.borderColor = '#7A302C';
+                    e.currentTarget.style.borderColor = 'rgba(179, 141, 66, 0.45)';
                     e.currentTarget.style.boxShadow = '0 6px 16px rgba(0,0,0,0.35)';
                   }}
                 >
@@ -364,7 +388,7 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
 
                 {accountMenuOpen ? (
                   <div
-                    className="absolute right-0 top-[calc(100%-2px)] w-56 overflow-hidden rounded-2xl border border-[#6C2B27] bg-[#1A0D0D]/95 p-2 shadow-[0_18px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl"
+                    className="absolute right-0 top-[calc(100%-2px)] w-56 overflow-hidden rounded-2xl border border-[#B38D42]/40 bg-[#1A0D0D]/95 p-2 shadow-[0_18px_40px_rgba(0,0,0,0.4)] backdrop-blur-xl"
                     onClick={(event) => event.stopPropagation()}
                   >
                     <button
@@ -376,7 +400,7 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                       className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#F0D4D2] transition-colors hover:bg-[#2A1414]"
                     >
                       <span>{lang === 'ar' ? 'الملف الشخصي' : 'Profile'}</span>
-                      <span className="text-[#B98B89]">/</span>
+                      <span className="text-[#B38D42]/60">/</span>
                     </button>
                     <button
                       type="button"
@@ -387,15 +411,15 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                       className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#F0D4D2] transition-colors hover:bg-[#2A1414]"
                     >
                       <span>{lang === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
-                      <span className="text-[#B98B89]">/</span>
+                      <span className="text-[#B38D42]/60">/</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => void handleLogout()}
-                      className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#FFB6B6] transition-colors hover:bg-[#341313]"
+                      className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-semibold text-[#E8D5A8] transition-colors hover:bg-[#341313]"
                     >
                       <span>{lang === 'ar' ? 'تسجيل الخروج' : 'Logout'}</span>
-                      <span className="text-[#D86A64]">/</span>
+                      <span className="text-[#B38D42]/60">/</span>
                     </button>
                   </div>
                 ) : null}
@@ -426,77 +450,24 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
               <div className="px-2 pb-2">
                 <SiteSearch locale={lang} variant="hero" showPopular={false} className="[&_input]:text-sm [&_input]:py-2.5 cursor-pointer" />
               </div>
-              <Link
-                href={`/${lang}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.home}
-              </Link>
-              <Link
-                href={`/${lang}/services`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.ourServices}
-              </Link>
-              <Link
-                href={`/${lang}/pricing-table`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.pricing}
-              </Link>
-              <Link
-                href={`/${lang}/about`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.whoAreWe}
-              </Link>
-              <Link
-                href={`/${lang}/blogs`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.blogs}
-              </Link>
-              <Link
-                href={`/${lang}/contact`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-4 py-2 text-sm font-medium text-white rounded transition-colors"
-                style={{}}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(128, 128, 128, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
-              >
-                {t.contactUs}
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={mobileNavLinkClass(isNavLinkActive(pathname, link.href, link.exact))}
+                  aria-current={isNavLinkActive(pathname, link.href, link.exact) ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              ))}
               <div className={`flex gap-2 pt-2 border-t ${isScrolled ? 'border-gray-700' : 'border-gray-700/50'}`}>
                 <button
                   onClick={() => {
                     switchLanguage('en');
                     setMobileMenuOpen(false);
                   }}
-                  className={`flex-1 px-2 py-2 text-xs font-semibold rounded transition-all ${
-                    lang === 'en'
-                      ? 'bg-[#4A1C1A] text-[#F2D6D4]'
-                      : 'bg-[#2A1515] text-[#B98B89] hover:bg-[#341A1A]'
-                  }`}
+                  className={`flex-1 px-2 py-2 text-xs font-semibold rounded transition-all ${languageButtonClass(lang === 'en')}`}
                 >
                   ENG
                 </button>
@@ -505,11 +476,7 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                     switchLanguage('ar');
                     setMobileMenuOpen(false);
                   }}
-                  className={`flex-1 px-2 py-2 text-xs font-semibold rounded transition-all ${
-                    lang === 'ar'
-                      ? 'bg-[#4A1C1A] text-[#F2D6D4]'
-                      : 'bg-[#2A1515] text-[#B98B89] hover:bg-[#341A1A]'
-                  }`}
+                  className={`flex-1 px-2 py-2 text-xs font-semibold rounded transition-all ${languageButtonClass(lang === 'ar')}`}
                 >
                   العربي
                 </button>
@@ -524,7 +491,8 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                   className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-center text-sm font-bold text-[#F0D4D2] transition-all duration-200 shadow-[0_8px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.45)]"
                   style={{
                     backgroundColor: '#231111',
-                    border: '1px solid #7A302C'
+                    border: '1px solid rgba(179, 141, 66, 0.85)',
+                    color: '#E8D5A8',
                   }}
                 >
                   {currentUser?.photoURL ? (
@@ -550,7 +518,8 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                       setMobileMenuOpen(false);
                       router.push(`/${lang}/profile`);
                     }}
-                    className="block w-full rounded-xl border border-[#6C2B27] px-4 py-2.5 text-left text-sm font-semibold text-[#F0D4D2] transition-colors hover:bg-[#241212]"
+                    className="block w-full rounded-xl border px-4 py-2.5 text-left text-sm font-semibold text-[#F0D4D2] transition-colors hover:bg-[#241212]"
+                    style={{ borderColor: 'rgba(179, 141, 66, 0.85)' }}
                   >
                     {lang === 'ar' ? 'الملف الشخصي' : 'Profile'}
                   </button>
@@ -560,7 +529,8 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
                       setMobileMenuOpen(false);
                       void handleLogout();
                     }}
-                    className="block w-full rounded-xl border border-[#6C2B27] px-4 py-2.5 text-left text-sm font-semibold text-[#FFB6B6] transition-colors hover:bg-[#241212]"
+                    className="block w-full rounded-xl border px-4 py-2.5 text-left text-sm font-semibold text-[#E8D5A8] transition-colors hover:bg-[#241212]"
+                    style={{ borderColor: 'rgba(179, 141, 66, 0.85)' }}
                   >
                     {lang === 'ar' ? 'تسجيل الخروج' : 'Logout'}
                   </button>
@@ -574,7 +544,7 @@ export default function Navbar({ locale: localeProp }: NavbarProps) {
     </nav>
     {authModalOpen && (
       <div
-        className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 px-4"
+        className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 px-4"
         onClick={() => setAuthModalOpen(false)}
       >
         <div

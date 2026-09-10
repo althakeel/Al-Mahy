@@ -75,7 +75,7 @@ export function HeroSlideIndicators({ count, activeIndex, onSelect, isRTL }: Her
           aria-label={`${isRTL ? 'شريحة' : 'Slide'} ${index + 1}`}
           onClick={() => onSelect(index)}
           className={`h-2 rounded-full transition-all duration-300 ${
-            index === safeIndex ? 'w-8 bg-[#DE3B34]' : 'w-2 bg-white/40 hover:bg-white/70'
+            index === safeIndex ? 'w-8 bg-[#B38D42]' : 'w-2 bg-white/40 hover:bg-white/70'
           }`}
         />
       ))}

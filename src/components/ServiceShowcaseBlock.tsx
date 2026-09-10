@@ -109,15 +109,15 @@ export default function ServiceShowcaseBlock({
             <div
               className={`relative ${frameOnStart ? 'pt-[6px] ps-[6px]' : 'pt-[6px] pe-[6px]'}`}
             >
-              {/* L-shaped red frame — flush against image edge */}
+              {/* L-shaped accent frame — flush against image edge */}
               <div
-                className={`pointer-events-none absolute top-0 z-0 h-[6px] w-full bg-[#DE3B34] ${
+                className={`pointer-events-none absolute top-0 z-0 h-[6px] w-full bg-[#B38D42] ${
                   frameOnStart ? 'start-0' : 'end-0'
                 }`}
                 aria-hidden
               />
               <div
-                className={`pointer-events-none absolute top-0 z-0 h-full w-[6px] bg-[#DE3B34] ${
+                className={`pointer-events-none absolute top-0 z-0 h-full w-[6px] bg-[#B38D42] ${
                   frameOnStart ? 'start-0' : 'end-0'
                 }`}
                 aria-hidden
@@ -154,8 +154,8 @@ export default function ServiceShowcaseBlock({
           {/* Content column */}
           <div className={`relative ${contentOrder}`}>
             <div className={`flex items-center gap-3 ${isArabic ? 'justify-end' : ''}`}>
-              <span className="text-sm font-semibold tracking-[0.08em] text-[#DE3B34]">{sectionNumber}</span>
-              <span className="h-px w-12 bg-[#DE3B34]" aria-hidden />
+              <span className="text-sm font-semibold tracking-[0.08em] text-[#B38D42]">{sectionNumber}</span>
+              <span className="h-px w-12 bg-[#B38D42]" aria-hidden />
             </div>
 
             <h2
@@ -166,7 +166,7 @@ export default function ServiceShowcaseBlock({
               {accent ? (
                 <>
                   <span className="text-[#160A0A]">{primary}</span>{' '}
-                  <span className="text-[#DE3B34]">{accent}</span>
+                  <span className="text-[#B38D42]">{accent}</span>
                 </>
               ) : (
                 <span className="text-[#160A0A]">{item.title}</span>
@@ -197,7 +197,7 @@ export default function ServiceShowcaseBlock({
                 >
                   <div className={`space-y-3 ${isArabic ? 'ms-auto text-right' : ''}`}>
                     <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#FFB6B6]/55 text-[#DE3B34] ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-[#B38D42]/15 text-[#B38D42] ${
                         isArabic ? 'ms-auto' : ''
                       }`}
                     >
@@ -211,12 +211,20 @@ export default function ServiceShowcaseBlock({
 
             <Link
               href={`/${locale}/${item.slug}`}
-              className={`mt-8 inline-flex cursor-pointer items-center gap-2 bg-[#DE3B34] px-7 py-3.5 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:bg-[#c73731] ${
+              className={`hero-btn-glow-solid mt-8 inline-flex h-[52px] cursor-pointer items-center gap-2 rounded-md bg-[#B38D42] px-7 text-[12px] font-semibold uppercase tracking-[0.14em] text-white transition-all duration-200 hover:border-[#9A7635] hover:bg-[#9A7635] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B38D42] ${
                 isArabic ? 'flex-row-reverse' : ''
               }`}
             >
               {isArabic ? 'اعرف المزيد' : 'Learn More'}
-              <span aria-hidden>{isArabic ? '←' : '→'}</span>
+              <svg
+                className={`h-3.5 w-3.5 ${isArabic ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
           </div>
         </div>

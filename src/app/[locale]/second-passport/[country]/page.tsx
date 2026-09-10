@@ -1,6 +1,11 @@
 import { Locale } from "@/lib/translations";
-import Link from "next/link";
-import FallbackImage from "@/components/FallbackImage";
+import CountryDetailHero from "@/components/second-passport/CountryDetailHero";
+import CountryOverviewSection from "@/components/second-passport/CountryOverviewSection";
+import CountryInvestmentSection from "@/components/second-passport/CountryInvestmentSection";
+import CountryProcessSection from "@/components/second-passport/CountryProcessSection";
+import SecondPassportFaqSection from "@/components/second-passport/SecondPassportFaqSection";
+import CountryDetailNewsSection from "@/components/second-passport/CountryDetailNewsSection";
+import CountryDetailCta from "@/components/second-passport/CountryDetailCta";
 
 const countryContent = {
   "antigua-barbuda": {
@@ -1016,233 +1021,86 @@ export default async function SecondPassportCountryPage({
     `Hello, I want to start my ${content.title} citizenship application`
   )}`;
 
+  const faqAnswer = isArabic
+    ? "تواصل مع فريقنا للحصول على إجابة محدثة وفق ملفك وشروط البرنامج الحالية."
+    : "Speak with our team for an up-to-date answer based on your profile and current program rules.";
+
+  const faqItems = extended.faqs.map((q) => ({ q, a: faqAnswer }));
+
   return (
     <div
       dir={isArabic ? "rtl" : "ltr"}
-      className={`min-h-screen bg-[#F1EFF0] text-[#160A0A] ${isArabic ? "text-right" : "text-left"}`}
+      className={`min-h-screen bg-white text-[#160A0A] ${isArabic ? "text-right" : "text-left"}`}
+      lang={lang}
     >
-      {/* Hero */}
-      <section className="relative min-h-[68vh] overflow-hidden bg-[#160A0A] text-white md:min-h-[74vh]">
-        <FallbackImage
-          src={visuals.hero}
-          fallbackSrc={visuals.hero}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-45"
-          loading="eager"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#160A0A]/92 via-[#160A0A]/75 to-[#160A0A]/45" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#160A0A]/75 via-transparent to-[#160A0A]/25" />
+      <CountryDetailHero
+        isArabic={isArabic}
+        lang={lang}
+        backLabel={isArabic ? "← العودة إلى البرامج" : "← Back to programs"}
+        eyebrow={extended.eyebrow}
+        heroTitle={extended.heroTitle}
+        heroLead={extended.heroLead}
+        timeline={content.timeline}
+        ctaPrimary={extended.ctaPrimary}
+        ctaSecondary={extended.ctaSecondary}
+        whatsappHelpUrl={whatsappHelpUrl}
+        heroImage={visuals.hero}
+      />
 
-        <div className="relative z-10 mx-auto flex min-h-[68vh] max-w-[1250px] flex-col justify-end px-4 pb-14 pt-28 md:min-h-[74vh] md:px-8 md:pb-16 md:pt-32">
-          <Link
-            href={`/${lang}/second-passport`}
-            className="mb-6 inline-flex w-fit text-xs font-semibold uppercase tracking-[0.16em] text-white/70 transition hover:text-white"
-          >
-            {isArabic ? "← العودة إلى البرامج" : "← Back to programs"}
-          </Link>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/80">
-            {extended.eyebrow}
-          </p>
-          <h1
-            className="max-w-4xl text-3xl font-bold leading-[1.08] text-white md:text-5xl lg:text-6xl"
-            style={{ fontFamily: "Georgia, serif", textShadow: "0 2px 18px rgba(0,0,0,0.45)" }}
-          >
-            {extended.heroTitle}
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-white/90 md:text-lg">
-            {extended.heroLead}
-          </p>
-          <p className="mt-3 text-sm font-semibold tracking-wide text-[#FFB6B6]">
-            {content.timeline}
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href={whatsappHelpUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
-            >
-              {extended.ctaPrimary}
-            </a>
-            <Link
-              href={`/${lang}/contact`}
-              className="inline-flex items-center border border-white/70 bg-transparent px-7 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white hover:text-[#160A0A]"
-            >
-              {extended.ctaSecondary}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CountryOverviewSection
+        isArabic={isArabic}
+        overviewLabel={isArabic ? "نظرة عامة" : "Overview"}
+        title={content.title}
+        heroBody={extended.heroBody}
+        subtitle={content.subtitle}
+        benefitsLabel={isArabic ? "أهم المزايا" : "Key benefits"}
+        benefits={[...content.benefits]}
+      />
 
-      {/* Intro + benefits */}
-      <section className="bg-white py-14 md:py-16">
-        <div className="mx-auto grid max-w-[1250px] gap-12 px-4 md:px-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
-              {isArabic ? "نظرة عامة" : "Overview"}
-            </p>
-            <h2 className="mt-3 text-3xl font-bold leading-tight text-[#160A0A] md:text-4xl">
-              {content.title}
-            </h2>
-            <p className="mt-4 text-base leading-7 text-[#160A0A]/75">{extended.heroBody}</p>
-            <p className="mt-4 text-base leading-7 text-[#160A0A]/70">{content.subtitle}</p>
-          </div>
-          <div className="lg:col-span-7">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#DE3B34]">
-              {isArabic ? "أهم المزايا" : "Key benefits"}
-            </h3>
-            <ul className="mt-5 space-y-4 border-t border-[#160A0A]/10 pt-5">
-              {content.benefits.map((item, index) => (
-                <li key={item} className="grid gap-2 border-b border-[#160A0A]/10 pb-4 sm:grid-cols-[56px_1fr]">
-                  <span className="text-xs font-semibold tracking-[0.14em] text-[#DE3B34]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm leading-7 text-[#160A0A]/80 md:text-base">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <CountryInvestmentSection
+        isArabic={isArabic}
+        routesLabel={isArabic ? "المسارات" : "Routes"}
+        eligibilityTitle={extended.eligibilityTitle}
+        eligibilityIntro={extended.eligibilityIntro}
+        investmentCards={[...extended.investmentCards]}
+        summaryLabel={isArabic ? "ملخص خيارات الاستثمار" : "Investment summary"}
+        options={[...content.options]}
+      />
 
-      {/* Investment routes */}
-      <section className="border-y border-[#160A0A]/10 bg-[#F1EFF0] py-14 md:py-16">
-        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
-          <div className="mb-10 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#DE3B34]">
-              {isArabic ? "المسارات" : "Routes"}
-            </p>
-            <h2 className="mt-2 text-3xl font-bold text-[#160A0A] md:text-4xl">
-              {extended.eligibilityTitle}
-            </h2>
-            <p className="mt-3 text-base leading-7 text-[#160A0A]/70">{extended.eligibilityIntro}</p>
-          </div>
+      <CountryProcessSection
+        isArabic={isArabic}
+        processLabel={isArabic ? "الخطوات" : "Process"}
+        processTitle={extended.processTitle}
+        processIntro={extended.processIntro}
+        processTime={extended.processTime}
+        processSteps={[...extended.processSteps]}
+      />
 
-          <div className="space-y-0 border border-[#160A0A]/10 bg-white">
-            {extended.investmentCards.map((card, index) => (
-              <article
-                key={card.title}
-                className="grid gap-4 border-b border-[#160A0A]/10 p-6 last:border-b-0 md:grid-cols-[80px_1fr] md:p-8"
-              >
-                <span className="text-xs font-semibold tracking-[0.16em] text-[#DE3B34]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-xl font-bold text-[#160A0A]">{card.title}</h3>
-                  <p className="mt-2 text-sm font-semibold text-[#DE3B34]">{card.minimum}</p>
-                  <p className="mt-3 text-sm leading-7 text-[#160A0A]/75 md:text-base">{card.desc}</p>
-                  {card.note ? (
-                    <p className="mt-2 text-xs leading-6 text-[#160A0A]/55">{card.note}</p>
-                  ) : null}
-                </div>
-              </article>
-            ))}
-          </div>
+      <SecondPassportFaqSection
+        isArabic={isArabic}
+        title={extended.faqTitle}
+        subtitle=""
+        items={faqItems}
+      />
 
-          <div className="mt-8">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#DE3B34]">
-              {isArabic ? "ملخص خيارات الاستثمار" : "Investment summary"}
-            </h3>
-            <ul className="mt-4 space-y-3">
-              {content.options.map((item) => (
-                <li key={item} className="flex gap-3 text-sm leading-7 text-[#160A0A]/75">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#DE3B34]" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+      <CountryDetailNewsSection
+        isArabic={isArabic}
+        title={isArabic ? "الأخبار والتحديثات" : "News & Updates"}
+        items={news}
+      />
 
-      {/* Process */}
-      <section className="bg-[#160A0A] py-14 text-white md:py-16">
-        <div className="mx-auto max-w-[1250px] px-4 md:px-8">
-          <div className="mb-10 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F0716B]">
-              {isArabic ? "الخطوات" : "Process"}
-            </p>
-            <h2 className="mt-2 text-3xl font-bold md:text-4xl">{extended.processTitle}</h2>
-            <p className="mt-3 text-sm leading-7 text-white/70 md:text-base">{extended.processIntro}</p>
-            <p className="mt-3 text-sm font-semibold text-[#FFB6B6]">{extended.processTime}</p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {extended.processSteps.map((step, index) => (
-              <div key={step} className="border-t border-white/20 pt-5">
-                <p className="text-xs font-semibold tracking-[0.16em] text-[#F0716B]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <p className="mt-3 text-base font-semibold leading-7 text-white">{step}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="bg-white py-14 md:py-16">
-        <div className="mx-auto max-w-[900px] px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-[#160A0A] md:text-4xl">{extended.faqTitle}</h2>
-          <div className="mt-8 border-t border-[#160A0A]/15">
-            {extended.faqs.map((q) => (
-              <details key={q} className="group border-b border-[#160A0A]/15">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
-                  <span className="font-semibold text-[#160A0A]">{q}</span>
-                  <span className="text-xl font-light text-[#DE3B34] transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <p className="pb-5 text-sm leading-7 text-[#160A0A]/70">
-                  {isArabic
-                    ? "تواصل مع فريقنا للحصول على إجابة محدثة وفق ملفك وشروط البرنامج الحالية."
-                    : "Speak with our team for an up-to-date answer based on your profile and current program rules."}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* News */}
-      {news.length > 0 ? (
-        <section className="border-t border-[#160A0A]/10 bg-[#F1EFF0] py-14 md:py-16">
-          <div className="mx-auto max-w-[1250px] px-4 md:px-8">
-            <h2 className="text-3xl font-bold text-[#160A0A] md:text-4xl">
-              {isArabic ? "الأخبار والتحديثات" : "News & Updates"}
-            </h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
-              {news.slice(0, 3).map((item) => (
-                <a key={item.url} href={item.url} target="_blank" rel="noopener noreferrer" className="block">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#160A0A]/10">
-                    <img src={item.image} alt="" className="h-full w-full object-cover" loading="lazy" />
-                  </div>
-                  <h3 className="mt-4 text-lg font-bold leading-snug text-[#160A0A]">{item.title}</h3>
-                  {item.source ? <p className="mt-2 text-xs text-[#160A0A]/50">{item.source}</p> : null}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Closing CTA */}
-      <section className="bg-[#160A0A] py-16 text-center text-white md:py-20">
-        <div className="mx-auto max-w-3xl px-4 md:px-8">
-          <h2 className="text-3xl font-bold md:text-4xl">{extended.finalTitle}</h2>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-white/70">{extended.finalText}</p>
-          <p className="mx-auto mt-4 max-w-xl text-xs leading-5 text-white/45">
-            {isArabic
-              ? "تنبيه: الشروط والمبالغ قابلة للتحديث من الجهات الرسمية."
-              : "Note: Program rules and thresholds can change by official government updates."}
-          </p>
-          <a
-            href={whatsappStartUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center border border-[#DE3B34] bg-[#DE3B34] px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-transparent"
-          >
-            {extended.ctaPrimary}
-          </a>
-        </div>
-      </section>
+      <CountryDetailCta
+        isArabic={isArabic}
+        title={extended.finalTitle}
+        description={extended.finalText}
+        disclaimer={
+          isArabic
+            ? "تنبيه: الشروط والمبالغ قابلة للتحديث من الجهات الرسمية."
+            : "Note: Program rules and thresholds can change by official government updates."
+        }
+        ctaLabel={extended.ctaPrimary}
+        whatsappUrl={whatsappStartUrl}
+      />
     </div>
   );
 }
